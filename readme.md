@@ -26,6 +26,8 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
+- Structure shape
+  - What data structure makes sense?
 - Game Loop
   - State machine
     - Draw 5
@@ -47,8 +49,8 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - Placement bonus
   - Effect
 - Cards
-  - ShapeViewer
-    - Take a shape (e.g. Ark Nova building shape), and lay out the hexagons
+  - StructureViewer
+    - Take a structure (e.g. Ark Nova building shape), and lay out the hexagons centered
     - put border around the whole
   - Abilities
 
