@@ -3,27 +3,34 @@ extends Node2D
 
 @onready var shape :RegularPolygon = $Shape
 
+enum TerrainType {
+	Basic,
+	Water,
+	Mountain
+}
 
 var coordinates: Map.Coordinates:
 	set(value):
 		coordinates = value
 		
-		$Q.text = str(coordinates.q)
-		$R.text = str(coordinates.r)
-		$S.text = str(coordinates.s)
-
-
+		$Debug/Q.text = str(coordinates.q)
+		$Debug/R.text = str(coordinates.r)
+		$Debug/S.text = str(coordinates.s)
 
 @onready var size: int:
 	get:
 		return shape.size
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+@onready var type: TerrainType:
+	set(value):
+		
+		type = value
+		
+		match type:
+			TerrainType.Basic:
+				modulate = Color.SEA_GREEN
+			TerrainType.Water:
+				modulate = Color.LIGHT_BLUE
+			TerrainType.Mountain:
+				modulate = Color.ROSY_BROWN
+			

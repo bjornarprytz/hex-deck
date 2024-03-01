@@ -59,6 +59,8 @@ func _add_tile(q: int, r: int):
 	var new_tile = tile_spawner.instantiate() as Tile
 	new_tile.coordinates = coords
 	
+	new_tile.type = Tile.TerrainType.values().pick_random()
+	
 	tiles[key] = new_tile
 	
 	add_child(new_tile)

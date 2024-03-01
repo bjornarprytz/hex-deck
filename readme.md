@@ -35,22 +35,22 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
         - Cancel: RightClick/Drop on invalid target
       - Pass
     - EndCondition(points > requirement)
-- Tile
-  - Type
-    - Basic
-    - Water
-    - Mountain
-  - Placement bonus
-    - Effect
-- Card
-  - Name
-  - Color
-  - Structure shape
-  - Abilities?
 - Deck
   - Add/Remove card
+  - UI
 - Hand
   - Add/Remove card
+  - UI
+
+## Nice to have
+
+- Placement bonus
+  - Effect
+- Cards
+  - ShapeViewer
+    - Take a shape (e.g. Ark Nova building shape), and lay out the hexagons
+    - put border around the whole
+  - Abilities
 
 ### Chores
 

@@ -11,21 +11,23 @@ polygon = PackedVector2Array(50, 0, 25, 43.3013, -25, 43.3013, -50, 6.12303e-15,
 size = 50.0
 border_width = 2.0
 
-[node name="Q" type="RichTextLabel" parent="."]
+[node name="Debug" type="Node" parent="."]
+
+[node name="Q" type="RichTextLabel" parent="Debug"]
 modulate = Color(0, 0, 0, 1)
 offset_left = -10.0
 offset_top = -37.0
 offset_right = 15.0
 offset_bottom = -13.0
 
-[node name="R" type="RichTextLabel" parent="."]
+[node name="R" type="RichTextLabel" parent="Debug"]
 modulate = Color(0, 0, 0, 1)
 offset_left = 15.0
 offset_top = 3.0
 offset_right = 40.0
 offset_bottom = 27.0
 
-[node name="S" type="RichTextLabel" parent="."]
+[node name="S" type="RichTextLabel" parent="Debug"]
 modulate = Color(0, 0, 0, 1)
 offset_left = -37.0
 offset_top = 3.0
