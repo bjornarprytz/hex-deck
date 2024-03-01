@@ -27,10 +27,14 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 ## TODO
 
 - Game Loop
-  - State machine?
-- Map
-  - Tiles (hexagonal)
-  - Coordinates? Graph?
+  - State machine
+    - Draw 5
+      - Play: Click/Click+Drag
+        - Confirm Target: Click/Drop
+        - Rotate Structure: Wheel
+        - Cancel: RightClick/Drop on invalid target
+      - Pass
+    - EndCondition(points > requirement)
 - Tile
   - Type
     - Basic

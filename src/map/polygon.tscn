@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c57sfkee815gl"]
+
+[ext_resource type="Script" path="res://map/polygon.gd" id="1_v8cn7"]
+
+[node name="Tile" type="Polygon2D"]
+script = ExtResource("1_v8cn7")
+
+[node name="Border" type="Line2D" parent="."]
+closed = true

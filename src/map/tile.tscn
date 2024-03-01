@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://6p3vuatc5vhb"]
+
+[ext_resource type="Script" path="res://map/tile.gd" id="1_8g4um"]
+[ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://map/polygon.tscn" id="1_jf52k"]
+
+[node name="Tile" type="Node2D"]
+script = ExtResource("1_8g4um")
+
+[node name="Shape" parent="." instance=ExtResource("1_jf52k")]
+polygon = PackedVector2Array(50, 0, 25, 43.3013, -25, 43.3013, -50, 6.12303e-15, -25, -43.3013, 25, -43.3013)
+size = 50.0
+border_width = 2.0
+
+[node name="Q" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+offset_left = -10.0
+offset_top = -37.0
+offset_right = 15.0
+offset_bottom = -13.0
+
+[node name="R" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+offset_left = 15.0
+offset_top = 3.0
+offset_right = 40.0
+offset_bottom = 27.0
+
+[node name="S" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+offset_left = -37.0
+offset_top = 3.0
+offset_right = -12.0
+offset_bottom = 27.0
