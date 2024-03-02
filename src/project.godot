@@ -30,6 +30,10 @@ window/stretch/mode="viewport"
 
 project/assembly_name="hex-deck"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
