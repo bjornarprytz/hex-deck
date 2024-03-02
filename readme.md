@@ -28,13 +28,16 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 - Game Loop
   - State machine
-    - Draw 5
+    - Upkeep
+      - Draw 5
+    - Main
       - Play: Click/Click+Drag
         - Confirm Target: Click/Drop
         - Rotate Structure: Wheel
         - Cancel: RightClick/Drop on invalid target
       - Pass
-    - EndCondition(points > requirement)
+    - CleanUp
+      - EndCondition(points > requirement)
 - Resolve Card Effect
 - Deck
   - Add/Remove card
