@@ -41,7 +41,7 @@ func _add_tile(q: int, r: int):
 	cells[key] = new_cell
 	
 	add_child(new_cell)
-	new_cell.position = axial_to_pixel(q, r, new_cell.size)
+	new_cell.position = Map.axial_to_pixel(q, r, new_cell.size)
 	new_cell._update_polygon()
 	
 static func axial_to_pixel(q:int,r:int,tile_size:int) -> Vector2:

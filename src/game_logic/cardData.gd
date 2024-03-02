@@ -11,6 +11,7 @@ func _init(n: String, structure_name: StringName=""):
 	if structure_name == "":
 		structure_name = "unit"
 	
+	structure.color = Color.WHITE
 	structure.cells.clear()
 	structure.cells.append_array(standardStructures[structure_name])
 
