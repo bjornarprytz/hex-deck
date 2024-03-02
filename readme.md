@@ -37,6 +37,7 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
         - Cancel: RightClick/Drop on invalid target
       - Pass
     - EndCondition(points > requirement)
+- Resolve Card Effect
 - Deck
   - Add/Remove card
   - UI

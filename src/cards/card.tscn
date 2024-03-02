@@ -1,10 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxyxgsia4g2pl"]
+[gd_scene load_steps=7 format=3 uid="uid://bxyxgsia4g2pl"]
 
 [ext_resource type="Script" path="res://cards/card.gd" id="1_53muf"]
-[ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://map/polygon.tscn" id="2_ads3i"]
+[ext_resource type="PackedScene" uid="uid://0oenk04u2ati" path="res://cards/structure_preview.tscn" id="2_bl1jj"]
+[ext_resource type="Script" path="res://game_logic/structure.gd" id="3_ceyft"]
 
 [sub_resource type="Theme" id="Theme_100nq"]
 default_font_size = 256
+
+[sub_resource type="Resource" id="Resource_oux2x"]
+script = ExtResource("3_ceyft")
+color = Color(0, 0, 0, 1)
+cells = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, -1)])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ue25b"]
 size = Vector2(138, 186)
@@ -39,12 +45,9 @@ scale = Vector2(0.1, 0.1)
 theme = SubResource("Theme_100nq")
 text = "Name"
 
-[node name="StructureViewer" type="Node2D" parent="."]
-
-[node name="Polygon" parent="StructureViewer" instance=ExtResource("2_ads3i")]
-position = Vector2(0, 31)
-polygon = PackedVector2Array(30, 0, 15, 25.9808, -15, 25.9808, -30, 3.67382e-15, -15, -25.9808, 15, -25.9808)
-size = 30.0
+[node name="StructurePreview" parent="." instance=ExtResource("2_bl1jj")]
+position = Vector2(0, 32)
+structure = SubResource("Resource_oux2x")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ue25b")

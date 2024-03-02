@@ -11,7 +11,7 @@ polygon = PackedVector2Array(50, 0, 25, 43.3013, -25, 43.3013, -50, 6.12303e-15,
 size = 50.0
 border_width = 2.0
 
-[node name="Debug" type="Node" parent="."]
+[node name="Debug" type="Node2D" parent="."]
 
 [node name="Q" type="RichTextLabel" parent="Debug"]
 modulate = Color(0, 0, 0, 1)
