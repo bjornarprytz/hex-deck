@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://8dgd2dr575l4"]
+[gd_scene load_steps=9 format=3 uid="uid://8dgd2dr575l4"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_6okjl"]
 [ext_resource type="PackedScene" uid="uid://b1dfdw4rumhvh" path="res://map/map.tscn" id="1_jqq6o"]
 [ext_resource type="PackedScene" uid="uid://cmspf8ecgqlub" path="res://cards/hand.tscn" id="2_4d8mv"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="4_gd748"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_toycd"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_u802m"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_mqjil"]
+[ext_resource type="PackedScene" uid="uid://bkerbq6h42ehk" path="res://cards/deck.tscn" id="8_i4sgb"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_6okjl")
@@ -10,3 +15,79 @@ script = ExtResource("1_6okjl")
 [node name="Map" parent="." instance=ExtResource("1_jqq6o")]
 
 [node name="Hand" parent="." instance=ExtResource("2_4d8mv")]
+
+[node name="State" type="Node" parent="."]
+script = ExtResource("4_gd748")
+
+[node name="Root" type="Node" parent="State"]
+script = ExtResource("5_toycd")
+initial_state = NodePath("Upkeep")
+
+[node name="Upkeep" type="Node" parent="State/Root"]
+script = ExtResource("6_u802m")
+
+[node name="ToMain" type="Node" parent="State/Root/Upkeep"]
+script = ExtResource("7_mqjil")
+to = NodePath("../../Main")
+event = &"next phase"
+
+[node name="Main" type="Node" parent="State/Root"]
+script = ExtResource("5_toycd")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="State/Root/Main"]
+script = ExtResource("6_u802m")
+
+[node name="ToPlayCard" type="Node" parent="State/Root/Main/Idle"]
+script = ExtResource("7_mqjil")
+to = NodePath("../../PlayCard")
+event = &"play"
+
+[node name="ToCleanUp" type="Node" parent="State/Root/Main/Idle"]
+script = ExtResource("7_mqjil")
+to = NodePath("../../../CleanUp")
+event = &"next phase"
+
+[node name="PlayCard" type="Node" parent="State/Root/Main"]
+script = ExtResource("6_u802m")
+
+[node name="ToIdle" type="Node" parent="State/Root/Main/PlayCard"]
+script = ExtResource("7_mqjil")
+to = NodePath("..")
+event = &"cancel"
+
+[node name="ResolveCard" type="Node" parent="State/Root/Main"]
+script = ExtResource("6_u802m")
+
+[node name="ToIdle" type="Node" parent="State/Root/Main/ResolveCard"]
+script = ExtResource("7_mqjil")
+to = NodePath("..")
+event = &"resolved"
+
+[node name="CleanUp" type="Node" parent="State/Root"]
+script = ExtResource("6_u802m")
+
+[node name="ToUpkeep" type="Node" parent="State/Root/CleanUp"]
+script = ExtResource("7_mqjil")
+to = NodePath("../../Upkeep")
+event = &"next phase"
+
+[node name="GameOver" type="Node" parent="State/Root"]
+script = ExtResource("6_u802m")
+
+[node name="ToGameOver" type="Node" parent="State/Root"]
+script = ExtResource("7_mqjil")
+to = NodePath("../GameOver")
+event = &"game over"
+
+[node name="Deck" parent="." instance=ExtResource("8_i4sgb")]
+
+[connection signal="state_entered" from="State/Root/Upkeep" to="." method="_on_upkeep"]
+[connection signal="state_entered" from="State/Root/Main/Idle" to="." method="_on_idle"]
+[connection signal="state_physics_processing" from="State/Root/Main/Idle" to="." method="_idle_physics_processing"]
+[connection signal="state_entered" from="State/Root/Main/PlayCard" to="." method="_on_play_card"]
+[connection signal="state_physics_processing" from="State/Root/Main/PlayCard" to="." method="_play_card_physics_processing"]
+[connection signal="state_entered" from="State/Root/Main/ResolveCard" to="." method="_on_resolve_card"]
+[connection signal="state_entered" from="State/Root/CleanUp" to="." method="_on_clean_up"]
+[connection signal="state_physics_processing" from="State/Root/CleanUp" to="." method="_clean_up_physics_processing"]
+[connection signal="state_entered" from="State/Root/GameOver" to="." method="_on_game_over"]

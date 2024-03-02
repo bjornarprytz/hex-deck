@@ -18,7 +18,6 @@ func remove_card(card: Card):
 	card.reparent(null)
 	_reposition_cards()
 
-
 func _reposition_cards():
 	var i = 0
 	for card in cards:
