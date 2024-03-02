@@ -46,22 +46,27 @@ event = &"play"
 [node name="ToCleanUp" type="Node" parent="State/Root/Main/Idle"]
 script = ExtResource("7_mqjil")
 to = NodePath("../../../CleanUp")
-event = &"next phase"
+event = &"pass turn"
 
 [node name="PlayCard" type="Node" parent="State/Root/Main"]
 script = ExtResource("6_u802m")
 
 [node name="ToIdle" type="Node" parent="State/Root/Main/PlayCard"]
 script = ExtResource("7_mqjil")
-to = NodePath("..")
+to = NodePath("../../Idle")
 event = &"cancel"
+
+[node name="ToResolveCard" type="Node" parent="State/Root/Main/PlayCard"]
+script = ExtResource("7_mqjil")
+to = NodePath("../../ResolveCard")
+event = &"resolve"
 
 [node name="ResolveCard" type="Node" parent="State/Root/Main"]
 script = ExtResource("6_u802m")
 
 [node name="ToIdle" type="Node" parent="State/Root/Main/ResolveCard"]
 script = ExtResource("7_mqjil")
-to = NodePath("..")
+to = NodePath("../../Idle")
 event = &"resolved"
 
 [node name="CleanUp" type="Node" parent="State/Root"]
@@ -82,12 +87,33 @@ event = &"game over"
 
 [node name="Deck" parent="." instance=ExtResource("8_i4sgb")]
 
+[node name="Score" type="RichTextLabel" parent="."]
+offset_left = 1127.0
+offset_top = 7.0
+offset_right = 1275.0
+offset_bottom = 105.0
+
+[node name="PassTurn" type="Button" parent="."]
+offset_left = 1167.0
+offset_top = 659.0
+offset_right = 1261.0
+offset_bottom = 704.0
+disabled = true
+text = "Pass"
+
+[node name="Focus" type="Node2D" parent="."]
+position = Vector2(971, 355)
+
 [connection signal="state_entered" from="State/Root/Upkeep" to="." method="_on_upkeep"]
 [connection signal="state_entered" from="State/Root/Main/Idle" to="." method="_on_idle"]
+[connection signal="state_exited" from="State/Root/Main/Idle" to="." method="_off_idle"]
 [connection signal="state_physics_processing" from="State/Root/Main/Idle" to="." method="_idle_physics_processing"]
 [connection signal="state_entered" from="State/Root/Main/PlayCard" to="." method="_on_play_card"]
+[connection signal="state_exited" from="State/Root/Main/PlayCard" to="." method="_off_play_card"]
+[connection signal="state_input" from="State/Root/Main/PlayCard" to="." method="_play_card_input"]
 [connection signal="state_physics_processing" from="State/Root/Main/PlayCard" to="." method="_play_card_physics_processing"]
 [connection signal="state_entered" from="State/Root/Main/ResolveCard" to="." method="_on_resolve_card"]
 [connection signal="state_entered" from="State/Root/CleanUp" to="." method="_on_clean_up"]
 [connection signal="state_physics_processing" from="State/Root/CleanUp" to="." method="_clean_up_physics_processing"]
 [connection signal="state_entered" from="State/Root/GameOver" to="." method="_on_game_over"]
+[connection signal="pressed" from="PassTurn" to="." method="_on_pass_turn"]

@@ -48,6 +48,8 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## Nice to have
 
+- Orient the piece
+- Invalid placements
 - Placement bonus
   - Effect
 - Cards

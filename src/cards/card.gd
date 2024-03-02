@@ -1,11 +1,20 @@
 class_name Card
-extends Area2D
+extends Node2D
 
 @onready var background: ColorRect = $Color
+@onready var structurePreview: StructurePreview = $StructurePreview
 @onready var width : float = background.size.x
 
-@onready var structure: Structure
+@export var data : CardData
 
-var color : Color:
-	get:
-		return structure.color
+func _ready() -> void:
+	background.color = data.structure.color
+	structurePreview.structure = data.structure
+
+func cancel():
+	Play.cardReleased.emit(self)
+
+func _on_handle_down() -> void:
+	Play.cardGrabbed.emit(self)
+func _on_handle_up() -> void:
+	Play.cardReleased.emit(self)	
