@@ -45,7 +45,7 @@ border_color = Color(0.188235, 0.188235, 0.188235, 1)
 border_width = 5.0
 editor_only = false
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="Name" type="RichTextLabel" parent="."]
 modulate = Color(0, 0, 0, 1)
 offset_left = -64.0
 offset_top = -91.0
@@ -65,6 +65,6 @@ offset_top = -96.0
 offset_right = 72.0
 offset_bottom = 96.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vftis")
+keep_pressed_outside = true
 
-[connection signal="button_down" from="Handle" to="." method="_on_handle_down"]
-[connection signal="button_up" from="Handle" to="." method="_on_handle_up"]
+[connection signal="pressed" from="Handle" to="." method="_on_handle_pressed"]

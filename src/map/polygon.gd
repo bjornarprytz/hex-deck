@@ -2,6 +2,9 @@
 class_name RegularPolygon
 extends Polygon2D
 
+signal clicked
+signal hovered(state: bool)
+
 @export var size: float = 25.0:
 	get:
 		return size
@@ -41,7 +44,29 @@ extends Polygon2D
 		border_width = value
 		_update_polygon.call_deferred()
 
+@export var clickable: bool:
+	set(value):
+		if (clickable == value):
+			return
+		clickable = value
+
+
 @onready var border : Line2D = $Border
+@onready var clickableShape : CollisionPolygon2D = $Clickable/Shape
+
+func _on_clickable_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if !clickable:
+		return
+	if event is InputEventMouseButton \
+		and event.button_index == MOUSE_BUTTON_LEFT \
+		and event.is_pressed() \
+		and !event.is_echo():
+		clicked.emit()
+
+func _on_clickable_mouse_entered() -> void:
+	hovered.emit(true)
+func _on_clickable_mouse_exited() -> void:
+	hovered.emit(false)
 
 func _update_polygon():
 	if !is_node_ready():
@@ -62,5 +87,14 @@ func _update_polygon():
 	
 	polygon = points
 	border.points = points
+	clickableShape.polygon = points
 	
 	queue_redraw()
+
+
+
+
+
+
+
+

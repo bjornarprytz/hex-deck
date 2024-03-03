@@ -14,7 +14,5 @@ func _ready() -> void:
 func cancel():
 	Play.cardReleased.emit(self)
 
-func _on_handle_down() -> void:
+func _on_handle_pressed() -> void:
 	Play.cardGrabbed.emit(self)
-func _on_handle_up() -> void:
-	Play.cardReleased.emit(self)	

@@ -6,9 +6,10 @@ extends Node2D
 @onready var deck : Deck = $Deck
 @onready var state : StateChart = $State
 @onready var pass_button : Button = $PassTurn
+@onready var focusArea : Node2D = $Focus
 
 var cardToPlay : Card
-var orientation_degrees: int
+var rotation_steps: int
 
 var score_requirement := 5:
 	set(value):
@@ -57,39 +58,34 @@ func _off_idle() -> void:
 # MAIN/PLAY CARD
 func _on_play_card() -> void:
 	assert(cardToPlay != null)
-	Play.cardReleased.connect(_finish_play_action, CONNECT_ONE_SHOT)
-	cardToPlay.position = $Focus.position
-func _play_card_physics_processing(delta: float) -> void:
-	pass # Replace with function body.
-func _play_card_input(event: InputEvent) -> void:
-	if (event is InputEventMouseButton):
+	Play.tileClicked.connect(_finish_play_action, CONNECT_ONE_SHOT)
+	
+	cardToPlay.reparent(focusArea)
+	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(cardToPlay, 'position', Vector2.ZERO, .4)
+	
+func _play_card_unhandled_input(event: InputEvent) -> void:
+	if (event is InputEventMouseButton and event.is_pressed()):
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:
-				orientation_degrees = (orientation_degrees + 60) % 360
+				rotation_steps = (rotation_steps + 1)
 			MOUSE_BUTTON_WHEEL_DOWN:
-				orientation_degrees = (orientation_degrees - 60) % 360
+				rotation_steps = (rotation_steps - 1)
 			MOUSE_BUTTON_RIGHT:
-				state.send_event("cancel")
+				state.send_event("idle")
+
 func _off_play_card() -> void:
-	pass # Replace with function body.
+	hand.add_card(cardToPlay)
 
-func _finish_play_action(card: Card):
-	assert(card == cardToPlay)
-	# Check valid target
-	# Abort or resolve
-	var tile = map.get_tile_from_point(get_global_mouse_position())
-	
-	if tile == null:
-		state.send_event("cancel")
-
-# MAIN/RESOLVE CARD
-func _on_resolve_card() -> void:
-	pass # Replace with function body.
-
+func _finish_play_action(targetTile: Tile):
+	if targetTile != null:
+		Play.play_card(cardToPlay, targetTile, rotation_steps)
+		
+	state.send_event("idle")
 
 # CLEAN UP
 func _on_clean_up() -> void:
-	for card in hand.cards:
+	for card in hand.get_cards():
 		Play.discard_card(deck, hand, card)
 	if (current_score < score_requirement):
 		state.send_event("game over")
@@ -101,4 +97,11 @@ func _clean_up_physics_processing(delta: float) -> void:
 # GAME OVER
 func _on_game_over() -> void:
 	pass # Replace with function body.
+
+
+
+func _on_state_event_received(event: StringName) -> void:
+	print("event received %s" % event)
+
+
 

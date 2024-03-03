@@ -1,26 +1,34 @@
 class_name Hand
-extends Area2D
+extends Node2D
 
-@onready var shape : CollisionShape2D = $Shape
+@onready var cardContainer : Node2D = $Cards
 
-var cards: Array[Card] = []
+var positionTween : Tween
+
+func _ready() -> void:
+	
+	cardContainer.child_entered_tree.connect(_reposition_cards, CONNECT_DEFERRED)
+	cardContainer.child_exiting_tree.connect(_reposition_cards, CONNECT_DEFERRED)
+
+func get_cards():
+	return cardContainer.get_children() as Array[Card]
 
 func add_card(card: Card):
-	cards.push_back(card)
 	if card.get_parent() != null:
-		card.reparent(self)
+		card.reparent(cardContainer)
 	else:
-		add_child(card)
-	_reposition_cards()
+		cardContainer.add_child(card)
 
-func remove_card(card: Card):
-	cards.erase(card)
-	card.reparent(null)
-	_reposition_cards()
+func _reposition_cards(_node):
+	if positionTween != null:
+		positionTween.kill()
 
-func _reposition_cards():
+	positionTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC).set_parallel()
+	
 	var i = 0
+	var cards = get_cards()
 	for card in cards:
 		var h_spacing = card.width + 20.0
-		card.position = shape.position + (((h_spacing * i) - (shape.shape.size.x/2.0)) * Vector2.RIGHT)
+		var targetPosition = int(h_spacing * (i-cards.size() / 2.0) ) * Vector2.RIGHT
+		positionTween.tween_property(card, 'position', targetPosition, .4)
 		i += 1

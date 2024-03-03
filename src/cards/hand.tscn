@@ -1,13 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmspf8ecgqlub"]
+[gd_scene load_steps=2 format=3 uid="uid://cmspf8ecgqlub"]
 
 [ext_resource type="Script" path="res://cards/hand.gd" id="1_11gsj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3yeps"]
-size = Vector2(455.5, 159.5)
-
-[node name="Hand" type="Area2D"]
+[node name="Hand" type="Node2D"]
 script = ExtResource("1_11gsj")
 
-[node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2(639, 639.75)
-shape = SubResource("RectangleShape2D_3yeps")
+[node name="Cards" type="Node2D" parent="."]
+position = Vector2(640, 640)

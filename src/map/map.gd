@@ -16,6 +16,12 @@ class Coordinates:
 	
 	func get_key() -> String:
 		return str(q) + "," + str(r)
+	
+	func add_coord(other: Coordinates) -> Coordinates:
+		return Coordinates.new(q + other.q, r + other.r)
+	func add_vec(vec: Vector2i) -> Coordinates:
+		return Coordinates.new(q + vec.x, r + vec.y)
+		
 
 @export var size: int:
 	set(value):
@@ -30,21 +36,14 @@ class Coordinates:
 
 var tiles : Dictionary = {}
 
-func _input(event: InputEvent) -> void:
-	if (event is InputEventMouseButton):
-		var t = get_tile_from_point(get_local_mouse_position())
-		if (t != null):
-			print("hit %s" % t.coordinates.get_key())
-
 func get_tile(coords: Coordinates) -> Tile:
 	var key = coords.get_key()
 	if tiles.has(key):
 		return tiles[key]
 	return null
 
-func get_tile_from_point(point: Vector2) -> Tile:
-	var coords = point_to_coords(point)
-	print (coords.get_key())
+func get_tile_from_mouse_pointer() -> Tile:
+	var coords = point_to_coords(get_local_mouse_position())
 	return get_tile(coords)
 
 func _update_map():
@@ -78,12 +77,12 @@ func _add_tile(q: int, r: int):
 	tiles[key] = new_tile
 	
 	add_child(new_tile)
-	new_tile.position = axial_to_pixel(q, r, new_tile.size)
+	new_tile.position = Map.axial_to_pixel(q, r, new_tile.size)
 
 func point_to_coords(point: Vector2) -> Coordinates:
 	var q = ( 2.0/3.0 * point.x                        ) / tiles["0,0"].size
 	var r = (-1.0/3.0 * point.x  +  sqrt(3)/3.0 * point.y) / tiles["0,0"].size
-	return cube_round(Coordinates.new(q, r))
+	return Map.cube_round(Coordinates.new(q, r))
 
 static func axial_to_pixel(q:int,r:int,tile_size:int) -> Vector2:
 	var x :float = tile_size * 3.0/2.0 * q
