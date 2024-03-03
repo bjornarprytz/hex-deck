@@ -26,9 +26,20 @@ var rotationSteps: int:
 		rotationSteps = value
 		_targetRotation = (PI/3.0) * rotationSteps
 
-func check_placement(map: Map) -> bool:
-	# TODO: Actually check
-	return false
+func check_placement(map: Map, originTile: Tile) -> bool:
+	var rotatedStructure = structure.get_rotated(rotationSteps)
+	var affectedTiles = rotatedStructure.get_affected_tiles(map, originTile)
+	
+	if (affectedTiles.size() < structure.cells.size()):
+		print("Part of the structure is outside map")
+		return false
+	
+	for tile in affectedTiles:
+		if tile.structure != null:
+			print("Tile already contains a structure")
+			return false
+	
+	return true
 
 func rotate_clockwise():
 	rotationSteps += 1
@@ -60,9 +71,6 @@ func _add_hex(q: int, r: int):
 	
 	add_child(new_cell)
 	new_cell.position = Map.axial_to_pixel(q, r, new_cell.size)
+	new_cell.modulate = Utils.alignment_to_color(structure.alignment)
 	new_cell._update_polygon()
-	
-static func axial_to_pixel(q:int,r:int,tile_size:int) -> Vector2:
-	var x :float = tile_size * 3.0/2.0 * q
-	var y :float = tile_size * sqrt(3) * (r + q/2.0)
-	return Vector2(x, y)
+

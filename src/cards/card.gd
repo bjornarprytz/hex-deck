@@ -8,7 +8,6 @@ extends Node2D
 @export var data : CardData
 
 func _ready() -> void:
-	background.color = data.structure.color
 	structurePreview.structure = data.structure
 
 func cancel():

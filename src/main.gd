@@ -58,7 +58,7 @@ func _off_idle() -> void:
 # MAIN/PLAY CARD
 func _on_play_card() -> void:
 	assert(cardToPlay != null)
-	Play.tileClicked.connect(_finish_play_action, CONNECT_ONE_SHOT)
+	Play.tileClicked.connect(_finish_play_action)
 	Play.tileHovered.connect(_preview_structure)
 	
 	cardToPlay.reparent(focusArea)
@@ -77,6 +77,7 @@ func _play_card_unhandled_input(event: InputEvent) -> void:
 
 func _off_play_card() -> void:
 	hand.add_card(cardToPlay)
+	Play.tileClicked.disconnect(_finish_play_action)
 	Play.tileHovered.disconnect(_preview_structure)
 	structurePlacement.queue_free()
 
@@ -87,12 +88,13 @@ func _preview_structure(hoveredTile: Tile):
 		add_child(structurePlacement)
 	
 	structurePlacement.global_position = hoveredTile.global_position
+	structurePlacement.check_placement(map, hoveredTile)
 
 func _finish_play_action(targetTile: Tile):
-	if targetTile != null:
-		Play.play_card(cardToPlay, targetTile, structurePlacement.rotationSteps)
-		
-	state.send_event("idle")
+	
+	if structurePlacement.check_placement(map, targetTile):
+		Play.play_card(cardToPlay, map, targetTile, structurePlacement.rotationSteps)
+		state.send_event("idle")
 
 # CLEAN UP
 func _on_clean_up() -> void:

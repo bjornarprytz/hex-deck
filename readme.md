@@ -34,13 +34,21 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
       - Pass
     - CleanUp
       - EndCondition(points > requirement)
-- Resolve Card Effect
-- Validate structure placement
+- Placement
+  - Check terrain
+- Card
+  - Show structure
+
+## Refactor
+
+- Move at least some of the card play logic into structure placement
+- Inherit structure preview logic (_add_hex, hex_spawner, etc.)
+  - Mind the centroid in structurePreview.gd
 
 ## Nice to have
 
-- Orient the piece
 - Invalid placements
+  - Show feedback on error
 - Placement bonus
   - Effect
 - Cards

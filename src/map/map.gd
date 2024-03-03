@@ -86,7 +86,7 @@ func point_to_coords(point: Vector2) -> Coordinates:
 
 static func axial_to_pixel(q:int,r:int,tile_size:int) -> Vector2:
 	var x :float = tile_size * 3.0/2.0 * q
-	var y :float = tile_size * sqrt(3.0) * (r + q/2.0)
+	var y :float = tile_size * sqrt(3) * (r + q/2.0)
 	return Vector2(x, y)
 
 
