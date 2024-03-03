@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var card_spawner = preload("res://cards/card.tscn")
+@onready var structurePlacementSpawner = preload("res://cards/structure_placement.tscn")
 @onready var map : Map = $Map
 @onready var hand : Hand = $Hand
 @onready var deck : Deck = $Deck
@@ -9,7 +9,7 @@ extends Node2D
 @onready var focusArea : Node2D = $Focus
 
 var cardToPlay : Card
-var rotation_steps: int
+var structurePlacement : StructurePlacement
 
 var score_requirement := 5:
 	set(value):
@@ -59,6 +59,7 @@ func _off_idle() -> void:
 func _on_play_card() -> void:
 	assert(cardToPlay != null)
 	Play.tileClicked.connect(_finish_play_action, CONNECT_ONE_SHOT)
+	Play.tileHovered.connect(_preview_structure)
 	
 	cardToPlay.reparent(focusArea)
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC)
@@ -68,18 +69,28 @@ func _play_card_unhandled_input(event: InputEvent) -> void:
 	if (event is InputEventMouseButton and event.is_pressed()):
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:
-				rotation_steps = (rotation_steps + 1)
+				structurePlacement.rotate_clockwise()
 			MOUSE_BUTTON_WHEEL_DOWN:
-				rotation_steps = (rotation_steps - 1)
+				structurePlacement.rotate_counterclockwise()
 			MOUSE_BUTTON_RIGHT:
 				state.send_event("idle")
 
 func _off_play_card() -> void:
 	hand.add_card(cardToPlay)
+	Play.tileHovered.disconnect(_preview_structure)
+	structurePlacement.queue_free()
+
+func _preview_structure(hoveredTile: Tile):
+	if (structurePlacement == null):
+		structurePlacement = structurePlacementSpawner.instantiate() as StructurePlacement
+		structurePlacement.structure = cardToPlay.structurePreview.structure.get_rotated(0)
+		add_child(structurePlacement)
+	
+	structurePlacement.global_position = hoveredTile.global_position
 
 func _finish_play_action(targetTile: Tile):
 	if targetTile != null:
-		Play.play_card(cardToPlay, targetTile, rotation_steps)
+		Play.play_card(cardToPlay, targetTile, structurePlacement.rotationSteps)
 		
 	state.send_event("idle")
 

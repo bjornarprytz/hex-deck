@@ -30,18 +30,12 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
   - State machine
     - Main
       - Play:
-        - Rotate Structure: Wheel
         - Cancel: RightClick/Drop on invalid target
       - Pass
     - CleanUp
       - EndCondition(points > requirement)
-- Preview strucure on map
 - Resolve Card Effect
 - Validate structure placement
-- Deck
-  - UI
-- Hand
-  - UI
 
 ## Nice to have
 

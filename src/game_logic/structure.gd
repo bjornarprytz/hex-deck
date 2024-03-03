@@ -7,7 +7,6 @@ extends Resource
 ## Tuples (q,r) are stored as Vector2i here
 @export var cells: Array[Vector2i]
 
-
 func get_rotated(rotationSteps: int) -> Structure:
 	while rotationSteps < 0:
 		rotationSteps += 6

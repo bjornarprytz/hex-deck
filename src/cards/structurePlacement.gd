@@ -1,5 +1,6 @@
-class_name StructurePreview
+class_name StructurePlacement
 extends Node2D
+
 
 @onready var hex_spawner = preload("res://map/polygon.tscn")
 
@@ -11,23 +12,39 @@ extends Node2D
 		structure = value
 		_update_preview.call_deferred()
 
+var _targetRotation : float
+
 var cells : Dictionary = {}
+var rotationSteps: int:
+	set(value):
+		while value < 0:
+			value += 6
+		value = value % 6
+		if (value == rotationSteps):
+			return
+		
+		rotationSteps = value
+		_targetRotation = (PI/3.0) * rotationSteps
+
+func check_placement(map: Map) -> bool:
+	# TODO: Actually check
+	return false
+
+func rotate_clockwise():
+	rotationSteps += 1
+	
+func rotate_counterclockwise():
+	rotationSteps -= 1
+
+func _physics_process(delta: float) -> void:
+	rotation = rotate_toward(rotation, _targetRotation, delta * 10.0)
 
 func _update_preview():
 	for child in get_children():
 		child.queue_free()
-		
+	
 	for coord in structure.cells:
 		_add_hex(coord.x, coord.y)
-	
-	var center_position := Vector2.ZERO
-	for cell in get_children():
-		center_position += cell.position
-	
-	center_position /= get_child_count()
-	
-	for cell in get_children():
-		cell.position -= center_position
 	
 func _add_hex(q: int, r: int):
 	var coords = Map.Coordinates.new(q, r)
@@ -37,6 +54,7 @@ func _add_hex(q: int, r: int):
 		return
 	
 	var new_cell = hex_spawner.instantiate() as RegularPolygon
+	new_cell.size = 50.0
 	
 	cells[key] = new_cell
 	

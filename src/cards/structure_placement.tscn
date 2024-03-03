@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8vdmxq6igi8u"]
+
+[ext_resource type="Script" path="res://cards/structurePlacement.gd" id="1_t0hap"]
+
+[node name="StructurePlacement" type="Node2D"]
+modulate = Color(1, 1, 1, 0.752941)
+script = ExtResource("1_t0hap")

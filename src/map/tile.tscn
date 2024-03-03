@@ -10,6 +10,7 @@ script = ExtResource("1_8g4um")
 polygon = PackedVector2Array(50, 0, 25, 43.3013, -25, 43.3013, -50, 6.12303e-15, -25, -43.3013, 25, -43.3013)
 size = 50.0
 border_width = 2.0
+clickable = true
 
 [node name="Debug" type="Node2D" parent="."]
 

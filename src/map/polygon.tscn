@@ -4,7 +4,6 @@
 
 [node name="Polygon" type="Polygon2D"]
 script = ExtResource("1_v8cn7")
-clickable = true
 
 [node name="Border" type="Line2D" parent="."]
 closed = true
