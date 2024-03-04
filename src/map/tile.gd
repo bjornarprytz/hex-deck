@@ -36,7 +36,6 @@ var coordinates: Map.Coordinates:
 		$Debug/S.text = str(coordinates.s)
 
 var structure : Structure
-var cellId : int
 
 func _ready() -> void:
 	shape.clicked.connect(_on_tile_pressed)

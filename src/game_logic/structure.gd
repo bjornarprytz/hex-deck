@@ -15,6 +15,23 @@ enum Alignment {
 ## Tuples (q,r) are stored as Vector2i here
 @export var cells: Array[Vector2i]
 
+func get_adjacent_tiles(map: Map, originTile: Tile) -> Array[Tile]:
+	var adjacent_tiles: Array[Tile] = []
+	var adjacent_cells: Array[Vector2i] = []
+	
+	for cell in cells:
+		for neighbor in Utils.get_axial_neighbors(cell):
+			if !adjacent_cells.has(neighbor) and !cells.has(neighbor):
+				adjacent_cells.push_back(neighbor)
+		
+	for cell in adjacent_cells:
+		var targetCoord = originTile.coordinates.add_vec(cell)
+		var tile = map.get_tile(targetCoord)
+		if (tile != null):
+			adjacent_tiles.push_back(tile)
+	
+	return adjacent_tiles
+
 func get_affected_tiles(map: Map, originTile: Tile) -> Array[Tile]:
 	var affectedTiles: Array[Tile] = []
 	

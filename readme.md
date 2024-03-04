@@ -30,23 +30,27 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
   - State machine
     - Main
       - Play:
-        - Cancel: RightClick/Drop on invalid target
+        - Discard/Exile card after played
       - Pass
     - CleanUp
       - EndCondition(points > requirement)
 - Placement
   - Check terrain
+  - Show error
 - Card
   - Show structure
 
 ## Refactor
 
+- Context object for the game actions (to avoid arg bloat)
 - Move at least some of the card play logic into structure placement
+  - Validate placement based on Color
 - Inherit structure preview logic (_add_hex, hex_spawner, etc.)
   - Mind the centroid in structurePreview.gd
 
 ## Nice to have
 
+- Show Which phase we're in
 - Invalid placements
   - Show feedback on error
 - Placement bonus

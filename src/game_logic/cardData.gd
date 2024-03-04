@@ -4,13 +4,14 @@ extends Resource
 @export var name : String
 @export var structure : Structure
 
-func _init(n: String, structure_name: StringName=""):
+func _init(n: String):
 	name = n
 	structure = Structure.new()
 	
-	if structure_name == "":
-		structure_name = "unit"
 	
+	var structure_name = standardStructures.keys().pick_random()
+	
+	structure.alignment = Structure.Alignment.values().pick_random()
 	structure.cells.clear()
 	structure.cells.append_array(standardStructures[structure_name])
 

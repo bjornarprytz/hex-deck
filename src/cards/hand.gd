@@ -22,11 +22,14 @@ func add_card(card: Card):
 func _reposition_cards(_node):
 	if positionTween != null:
 		positionTween.kill()
+	var cards = get_cards()
 
+	if cards.size() == 0:
+		return
+	
 	positionTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC).set_parallel()
 	
 	var i = 0
-	var cards = get_cards()
 	for card in cards:
 		var h_spacing = card.width + 20.0
 		var targetPosition = int(h_spacing * (i-cards.size() / 2.0) ) * Vector2.RIGHT

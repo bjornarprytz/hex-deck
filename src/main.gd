@@ -18,7 +18,7 @@ var score_requirement := 5:
 		score_requirement = value
 		_update_score()
 
-var current_score = 0:
+var current_score : int = 0:
 	set(value):
 		if (value == current_score):
 			return
@@ -28,7 +28,15 @@ var current_score = 0:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_update_score()
+	Play.scoreChanged.connect(_handle_score_change)
 
+func _handle_score_change(oldScore: int, newScore: int):
+	var delta = newScore - oldScore
+	
+	current_score += delta
+	
+	_update_score()
+	
 func _update_score():
 	$Score.text = "%d/%d" % [current_score, score_requirement]
 
@@ -65,6 +73,9 @@ func _on_play_card() -> void:
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC)
 	tween.tween_property(cardToPlay, 'position', Vector2.ZERO, .4)
 	
+	structurePlacement = structurePlacementSpawner.instantiate() as StructurePlacement
+	add_child(structurePlacement)
+	
 func _play_card_unhandled_input(event: InputEvent) -> void:
 	if (event is InputEventMouseButton and event.is_pressed()):
 		match event.button_index:
@@ -74,32 +85,32 @@ func _play_card_unhandled_input(event: InputEvent) -> void:
 				structurePlacement.rotate_counterclockwise()
 			MOUSE_BUTTON_RIGHT:
 				state.send_event("idle")
+				hand.add_card(cardToPlay)
 
 func _off_play_card() -> void:
-	hand.add_card(cardToPlay)
 	Play.tileClicked.disconnect(_finish_play_action)
 	Play.tileHovered.disconnect(_preview_structure)
 	structurePlacement.queue_free()
 
 func _preview_structure(hoveredTile: Tile):
-	if (structurePlacement == null):
-		structurePlacement = structurePlacementSpawner.instantiate() as StructurePlacement
+	if (structurePlacement.structure == null):
 		structurePlacement.structure = cardToPlay.structurePreview.structure.get_rotated(0)
-		add_child(structurePlacement)
-	
 	structurePlacement.global_position = hoveredTile.global_position
 	structurePlacement.check_placement(map, hoveredTile)
 
 func _finish_play_action(targetTile: Tile):
-	
 	if structurePlacement.check_placement(map, targetTile):
-		Play.play_card(cardToPlay, map, targetTile, structurePlacement.rotationSteps)
+		Play.play_card(cardToPlay, map, targetTile, deck, hand, structurePlacement.rotationSteps)
+		
+		var tween = create_tween()
+		tween.tween_property(cardToPlay, 'modulate:a', 0.0, .2)
+		tween.tween_callback(cardToPlay.queue_free)
 		state.send_event("idle")
 
 # CLEAN UP
 func _on_clean_up() -> void:
 	for card in hand.get_cards():
-		Play.discard_card(deck, hand, card)
+		Play.discard_card(deck, card)
 	if (current_score < score_requirement):
 		state.send_event("game over")
 	else:

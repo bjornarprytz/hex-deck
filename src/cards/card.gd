@@ -2,13 +2,21 @@ class_name Card
 extends Node2D
 
 @onready var background: ColorRect = $Color
-@onready var structurePreview: StructurePreview = $StructurePreview
+
 @onready var width : float = background.size.x
 
-@export var data : CardData
+var structurePreview: StructurePreview:
+	get:
+		return $StructurePreview
 
-func _ready() -> void:
-	structurePreview.structure = data.structure
+@export var data : CardData:
+	set(value):
+		if data == value:
+			return
+		
+		data = value
+		$StructurePreview.structure = data.structure
+		
 
 func cancel():
 	Play.cardReleased.emit(self)
