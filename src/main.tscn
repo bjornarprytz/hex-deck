@@ -86,11 +86,19 @@ scale = Vector2(0.1, 0.1)
 theme = SubResource("Theme_tun70")
 text = "12/5"
 
+[node name="Message" type="RichTextLabel" parent="."]
+offset_left = 18.0
+offset_top = 11.0
+offset_right = 2868.0
+offset_bottom = 391.0
+scale = Vector2(0.2, 0.2)
+theme = SubResource("Theme_tun70")
+
 [node name="PassTurn" type="Button" parent="."]
-offset_left = 1154.0
-offset_top = 631.0
-offset_right = 1248.0
-offset_bottom = 676.0
+offset_left = 1156.0
+offset_top = 653.0
+offset_right = 1250.0
+offset_bottom = 698.0
 disabled = true
 text = "Pass"
 
@@ -101,12 +109,10 @@ position = Vector2(971, 355)
 [connection signal="state_entered" from="State/Root/Upkeep" to="." method="_on_upkeep"]
 [connection signal="state_entered" from="State/Root/Main/Idle" to="." method="_on_idle"]
 [connection signal="state_exited" from="State/Root/Main/Idle" to="." method="_off_idle"]
-[connection signal="state_physics_processing" from="State/Root/Main/Idle" to="." method="_idle_physics_processing"]
 [connection signal="state_entered" from="State/Root/Main/PlayCard" to="." method="_on_play_card"]
 [connection signal="state_exited" from="State/Root/Main/PlayCard" to="." method="_off_play_card"]
 [connection signal="state_input" from="State/Root/Main/PlayCard" to="." method="_play_card_input"]
 [connection signal="state_unhandled_input" from="State/Root/Main/PlayCard" to="." method="_play_card_unhandled_input"]
 [connection signal="state_entered" from="State/Root/CleanUp" to="." method="_on_clean_up"]
-[connection signal="state_physics_processing" from="State/Root/CleanUp" to="." method="_clean_up_physics_processing"]
 [connection signal="state_entered" from="State/Root/GameOver" to="." method="_on_game_over"]
 [connection signal="pressed" from="PassTurn" to="." method="_on_pass_turn"]

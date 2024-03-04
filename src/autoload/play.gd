@@ -10,8 +10,8 @@ signal gameOver(victory: bool)
 signal scoreChanged(oldValue: int, newValue: int)
 signal goldChanged(oldValue: int, newValue: int)
 
-@onready var cardSpawner = preload("res://cards/card.tscn")
-@onready var structureSpawner = preload("res://map/placed_structure.tscn")
+var cardSpawner = preload("res://cards/card.tscn")
+var structureSpawner = preload("res://map/placed_structure.tscn")
 
 var gold : int:
 	get:
@@ -60,7 +60,7 @@ func play_card(card: Card, map: Map, targetTile: Tile, deck: Deck, hand : Hand, 
 			score += unique_colors.size()
 			
 		Structure.Alignment.Yellow:
-			var max : int = 0
+			var maxCount : int = 0
 			var colors : Dictionary = {}
 			var adjacents : Array[Tile] = placedStructure.structure.get_adjacent_tiles(map, targetTile)
 			for t in adjacents:
@@ -70,9 +70,9 @@ func play_card(card: Card, map: Map, targetTile: Tile, deck: Deck, hand : Hand, 
 					colors[t.structure.alignment] = 1
 				else:
 					colors[t.structure.alignment] += 1
-				max = max(colors[t.structure.alignment], max)
+				maxCount = max(colors[t.structure.alignment], maxCount)
 				
-			score += max
+			score += maxCount
 			
 		Structure.Alignment.Blue:
 			draw_card(deck, hand)
@@ -82,8 +82,6 @@ func play_card(card: Card, map: Map, targetTile: Tile, deck: Deck, hand : Hand, 
 			pass
 		Structure.Alignment.Purple:
 			gold += 1
-			
-	
 
 func draw_card(deck: Deck, hand: Hand):
 	var cardData = deck.pop_card()

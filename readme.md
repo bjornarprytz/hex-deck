@@ -26,14 +26,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Game Loop
-  - State machine
-    - Main
-      - Play:
-        - Discard/Exile card after played
-      - Pass
-    - CleanUp
-      - EndCondition(points > requirement)
 - Placement
   - Check terrain
   - Show error

@@ -7,11 +7,12 @@ extends Node2D
 @onready var state : StateChart = $State
 @onready var pass_button : Button = $PassTurn
 @onready var focusArea : Node2D = $Focus
+@onready var message : RichTextLabel = $Message
 
 var cardToPlay : Card
 var structurePlacement : StructurePlacement
 
-var score_requirement := 5:
+var score_requirement := 0:
 	set(value):
 		if (value == score_requirement):
 			return
@@ -57,9 +58,6 @@ func _on_idle() -> void:
 		cardToPlay = c
 		state.send_event("play")
 		, CONNECT_ONE_SHOT)
-
-func _idle_physics_processing(delta: float) -> void:
-	pass # Replace with function body.
 func _off_idle() -> void:
 	pass_button.disabled = true
 
@@ -115,12 +113,10 @@ func _on_clean_up() -> void:
 		state.send_event("game over")
 	else:
 		state.send_event("next phase")
-func _clean_up_physics_processing(delta: float) -> void:
-	pass # Replace with function body.
 
 # GAME OVER
 func _on_game_over() -> void:
-	pass # Replace with function body.
+	_put_message("Game Over!")
 
 
 
@@ -128,4 +124,7 @@ func _on_state_event_received(event: StringName) -> void:
 	print("event received %s" % event)
 
 
-
+func _put_message(text: String):
+	message.text = text
+	await get_tree().create_timer(6.0).timeout
+	message.text = ""

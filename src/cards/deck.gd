@@ -21,12 +21,16 @@ extends Node2D
 
 func tuck_card(cardData: CardData):
 	cards.push_back(cardData)
+	_update_card_count()
 
 func push_card(cardData: CardData):
 	cards.push_front(cardData)
+	_update_card_count()
 
 func pop_card() -> CardData:
-	return cards.pop_front()
+	var card = cards.pop_front()
+	_update_card_count()
+	return card
 
 func _update_card_count():
 	cardCount.text = str(cards.size())
