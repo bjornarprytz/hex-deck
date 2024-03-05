@@ -72,10 +72,21 @@ to = NodePath("../GameOver")
 event = &"game over"
 
 [node name="Map" parent="." instance=ExtResource("1_jqq6o")]
+position = Vector2(581, 312)
 
 [node name="Hand" parent="." instance=ExtResource("2_4d8mv")]
 
 [node name="Deck" parent="." instance=ExtResource("8_i4sgb")]
+
+[node name="ScoreHeading" type="RichTextLabel" parent="."]
+offset_left = 1094.0
+offset_top = 6.0
+offset_right = 2024.0
+offset_bottom = 386.0
+scale = Vector2(0.1, 0.1)
+theme = SubResource("Theme_tun70")
+bbcode_enabled = true
+text = "[right]Score: "
 
 [node name="Score" type="RichTextLabel" parent="."]
 offset_left = 1191.0
@@ -86,6 +97,25 @@ scale = Vector2(0.1, 0.1)
 theme = SubResource("Theme_tun70")
 text = "12/5"
 
+[node name="GoldHeading" type="RichTextLabel" parent="."]
+offset_left = 1094.0
+offset_top = 46.0
+offset_right = 2024.0
+offset_bottom = 426.0
+scale = Vector2(0.1, 0.1)
+theme = SubResource("Theme_tun70")
+bbcode_enabled = true
+text = "[right]Gold: "
+
+[node name="Gold" type="RichTextLabel" parent="."]
+offset_left = 1191.0
+offset_top = 46.0
+offset_right = 2051.0
+offset_bottom = 426.0
+scale = Vector2(0.1, 0.1)
+theme = SubResource("Theme_tun70")
+text = "12"
+
 [node name="Message" type="RichTextLabel" parent="."]
 offset_left = 18.0
 offset_top = 11.0
@@ -93,6 +123,37 @@ offset_right = 2868.0
 offset_bottom = 391.0
 scale = Vector2(0.2, 0.2)
 theme = SubResource("Theme_tun70")
+
+[node name="RulesHeader" type="RichTextLabel" parent="."]
+offset_left = 6.0
+offset_top = 87.0
+offset_right = 3436.0
+offset_bottom = 507.0
+scale = Vector2(0.1, 0.1)
+theme = SubResource("Theme_tun70")
+bbcode_enabled = true
+text = "Rules (Tab)"
+
+[node name="Rules" type="RichTextLabel" parent="."]
+visible = false
+offset_left = 6.0
+offset_top = 127.0
+offset_right = 3436.0
+offset_bottom = 4077.0
+scale = Vector2(0.1, 0.1)
+theme = SubResource("Theme_tun70")
+bbcode_enabled = true
+text = "- [color=red]Red: points for !=
+
+- [color=yellow]Yellow: points for =
+
+- [color=blue]Blue: draw card
+
+- [color=green]Green: 1 point
+
+- [color=orange]Orange: Requires water
+
+- [color=purple]Purple: 1 gold"
 
 [node name="PassTurn" type="Button" parent="."]
 offset_left = 1156.0

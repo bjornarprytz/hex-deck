@@ -6,13 +6,8 @@ extends Node2D
 
 @export var structure: Structure:
 	set(value):
-		if value == structure:
-			return
-			
 		structure = value
 		_update_preview.call_deferred()
-
-var cells : Dictionary = {}
 
 func _update_preview():
 	for child in get_children():
@@ -31,17 +26,8 @@ func _update_preview():
 		cell.position -= center_position
 	
 func _add_hex(q: int, r: int):
-	var coords = Map.Coordinates.new(q, r)
-	var key = coords.get_key()
-	
-	if cells.has(key):
-		return
-	
 	var new_cell = hex_spawner.instantiate() as RegularPolygon
-	
-	cells[key] = new_cell
 	
 	new_cell.position = Map.axial_to_pixel(q, r, new_cell.size)
 	new_cell.color = Utils.alignment_to_color(structure.alignment)
 	add_child(new_cell)
-	new_cell._update_polygon()

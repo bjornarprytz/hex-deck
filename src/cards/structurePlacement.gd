@@ -6,9 +6,6 @@ extends Node2D
 
 @export var structure: Structure:
 	set(value):
-		if value == structure:
-			return
-			
 		structure = value
 		_update_preview.call_deferred()
 
@@ -57,17 +54,9 @@ func _update_preview():
 	for coord in structure.cells:
 		_add_hex(coord.x, coord.y)
 	
-func _add_hex(q: int, r: int):
-	var coords = Map.Coordinates.new(q, r)
-	var key = coords.get_key()
-	
-	if cells.has(key):
-		return
-	
+func _add_hex(q: int, r: int):	
 	var new_cell = hex_spawner.instantiate() as RegularPolygon
 	new_cell.size = 50.0
-	
-	cells[key] = new_cell
 	
 	add_child(new_cell)
 	new_cell.position = Map.axial_to_pixel(q, r, new_cell.size)

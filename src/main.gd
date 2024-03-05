@@ -8,6 +8,7 @@ extends Node2D
 @onready var pass_button : Button = $PassTurn
 @onready var focusArea : Node2D = $Focus
 @onready var message : RichTextLabel = $Message
+@onready var rulesText : RichTextLabel = $Rules
 
 var cardToPlay : Card
 var structurePlacement : StructurePlacement
@@ -19,27 +20,22 @@ var score_requirement := 0:
 		score_requirement = value
 		_update_score()
 
-var current_score : int = 0:
-	set(value):
-		if (value == current_score):
-			return
-		current_score = value
-		_update_score()
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_update_score()
 	Play.scoreChanged.connect(_handle_score_change)
+	Play.goldChanged.connect(_handle_score_change)
 
-func _handle_score_change(oldScore: int, newScore: int):
-	var delta = newScore - oldScore
-	
-	current_score += delta
-	
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.keycode == KEY_TAB:
+		rulesText.visible = event.is_pressed()
+
+func _handle_score_change(_oldScore: int, _newScore: int):
 	_update_score()
-	
+
 func _update_score():
-	$Score.text = "%d/%d" % [current_score, score_requirement]
+	$Score.text = "%d/%d" % [Play.score, score_requirement]
+	$Gold.text = "%d" % [Play.gold]
 
 func _on_pass_turn() -> void:
 	state.send_event("pass turn")
@@ -117,8 +113,6 @@ func _on_clean_up() -> void:
 # GAME OVER
 func _on_game_over() -> void:
 	_put_message("Game Over!")
-
-
 
 func _on_state_event_received(event: StringName) -> void:
 	print("event received %s" % event)

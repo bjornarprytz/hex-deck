@@ -26,11 +26,11 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
+- Rules explanation (TAB)
+
 - Placement
   - Check terrain
   - Show error
-- Card
-  - Show structure
 
 ## Refactor
 
@@ -54,15 +54,7 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ### Chores
 
-- Import the project into Godot
-- Setup itch.io page for hex-deck [link](https://itch.io/game/new)
-  - Set Kind to HTML
-  - Set viewport dimensions (normal: 1280x720)
-  - Check SharedArrayBuffer
-  - Hit the Save button
-- Get Butler API key from [itch.io](https://itch.io/user/settings/api-keys)
-- Publish github repo
-- Add key to GitHub secrets as BUTLER_API_KEY [link](https://github.com/bjornarprytz/hex-deck/settings/secrets/actions)
+
 - Push release with `./push_release.sh`
 
 ### Extra

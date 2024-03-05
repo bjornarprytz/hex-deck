@@ -9,13 +9,18 @@ var structurePreview: StructurePreview:
 	get:
 		return $StructurePreview
 
+var nameLabel: RichTextLabel:
+	get:
+		return $Name
+
 @export var data : CardData:
 	set(value):
 		if data == value:
 			return
 		
 		data = value
-		$StructurePreview.structure = data.structure
+		structurePreview.structure = data.structure
+		nameLabel.text = data.name
 		
 
 func cancel():
