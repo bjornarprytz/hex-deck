@@ -102,6 +102,7 @@ func draw_card(deck: Deck, hand: Hand):
 	
 	if (cardData == null):
 		gameOver.emit(false)
+		return
 	
 	var card = cardSpawner.instantiate() as Card
 	card.data = cardData

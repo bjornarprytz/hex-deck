@@ -19,6 +19,7 @@ func _ready() -> void:
 	Play.scoreChanged.connect(_handle_score_change)
 	Play.goldChanged.connect(_handle_score_change)
 	Play.scoreRequirementChanged.connect(_handle_score_change)
+	Play.gameOver.connect(func (_result: bool): state.send_event("game over"))
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.keycode == KEY_TAB:
@@ -114,5 +115,3 @@ func _on_state_event_received(event: StringName) -> void:
 
 func _put_message(text: String):
 	message.text = text
-	await get_tree().create_timer(6.0).timeout
-	message.text = ""

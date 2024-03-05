@@ -13,6 +13,7 @@ border_width = 2.0
 clickable = true
 
 [node name="Debug" type="Node2D" parent="."]
+visible = false
 
 [node name="Q" type="RichTextLabel" parent="Debug"]
 modulate = Color(0, 0, 0, 1)

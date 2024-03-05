@@ -26,7 +26,7 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Rules explanation (TAB)
+- Execute Refactor plan
 
 - Placement
   - Check terrain
@@ -39,6 +39,17 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
   - Validate placement based on Color
 - Inherit structure preview logic (_add_hex, hex_spawner, etc.)
   - Mind the centroid in structurePreview.gd
+
+### Refactor Plan
+
+- Find a way to share the code that visualizes a structure
+- Meta game state (gold, deck, cards unlocked, etc.)
+  - Player Autoload
+- Consolidate card play logic
+  - Input for scrolling, etc.
+  - Placement of structure, and feedback to the user
+  - Validate action
+  - Confirm action
 
 ## Nice to have
 
