@@ -28,6 +28,8 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 - Execute Refactor plan
 
+- Restart button
+
 - Placement
   - Check terrain
   - Show error
@@ -43,13 +45,22 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 ### Refactor Plan
 
 - Find a way to share the code that visualizes a structure
-- Meta game state (gold, deck, cards unlocked, etc.)
-  - Player Autoload
-- Consolidate card play logic
-  - Input for scrolling, etc.
-  - Placement of structure, and feedback to the user
-  - Validate action
-  - Confirm action
+  - StructurePlacement
+  - PreviewStructure
+- Meta game state (meta.tscn)
+  - Gold, deck, cards unlocked, etc
+  - Card Pool (very ad hoc for now)
+- Game Loop (main.tscn)
+  - Score, Turn Sequence
+  - UI
+  - Manage game objects (Deck, hand, cards, etc.)
+- Consolidate card play logic (structure_placement.tscn)
+  - Handle user input
+  - Placement of structure (point and rotate)
+  - Feedback to the user (invalid placement)
+  - Validate action (card, target, rotation)
+  - Confirm action (card, target, rotation)
+- Separate out the Card Resolution so it can easily be swapped out and changed
 
 ## Nice to have
 
