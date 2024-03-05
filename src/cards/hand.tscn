@@ -6,4 +6,4 @@
 script = ExtResource("1_11gsj")
 
 [node name="Cards" type="Node2D" parent="."]
-position = Vector2(640, 640)
+position = Vector2(640, 649)

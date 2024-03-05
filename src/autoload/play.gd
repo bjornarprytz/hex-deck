@@ -7,6 +7,7 @@ signal cardPlayed(card: Card, tile: Tile, orientation_degrees: int)
 signal tileClicked(tile: Tile)
 signal tileHovered(tile: Tile)
 signal gameOver(victory: bool)
+signal scoreRequirementChanged(oldValue: int, newValue: int)
 signal scoreChanged(oldValue: int, newValue: int)
 signal goldChanged(oldValue: int, newValue: int)
 
@@ -24,6 +25,7 @@ var gold : int:
 		goldChanged.emit(oldValue, gold)
 	
 
+
 var score : int:
 	get:
 		return score
@@ -33,6 +35,18 @@ var score : int:
 		var oldValue = score
 		score = value
 		scoreChanged.emit(oldValue, score)
+
+
+var scoreRequirement : int:
+	get:
+		return scoreRequirement
+	set(value):
+		if (value == scoreRequirement):
+			return
+		var oldValue = scoreRequirement
+		scoreRequirement = value
+		scoreRequirementChanged.emit(oldValue, scoreRequirement)
+		
 		
 
 func play_card(card: Card, map: Map, targetTile: Tile, deck: Deck, hand : Hand, rotationSteps: int):

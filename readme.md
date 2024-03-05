@@ -52,11 +52,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
     - put border around the whole
   - Abilities
 
-### Chores
-
-
-- Push release with `./push_release.sh`
-
 ### Extra
 
 - itch.io

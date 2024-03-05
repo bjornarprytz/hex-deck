@@ -13,18 +13,12 @@ extends Node2D
 var cardToPlay : Card
 var structurePlacement : StructurePlacement
 
-var score_requirement := 0:
-	set(value):
-		if (value == score_requirement):
-			return
-		score_requirement = value
-		_update_score()
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_update_score()
 	Play.scoreChanged.connect(_handle_score_change)
 	Play.goldChanged.connect(_handle_score_change)
+	Play.scoreRequirementChanged.connect(_handle_score_change)
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.keycode == KEY_TAB:
@@ -34,7 +28,7 @@ func _handle_score_change(_oldScore: int, _newScore: int):
 	_update_score()
 
 func _update_score():
-	$Score.text = "%d/%d" % [Play.score, score_requirement]
+	$Score.text = "%d/%d" % [Play.score, Play.scoreRequirement]
 	$Gold.text = "%d" % [Play.gold]
 
 func _on_pass_turn() -> void:
@@ -105,7 +99,7 @@ func _finish_play_action(targetTile: Tile):
 func _on_clean_up() -> void:
 	for card in hand.get_cards():
 		Play.discard_card(deck, card)
-	if (current_score < score_requirement):
+	if (Play.score < Play.scoreRequirement):
 		state.send_event("game over")
 	else:
 		state.send_event("next phase")
