@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://0oenk04u2ati"]
+
+[ext_resource type="Script" path="res://cards/structureView.gd" id="1_37go8"]
+
+[node name="StructureView" type="Node2D"]
+script = ExtResource("1_37go8")
+hex_size = null

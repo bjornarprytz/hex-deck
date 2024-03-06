@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8vdmxq6igi8u"]
+[gd_scene load_steps=3 format=3 uid="uid://b8vdmxq6igi8u"]
 
 [ext_resource type="Script" path="res://cards/structurePlacement.gd" id="1_t0hap"]
+[ext_resource type="PackedScene" uid="uid://0oenk04u2ati" path="res://cards/structure_view.tscn" id="2_v1u4j"]
 
 [node name="StructurePlacement" type="Node2D"]
 modulate = Color(1, 1, 1, 0.752941)
 script = ExtResource("1_t0hap")
+
+[node name="StructurePreview" parent="." instance=ExtResource("2_v1u4j")]
+hex_size = 50.0

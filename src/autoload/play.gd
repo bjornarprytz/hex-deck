@@ -55,7 +55,6 @@ func play_card(card: Card, map: Map, targetTile: Tile, deck: Deck, hand : Hand, 
 	var placedStructure = structureSpawner.instantiate() as PlacedStructure
 	
 	placedStructure.structure = rotatedStructure
-	placedStructure.originTile = targetTile
 	map.add_child(placedStructure)
 	placedStructure.position = targetTile.position
 	

@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://0oenk04u2ati"]
-
-[ext_resource type="Script" path="res://cards/structurePreview.gd" id="1_37go8"]
-
-[node name="StructurePreview" type="Node2D"]
-script = ExtResource("1_37go8")

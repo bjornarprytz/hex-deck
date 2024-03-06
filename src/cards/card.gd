@@ -5,7 +5,7 @@ extends Node2D
 
 @onready var width : float = background.size.x
 
-var structurePreview: StructurePreview:
+var structurePreview: StructureView:
 	get:
 		return $StructurePreview
 

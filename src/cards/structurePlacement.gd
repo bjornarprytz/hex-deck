@@ -2,16 +2,19 @@ class_name StructurePlacement
 extends Node2D
 
 
-@onready var hex_spawner = preload("res://map/polygon.tscn")
+var structurePreview: StructureView:
+	get:
+		return $StructurePreview
+
 
 @export var structure: Structure:
 	set(value):
-		structure = value
-		_update_preview.call_deferred()
+		structurePreview.structure = value
+	get:
+		return structurePreview.structure
 
 var _targetRotation : float
 
-var cells : Dictionary = {}
 var rotationSteps: int:
 	set(value):
 		while value < 0:
@@ -46,20 +49,4 @@ func rotate_counterclockwise():
 
 func _physics_process(delta: float) -> void:
 	rotation = rotate_toward(rotation, _targetRotation, delta * 10.0)
-
-func _update_preview():
-	for child in get_children():
-		child.queue_free()
-	
-	for coord in structure.cells:
-		_add_hex(coord.x, coord.y)
-	
-func _add_hex(q: int, r: int):	
-	var new_cell = hex_spawner.instantiate() as RegularPolygon
-	new_cell.size = 50.0
-	
-	add_child(new_cell)
-	new_cell.position = Map.axial_to_pixel(q, r, new_cell.size)
-	new_cell.modulate = Utils.alignment_to_color(structure.alignment)
-	new_cell._update_polygon()
 

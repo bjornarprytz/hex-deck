@@ -39,14 +39,9 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - Context object for the game actions (to avoid arg bloat)
 - Move at least some of the card play logic into structure placement
   - Validate placement based on Color
-- Inherit structure preview logic (_add_hex, hex_spawner, etc.)
-  - Mind the centroid in structurePreview.gd
 
 ### Refactor Plan
 
-- Find a way to share the code that visualizes a structure
-  - StructurePlacement
-  - PreviewStructure
 - Meta game state (meta.tscn)
   - Gold, deck, cards unlocked, etc
   - Card Pool (very ad hoc for now)
