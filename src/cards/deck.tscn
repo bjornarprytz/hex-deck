@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://bkerbq6h42ehk"]
 
-[ext_resource type="Script" path="res://cards/deck.gd" id="1_hvdpq"]
+[ext_resource type="Script" path="res://cards/drawPile.gd" id="1_hvdpq"]
 
 [sub_resource type="Theme" id="Theme_owjdq"]
 default_font_size = 256
 
-[node name="Deck" type="Node2D"]
+[node name="DrawPile" type="Node2D"]
 script = ExtResource("1_hvdpq")
 
 [node name="Color" type="ColorRect" parent="."]

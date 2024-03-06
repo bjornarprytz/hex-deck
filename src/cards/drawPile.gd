@@ -1,23 +1,18 @@
-class_name Deck
+class_name DrawPile
 extends Node2D
 
-@onready var cards : Array[CardData] = [
-	CardData.new("Quantum Nexus"),
-	CardData.new("Hyperflux Prism"),
-	CardData.new("Nebula Harmonics"),
-	CardData.new("Singularity Synchrony"),
-	CardData.new("Chrono Fractal"),
-	CardData.new("Warp Resonance"),
-	CardData.new("Quantum Lattice"),
-	CardData.new("Aetheric Enigma"),
-	CardData.new("Void Mandala"),
-	CardData.new("Celestial Geodesic"),
-	CardData.new("Nebular Conundrum"),
-]
+@onready var cards : Array[CardData] = []
 
 @onready var cardAnchor : Node2D = $Color/CardAnchor
 @onready var cardCount : RichTextLabel = $CardCount
 
+func add_cards(cardsToAdd: Array[CardData]):
+	for card in cardsToAdd:
+		tuck_card(card)
+	shuffle()
+
+func shuffle():
+	cards.shuffle()
 
 func tuck_card(cardData: CardData):
 	cards.push_back(cardData)

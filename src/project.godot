@@ -17,7 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Play="*res://autoload/play.tscn"
+Meta="*res://autoload/meta_game_state.tscn"
+Events="*res://autoload/event_bus.tscn"
 
 [display]
 

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://casjmgmq015ai"]
+
+[ext_resource type="Script" path="res://autoload/metaGameState.gd" id="1_pghwo"]
+
+[node name="MetaGameState" type="Node"]
+script = ExtResource("1_pghwo")

@@ -42,13 +42,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ### Refactor Plan
 
-- Meta game state (meta.tscn)
-  - Gold, deck, cards unlocked, etc
-  - Card Pool (very ad hoc for now)
-- Game Loop (main.tscn)
-  - Score, Turn Sequence
-  - UI
-  - Manage game objects (Deck, hand, cards, etc.)
 - Consolidate card play logic (structure_placement.tscn)
   - Handle user input
   - Placement of structure (point and rotate)

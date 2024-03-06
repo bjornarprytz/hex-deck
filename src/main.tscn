@@ -76,7 +76,7 @@ position = Vector2(581, 312)
 
 [node name="Hand" parent="." instance=ExtResource("2_4d8mv")]
 
-[node name="Deck" parent="." instance=ExtResource("8_i4sgb")]
+[node name="DrawPile" parent="." instance=ExtResource("8_i4sgb")]
 
 [node name="ScoreHeading" type="RichTextLabel" parent="."]
 offset_left = 1094.0

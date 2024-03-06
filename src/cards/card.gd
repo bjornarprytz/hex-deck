@@ -24,7 +24,7 @@ var nameLabel: RichTextLabel:
 		
 
 func cancel():
-	Play.cardReleased.emit(self)
+	Events.cardReleased.emit(self)
 
 func _on_handle_pressed() -> void:
-	Play.cardGrabbed.emit(self)
+	Events.cardGrabbed.emit(self)

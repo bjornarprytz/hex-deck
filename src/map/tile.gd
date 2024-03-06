@@ -42,9 +42,9 @@ func _ready() -> void:
 	shape.hovered.connect(_on_tile_hovered)
 
 func _on_tile_pressed() -> void:
-	Play.tileClicked.emit(self)
+	Events.tileClicked.emit(self)
 func _on_tile_hovered(state:bool) -> void:
 	if (state):
-		Play.tileHovered.emit(self)
+		Events.tileHovered.emit(self)
 	
 	$Debug/Hovered.visible = state
