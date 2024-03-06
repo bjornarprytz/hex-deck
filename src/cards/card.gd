@@ -13,6 +13,12 @@ var nameLabel: RichTextLabel:
 	get:
 		return $Name
 
+var structure : Structure:
+	get:
+		return structurePreview.structure
+	set(value):
+		structurePreview.structure = value
+
 @export var data : CardData:
 	set(value):
 		if data == value:

@@ -79,30 +79,22 @@ func _off_idle() -> void:
 # MAIN/PLAY CARD
 func _on_play_card() -> void:
 	assert(cardToPlay != null)
-	Events.tileClicked.connect(_finish_play_action)
-	Events.tileHovered.connect(_preview_structure)
+	
 	
 	cardToPlay.reparent(focusArea)
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC)
 	tween.tween_property(cardToPlay, 'position', Vector2.ZERO, .4)
 	
 	structurePlacement = structurePlacementSpawner.instantiate() as StructurePlacement
+	structurePlacement.structure = cardToPlay.structure
+	structurePlacement.map = map
 	add_child(structurePlacement)
-	
-func _play_card_unhandled_input(event: InputEvent) -> void:
-	if (event is InputEventMouseButton and event.is_pressed()):
-		match event.button_index:
-			MOUSE_BUTTON_WHEEL_UP:
-				structurePlacement.rotate_clockwise()
-			MOUSE_BUTTON_WHEEL_DOWN:
-				structurePlacement.rotate_counterclockwise()
-			MOUSE_BUTTON_RIGHT:
-				state.send_event("idle")
-				hand.add_card(cardToPlay)
+	structurePlacement.aborted.connect(state.send_event.bind("idle"))
+	structurePlacement.confirmed.connect(_finish_play_action)
 
 func _off_play_card() -> void:
-	Events.tileClicked.disconnect(_finish_play_action)
-	Events.tileHovered.disconnect(_preview_structure)
+	if (cardToPlay != null):
+		hand.add_card(cardToPlay)
 	structurePlacement.queue_free()
 
 func _preview_structure(hoveredTile: Tile):
@@ -112,13 +104,12 @@ func _preview_structure(hoveredTile: Tile):
 	structurePlacement.check_placement(map, hoveredTile)
 
 func _finish_play_action(targetTile: Tile):
-	if structurePlacement.check_placement(map, targetTile):
-		play_card(cardToPlay, targetTile, structurePlacement.rotationSteps)
-		
-		var tween = create_tween()
-		tween.tween_property(cardToPlay, 'modulate:a', 0.0, .2)
-		tween.tween_callback(cardToPlay.queue_free)
-		state.send_event("idle")
+	play_card(cardToPlay, targetTile, structurePlacement.rotationSteps)
+	
+	var tween = create_tween()
+	tween.tween_property(cardToPlay, 'modulate:a', 0.0, .2)
+	tween.tween_callback(cardToPlay.queue_free)
+	state.send_event("idle")
 
 # CLEAN UP
 func _on_clean_up() -> void:
