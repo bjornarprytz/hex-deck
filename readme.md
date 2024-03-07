@@ -26,26 +26,16 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Execute Refactor plan
-
 - Restart button
 
 - Placement
   - Check terrain
   - Show error
 
-### Refactor Plan
-
-- Consolidate card play logic (structure_placement.tscn)
-  - Handle user input
-  - Placement of structure (point and rotate)
-  - Feedback to the user (invalid placement)
-  - Validate action (card, target, rotation)
-  - Confirm action (card, target, rotation)
-- Separate out the Card Resolution so it can easily be swapped out and changed
-
 ## Nice to have
 
+- Remove flashing structure preview in top left corner
+- PARTICLES!
 - Show Which phase we're in
 - Invalid placements
   - Show feedback on error

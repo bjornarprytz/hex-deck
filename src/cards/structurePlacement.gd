@@ -40,9 +40,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if (event is InputEventMouseButton and event.is_pressed()):
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:
-				_rotate_clockwise()
-			MOUSE_BUTTON_WHEEL_DOWN:
 				_rotate_counterclockwise()
+			MOUSE_BUTTON_WHEEL_DOWN:
+				_rotate_clockwise()
 			MOUSE_BUTTON_RIGHT:
 				aborted.emit()
 
@@ -50,18 +50,16 @@ func _physics_process(delta: float) -> void:
 	rotation = rotate_toward(rotation, _targetRotation, delta * 10.0)
 
 func _preview_structure(hoveredTile: Tile):
-
 	global_position = hoveredTile.global_position
-	_check_placement(hoveredTile)
 
 func _try_confirm_placement(targetTile: Tile):
-	# TODO: Add Validation
 	if (_check_placement(targetTile)):
 		confirmed.emit(targetTile)
 
-func _check_placement(originTile: Tile) -> bool:
+func _check_placement(targetTile: Tile) -> bool:
 	var rotatedStructure = structure.get_rotated(rotationSteps)
-	var affectedTiles = rotatedStructure.get_affected_tiles(map, originTile)
+	var affectedTiles = rotatedStructure.get_affected_tiles(map, targetTile)
+	var adjacentTiles = rotatedStructure.get_adjacent_tiles(map, targetTile)
 	
 	if (affectedTiles.size() < structure.cells.size()):
 		print("Part of the structure is outside map")
@@ -72,7 +70,7 @@ func _check_placement(originTile: Tile) -> bool:
 			print("Tile already contains a structure")
 			return false
 	
-	return true
+	return structure.alignment.validate_placement(affectedTiles, adjacentTiles)
 
 func _rotate_clockwise():
 	rotationSteps += 1

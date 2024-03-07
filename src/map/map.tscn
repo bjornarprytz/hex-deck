@@ -6,3 +6,7 @@
 position = Vector2(581, 340)
 script = ExtResource("1_70clt")
 size = 4
+
+[node name="Tiles" type="Node2D" parent="."]
+
+[node name="Structures" type="Node2D" parent="."]

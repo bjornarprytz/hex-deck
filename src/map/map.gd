@@ -33,22 +33,35 @@ class Coordinates:
 		_update_map.call_deferred()
 
 @onready var tile_spawner = preload("res://map/tile.tscn")
+@onready var structureSpawner = preload("res://map/placed_structure.tscn")
+@onready var structures = $Structures
+@onready var tiles = $Tiles
 
-var tiles : Dictionary = {}
+var tilesLookup : Dictionary = {}
 
 func get_tile(coords: Coordinates) -> Tile:
 	var key = coords.get_key()
-	if tiles.has(key):
-		return tiles[key]
+	if tilesLookup.has(key):
+		return tilesLookup[key]
 	return null
 
 func get_tile_from_mouse_pointer() -> Tile:
 	var coords = point_to_coords(get_local_mouse_position())
 	return get_tile(coords)
 
+func place_structure(structure: Structure, affectedTiles: Array[Tile]):
+	var placedStructure = structureSpawner.instantiate() as PlacedStructure
+	placedStructure.structure = structure
+	structures.add_child(placedStructure)
+	
+	placedStructure.position = affectedTiles[0].position
+	
+	for tile in affectedTiles:
+		tile.structure = placedStructure.structure
+
 func _update_map():
-	for child in get_children():
-		child.queue_free()
+	for tile in tiles.get_children():
+		tile.queue_free()
 		
 	for q in range(size):
 		for r in range(size):
@@ -66,7 +79,7 @@ func _add_tile(q: int, r: int):
 	var coords = Coordinates.new(q, r)
 	var key = coords.get_key()
 	
-	if tiles.has(key):
+	if tilesLookup.has(key):
 		return
 	
 	var new_tile = tile_spawner.instantiate() as Tile
@@ -74,19 +87,19 @@ func _add_tile(q: int, r: int):
 	
 	new_tile.type = Tile.TerrainType.values().pick_random()
 	
-	tiles[key] = new_tile
+	tilesLookup[key] = new_tile
 	
-	add_child(new_tile)
+	tiles.add_child(new_tile)
 	new_tile.position = Map.axial_to_pixel(q, r, new_tile.size)
 
 func point_to_coords(point: Vector2) -> Coordinates:
-	var q = ( 2.0/3.0 * point.x                        ) / tiles["0,0"].size
-	var r = (-1.0/3.0 * point.x  +  sqrt(3)/3.0 * point.y) / tiles["0,0"].size
+	var q = ( 2.0/3.0 * point.x                        ) / tilesLookup["0,0"].size
+	var r = (-1.0/3.0 * point.x  +  sqrt(3)/3.0 * point.y) / tilesLookup["0,0"].size
 	return Map.cube_round(Coordinates.new(q, r))
 
-static func axial_to_pixel(q:int,r:int,tile_size:int) -> Vector2:
-	var x :float = tile_size * 3.0/2.0 * q
-	var y :float = tile_size * sqrt(3) * (r + q/2.0)
+static func axial_to_pixel(q:int,r:int,tileSize:int) -> Vector2:
+	var x :float = tileSize * 3.0/2.0 * q
+	var y :float = tileSize * sqrt(3) * (r + q/2.0)
 	return Vector2(x, y)
 
 

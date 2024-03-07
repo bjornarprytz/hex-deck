@@ -11,7 +11,14 @@ func _init(n: String):
 	
 	var structure_name = standardStructures.keys().pick_random()
 	
-	structure.alignment = Structure.Alignment.values().pick_random()
+	structure.alignment = [
+		RedAlignment.new(),
+		YellowAlignment.new(),
+		BlueAlignment.new(),
+		GreenAlignment.new(),
+		OrangeAlignment.new(),
+		PurpleAlignment.new()
+		].pick_random()
 	structure.cells.clear()
 	structure.cells.append_array(standardStructures[structure_name])
 

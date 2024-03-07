@@ -1,15 +1,6 @@
 class_name Structure
 extends Resource
 
-enum Alignment {
-	Red,
-	Blue,
-	Yellow,
-	Green,
-	Orange,
-	Purple
-}
-
 @export var alignment: Alignment
 
 ## Tuples (q,r) are stored as Vector2i here

@@ -1,7 +1,7 @@
+class_name GameState
 extends Node2D
 
 @onready var structurePlacementSpawner = preload("res://cards/structure_placement.tscn")
-@onready var structureSpawner = preload("res://map/placed_structure.tscn")
 @onready var cardSpawner = preload("res://cards/card.tscn")
 
 @onready var map : Map = $Map
@@ -59,7 +59,7 @@ func _update_score():
 # UPKEEP
 func _on_upkeep() -> void:
 	for i in range(5):
-		_draw_card()
+		draw_card()
 	state.send_event("next phase")
 
 
@@ -84,15 +84,15 @@ func _on_play_card() -> void:
 	structurePlacement.structure = cardToPlay.structure
 	structurePlacement.map = map
 	add_child(structurePlacement)
-	structurePlacement.aborted.connect(state.send_event.bind("idle"))
 	structurePlacement.confirmed.connect(_confirm_play)
 	structurePlacement.aborted.connect(_abort_play)
 
 func _abort_play():
 	hand.add_card(cardToPlay)
+	state.send_event("idle")
 
 func _confirm_play(targetTile: Tile):
-	_play_card(cardToPlay, targetTile, structurePlacement.rotationSteps)
+	play_card(cardToPlay, targetTile, structurePlacement.rotationSteps)
 	
 	var tween = create_tween()
 	tween.tween_property(cardToPlay, 'modulate:a', 0.0, .2)
@@ -103,11 +103,10 @@ func _off_play_card() -> void:
 	cardToPlay = null
 	structurePlacement.queue_free()
 
-
 # CLEAN UP
 func _on_clean_up() -> void:
 	for card in hand.get_cards():
-		_discard_card(card)
+		discard_card(card)
 	if (score < scoreRequirement):
 		state.send_event("game over")
 	else:
@@ -127,54 +126,15 @@ func _put_message(text: String):
 
 # GAME ACTIONS
 
-func _play_card(card: Card, targetTile: Tile, rotationSteps: int):
+func play_card(card: Card, targetTile: Tile, rotationSteps: int):
 	var rotatedStructure = card.data.structure.get_rotated(rotationSteps)
 	var affectedTiles = rotatedStructure.get_affected_tiles(map, targetTile)
-	var placedStructure = structureSpawner.instantiate() as PlacedStructure
+	var adjacentTiles = rotatedStructure.get_adjacent_tiles(map, targetTile)
 	
-	placedStructure.structure = rotatedStructure
-	map.add_child(placedStructure)
-	placedStructure.position = targetTile.position
-	
-	for tile in affectedTiles:
-		tile.structure = placedStructure.structure
-		
-	match card.structurePreview.structure.alignment:
-		Structure.Alignment.Red:
-			var unique_colors : Array[Structure.Alignment] = []
-			var adjacents : Array[Tile] = placedStructure.structure.get_adjacent_tiles(map, targetTile)
-			for t in adjacents:
-				if (t.structure == null):
-					continue
-				if (!unique_colors.has(t.structure.alignment)):
-					unique_colors.push_back(t.structure.alignment)
-			score += unique_colors.size()
-			
-		Structure.Alignment.Yellow:
-			var maxCount : int = 0
-			var colors : Dictionary = {}
-			var adjacents : Array[Tile] = placedStructure.structure.get_adjacent_tiles(map, targetTile)
-			for t in adjacents:
-				if (t.structure == null):
-					continue
-				if (!colors.has(t.structure.alignment)):
-					colors[t.structure.alignment] = 1
-				else:
-					colors[t.structure.alignment] += 1
-				maxCount = max(colors[t.structure.alignment], maxCount)
-				
-			score += maxCount
-			
-		Structure.Alignment.Blue:
-			_draw_card()
-		Structure.Alignment.Green:
-			score += 1
-		Structure.Alignment.Orange:
-			pass
-		Structure.Alignment.Purple:
-			Meta.gold += 1
+	card.structure.alignment.resolve(self, affectedTiles, adjacentTiles)
+	map.place_structure(rotatedStructure, affectedTiles)
 
-func _draw_card():
+func draw_card():
 	var cardData = drawPile.pop_card()
 	
 	if (cardData == null):
@@ -187,7 +147,7 @@ func _draw_card():
 	
 	hand.add_card(card)
 
-func _discard_card(card: Card):
+func discard_card(card: Card):
 	drawPile.tuck_card(card.data)
 	card.queue_free()
 
