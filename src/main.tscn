@@ -172,8 +172,6 @@ position = Vector2(971, 355)
 [connection signal="state_exited" from="State/Root/Main/Idle" to="." method="_off_idle"]
 [connection signal="state_entered" from="State/Root/Main/PlayCard" to="." method="_on_play_card"]
 [connection signal="state_exited" from="State/Root/Main/PlayCard" to="." method="_off_play_card"]
-[connection signal="state_input" from="State/Root/Main/PlayCard" to="." method="_play_card_input"]
-[connection signal="state_unhandled_input" from="State/Root/Main/PlayCard" to="." method="_play_card_unhandled_input"]
 [connection signal="state_entered" from="State/Root/CleanUp" to="." method="_on_clean_up"]
 [connection signal="state_entered" from="State/Root/GameOver" to="." method="_on_game_over"]
 [connection signal="pressed" from="PassTurn" to="." method="_on_pass_turn"]

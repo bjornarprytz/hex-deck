@@ -56,13 +56,10 @@ func _update_score():
 	$Score.text = "%d/%d" % [score, scoreRequirement]
 	$Gold.text = "%d" % [Meta.gold]
 
-func _on_pass_turn() -> void:
-	state.send_event("pass turn")
-
 # UPKEEP
 func _on_upkeep() -> void:
 	for i in range(5):
-		draw_card()
+		_draw_card()
 	state.send_event("next phase")
 
 
@@ -79,8 +76,6 @@ func _off_idle() -> void:
 # MAIN/PLAY CARD
 func _on_play_card() -> void:
 	assert(cardToPlay != null)
-	
-	
 	cardToPlay.reparent(focusArea)
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC)
 	tween.tween_property(cardToPlay, 'position', Vector2.ZERO, .4)
@@ -90,31 +85,29 @@ func _on_play_card() -> void:
 	structurePlacement.map = map
 	add_child(structurePlacement)
 	structurePlacement.aborted.connect(state.send_event.bind("idle"))
-	structurePlacement.confirmed.connect(_finish_play_action)
+	structurePlacement.confirmed.connect(_confirm_play)
+	structurePlacement.aborted.connect(_abort_play)
 
-func _off_play_card() -> void:
-	if (cardToPlay != null):
-		hand.add_card(cardToPlay)
-	structurePlacement.queue_free()
+func _abort_play():
+	hand.add_card(cardToPlay)
 
-func _preview_structure(hoveredTile: Tile):
-	if (structurePlacement.structure == null):
-		structurePlacement.structure = cardToPlay.structurePreview.structure.get_rotated(0)
-	structurePlacement.global_position = hoveredTile.global_position
-	structurePlacement.check_placement(map, hoveredTile)
-
-func _finish_play_action(targetTile: Tile):
-	play_card(cardToPlay, targetTile, structurePlacement.rotationSteps)
+func _confirm_play(targetTile: Tile):
+	_play_card(cardToPlay, targetTile, structurePlacement.rotationSteps)
 	
 	var tween = create_tween()
 	tween.tween_property(cardToPlay, 'modulate:a', 0.0, .2)
 	tween.tween_callback(cardToPlay.queue_free)
 	state.send_event("idle")
 
+func _off_play_card() -> void:
+	cardToPlay = null
+	structurePlacement.queue_free()
+
+
 # CLEAN UP
 func _on_clean_up() -> void:
 	for card in hand.get_cards():
-		discard_card(card)
+		_discard_card(card)
 	if (score < scoreRequirement):
 		state.send_event("game over")
 	else:
@@ -127,7 +120,6 @@ func _on_game_over() -> void:
 func _on_state_event_received(event: StringName) -> void:
 	print("event received %s" % event)
 
-
 func _put_message(text: String):
 	message.text = text
 
@@ -135,8 +127,7 @@ func _put_message(text: String):
 
 # GAME ACTIONS
 
-
-func play_card(card: Card, targetTile: Tile, rotationSteps: int):
+func _play_card(card: Card, targetTile: Tile, rotationSteps: int):
 	var rotatedStructure = card.data.structure.get_rotated(rotationSteps)
 	var affectedTiles = rotatedStructure.get_affected_tiles(map, targetTile)
 	var placedStructure = structureSpawner.instantiate() as PlacedStructure
@@ -175,7 +166,7 @@ func play_card(card: Card, targetTile: Tile, rotationSteps: int):
 			score += maxCount
 			
 		Structure.Alignment.Blue:
-			draw_card()
+			_draw_card()
 		Structure.Alignment.Green:
 			score += 1
 		Structure.Alignment.Orange:
@@ -183,7 +174,7 @@ func play_card(card: Card, targetTile: Tile, rotationSteps: int):
 		Structure.Alignment.Purple:
 			Meta.gold += 1
 
-func draw_card():
+func _draw_card():
 	var cardData = drawPile.pop_card()
 	
 	if (cardData == null):
@@ -196,6 +187,9 @@ func draw_card():
 	
 	hand.add_card(card)
 
-func discard_card(card: Card):
+func _discard_card(card: Card):
 	drawPile.tuck_card(card.data)
 	card.queue_free()
+
+func _on_pass_turn() -> void:
+	state.send_event("pass turn")

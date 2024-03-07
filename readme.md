@@ -34,12 +34,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
   - Check terrain
   - Show error
 
-## Refactor
-
-- Context object for the game actions (to avoid arg bloat)
-- Move at least some of the card play logic into structure placement
-  - Validate placement based on Color
-
 ### Refactor Plan
 
 - Consolidate card play logic (structure_placement.tscn)
