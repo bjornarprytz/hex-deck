@@ -27,14 +27,12 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 ## TODO
 
 - Restart button
+- Playtest
 
-- Placement
-  - Check terrain
-  - Show error
+- MetaGame view between "matches"
 
 ## Nice to have
 
-- Remove flashing structure preview in top left corner
 - PARTICLES!
 - Show Which phase we're in
 - Invalid placements

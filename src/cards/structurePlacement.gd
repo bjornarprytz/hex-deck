@@ -8,7 +8,8 @@ signal aborted
 var structurePreview: StructureView:
 	get:
 		return $StructurePreview
-
+@onready var baseStructurePosition : Vector2 = structurePreview.position
+	
 var structure: Structure:
 	set(value):
 		structurePreview.structure = value
@@ -33,6 +34,7 @@ var rotationSteps: int:
 		_targetRotation = (PI/3.0) * rotationSteps
 
 func _ready() -> void:
+	structurePreview.visible = false
 	Events.tileClicked.connect(_try_confirm_placement)
 	Events.tileHovered.connect(_preview_structure)
 
@@ -50,11 +52,14 @@ func _physics_process(delta: float) -> void:
 	rotation = rotate_toward(rotation, _targetRotation, delta * 10.0)
 
 func _preview_structure(hoveredTile: Tile):
+	structurePreview.visible = true
 	global_position = hoveredTile.global_position
 
 func _try_confirm_placement(targetTile: Tile):
 	if (_check_placement(targetTile)):
 		confirmed.emit(targetTile)
+	else:
+		_shake()
 
 func _check_placement(targetTile: Tile) -> bool:
 	var rotatedStructure = structure.get_rotated(rotationSteps)
@@ -78,5 +83,11 @@ func _rotate_clockwise():
 func _rotate_counterclockwise():
 	rotationSteps -= 1
 
+func _shake():
+	create_tween().tween_method(_shake_step, 1.0, 0.0, .4)
 
-
+func _shake_step(d: float):
+	var shakeIntensity = 5.0 * d
+	var offset = Vector2(randf_range(-shakeIntensity, shakeIntensity), randf_range(-shakeIntensity, shakeIntensity))
+	structurePreview.position = baseStructurePosition + offset
+	pass
