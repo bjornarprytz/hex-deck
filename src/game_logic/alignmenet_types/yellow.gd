@@ -18,3 +18,6 @@ func resolve(gameState: GameState, _affectedTiles: Array[Tile], adjacentTiles: A
 		maxCount = max(colors[color], maxCount)
 		
 	gameState.score += maxCount
+
+func rules_text():
+	return "Points per ="

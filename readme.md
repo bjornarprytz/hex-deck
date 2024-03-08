@@ -13,6 +13,13 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - Requirement: Adjacent to ocean
 - Gold
 
+- Card Stats
+  - Rarity
+  - Sell / Buy Value
+  - Name
+  - Type
+  - Effect
+
 ## Game Loop
 
 - For round in range(5):
@@ -29,10 +36,58 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - Restart button
 - Playtest
 
-- MetaGame view between "matches"
+- Make structures more visible
+
+- Stage 1
+  - An NPT with movement
+  - Food
+    - Increases each round
+    - Income from structures
+  - Placement bonuses
+  - Discovery
+  - Needs
+    - Cards with effects
+    - Starting Decks
+
+## Base Rules
+
+- Placement
+  - Border -> Adjacent
+  - Impassable: Mountain / Water
+  - No flipping tiles
+
+- End of round (one hand)
+  - Add food, eat food
+  - Food requirements
+
+- Placement Bonuses
+  - On map or On card
+  - Player can order the effects if needed
+
+- Effects
+  - Shop
+  - Discovery
+  - Spawn other tiles
+
+- Shop
+  - Relics
+  - Cards
+  - Sell / Upgrade / Modify / Combine / Paint cards
+
+## Extra
+
+- Non-player tiles
+  - Movement (X)
+    - Decrease X when playing card
+    - At tick 0, it moves
+  - Interacting with other tiles
+  - Examples:
+    - Herd animals
+    - Barbarians
 
 ## Nice to have
 
+- Pallette
 - PARTICLES!
 - Show Which phase we're in
 - Invalid placements

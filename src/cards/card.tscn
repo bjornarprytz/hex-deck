@@ -7,7 +7,6 @@
 
 [sub_resource type="Resource" id="Resource_j6ir6"]
 script = ExtResource("3_ceyft")
-alignment = 0
 cells = Array[Vector2i]([Vector2i(0, 0)])
 
 [sub_resource type="Resource" id="Resource_pp5ea"]
@@ -20,7 +19,6 @@ default_font_size = 256
 
 [sub_resource type="Resource" id="Resource_oux2x"]
 script = ExtResource("3_ceyft")
-alignment = 0
 cells = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, -1)])
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vftis"]
@@ -45,15 +43,15 @@ border_color = Color(0.188235, 0.188235, 0.188235, 1)
 border_width = 5.0
 editor_only = false
 
-[node name="Name" type="RichTextLabel" parent="."]
+[node name="RulesText" type="RichTextLabel" parent="."]
 modulate = Color(0, 0, 0, 1)
 offset_left = -63.0
 offset_top = -64.0
-offset_right = 1525.0
-offset_bottom = 586.0
-scale = Vector2(0.06, 0.06)
+offset_right = 1857.0
+offset_bottom = 1196.0
+scale = Vector2(0.05, 0.05)
 theme = SubResource("Theme_100nq")
-text = "Name"
+text = "Points for !="
 fit_content = true
 
 [node name="StructurePreview" parent="." instance=ExtResource("4_81358")]

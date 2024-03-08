@@ -6,3 +6,6 @@ func get_color() -> Color:
 
 func resolve(gameState: GameState, _affectedTiles: Array[Tile], _adjacentTiles: Array[Tile]):
 	gameState.score += 1
+
+func rules_text():
+	return "1 Point"

@@ -9,9 +9,9 @@ var structurePreview: StructureView:
 	get:
 		return $StructurePreview
 
-var nameLabel: RichTextLabel:
+var rulesText: RichTextLabel:
 	get:
-		return $Name
+		return $RulesText
 
 var structure : Structure:
 	get:
@@ -26,7 +26,7 @@ var structure : Structure:
 		
 		data = value
 		structurePreview.structure = data.structure
-		nameLabel.text = data.name
+		rulesText.text = data.structure.alignment.rules_text()
 		
 
 func cancel():

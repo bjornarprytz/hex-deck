@@ -7,3 +7,5 @@ func get_color() -> Color:
 func resolve(_gameState: GameState, _affectedTiles: Array[Tile], _adjacentTiles: Array[Tile]):
 	Meta.gold += 1
 
+func rules_text():
+	return "1 Gold"

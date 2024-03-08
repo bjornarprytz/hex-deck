@@ -11,7 +11,6 @@ extends Node2D
 @onready var pass_button : Button = $PassTurn
 @onready var focusArea : Node2D = $Focus
 @onready var message : RichTextLabel = $Message
-@onready var rulesText : RichTextLabel = $Rules
 
 var cardToPlay : Card
 var structurePlacement : StructurePlacement
@@ -44,10 +43,6 @@ func _ready() -> void:
 	Events.goldChanged.connect(_handle_score_change)
 	Events.scoreRequirementChanged.connect(_handle_score_change)
 	Events.gameOver.connect(func (_result: bool): state.send_event("game over"))
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.keycode == KEY_TAB:
-		rulesText.visible = event.is_pressed()
 
 func _handle_score_change(_oldScore: int, _newScore: int):
 	_update_score()

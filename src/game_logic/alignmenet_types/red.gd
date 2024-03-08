@@ -13,3 +13,6 @@ func resolve(gameState: GameState, _affectedTiles: Array[Tile], adjacentTiles: A
 		if !unique_colors.has(color):
 			unique_colors.push_back(color)
 	gameState.score += unique_colors.size()
+
+func rules_text():
+	return "Points per !="

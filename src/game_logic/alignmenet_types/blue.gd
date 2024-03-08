@@ -6,3 +6,6 @@ func get_color() -> Color:
 
 func resolve(gameState: GameState, _affectedTiles: Array[Tile], _adjacentTiles: Array[Tile]):
 	gameState.draw_card()
+
+func rules_text():
+	return "Draw card"

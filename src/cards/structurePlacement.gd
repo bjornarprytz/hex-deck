@@ -66,6 +66,34 @@ func _check_placement(targetTile: Tile) -> bool:
 	var affectedTiles = rotatedStructure.get_affected_tiles(map, targetTile)
 	var adjacentTiles = rotatedStructure.get_adjacent_tiles(map, targetTile)
 	
+	for tile in affectedTiles:
+		match tile.type:
+			Tile.TerrainType.Mountain:
+				print("Cannot place on mountain")
+				return false
+			Tile.TerrainType.Water:
+				print("Cannot place on water")
+				return false
+	
+	if (map.structures.get_child_count() == 0):
+		var isBorderPlacement = false
+		for tile in affectedTiles:
+			if map.get_neighbours(tile).size() < 6:
+				isBorderPlacement = true
+				break
+		if !isBorderPlacement:
+			print("First tile must be placed on border")
+			return false
+	else:
+		var tileIsAdjacent = false
+		for tile in adjacentTiles:
+			if tile.structure != null:
+				tileIsAdjacent = true
+				break
+		if !tileIsAdjacent:
+			print("Tile needs to be adjacent to another structure")
+			return false
+	
 	if (affectedTiles.size() < structure.cells.size()):
 		print("Part of the structure is outside map")
 		return false

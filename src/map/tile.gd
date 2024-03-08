@@ -21,7 +21,7 @@ enum TerrainType {
 		
 		match type:
 			TerrainType.Basic:
-				modulate = Color.SEA_GREEN
+				modulate = Color.LIGHT_GREEN
 			TerrainType.Water:
 				modulate = Color.LIGHT_BLUE
 			TerrainType.Mountain:

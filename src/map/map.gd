@@ -21,6 +21,9 @@ class Coordinates:
 		return Coordinates.new(q + other.q, r + other.r)
 	func add_vec(vec: Vector2i) -> Coordinates:
 		return Coordinates.new(q + vec.x, r + vec.y)
+	
+	func to_vec() -> Vector2i:
+		return Vector2i(q, r)
 		
 
 @export var size: int:
@@ -38,6 +41,17 @@ class Coordinates:
 @onready var tiles = $Tiles
 
 var tilesLookup : Dictionary = {}
+
+func get_neighbours(tile: Tile) -> Array[Tile]:
+	var neighbours: Array[Tile] = []
+	
+	for vec in Utils.get_axial_neighbors(tile.coordinates.to_vec()):
+		var n = get_tile(Coordinates.new(vec.x, vec.y))
+		
+		if (n != null):
+			neighbours.push_back(n)
+	
+	return neighbours
 
 func get_tile(coords: Coordinates) -> Tile:
 	var key = coords.get_key()
@@ -85,7 +99,15 @@ func _add_tile(q: int, r: int):
 	var new_tile = tile_spawner.instantiate() as Tile
 	new_tile.coordinates = coords
 	
-	new_tile.type = Tile.TerrainType.values().pick_random()
+	new_tile.type = Tile.TerrainType.Basic
+	
+	if (randf() < .1):
+		if (randf() < .5):
+			new_tile.type = Tile.TerrainType.Water
+		else:
+			new_tile.type = Tile.TerrainType.Mountain
+			
+		
 	
 	tilesLookup[key] = new_tile
 	

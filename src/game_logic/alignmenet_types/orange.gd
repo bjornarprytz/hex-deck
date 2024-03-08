@@ -11,3 +11,6 @@ func validate_placement(_affectedTiles: Array[Tile], adjacentTiles: Array[Tile])
 		if tile.structure == null and tile.type == Tile.TerrainType.Water:
 			return true
 	return false
+
+func rules_text():
+	return "Requires water"
