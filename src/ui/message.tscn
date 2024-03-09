@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://2ltmh17ixaod"]
+
+[sub_resource type="Theme" id="Theme_i3e13"]
+
+[node name="Message" type="RichTextLabel"]
+offset_right = 124.0
+offset_bottom = 36.0
+theme = SubResource("Theme_i3e13")
+text = "PLACEHOLDER"
+fit_content = true

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cej2fo0pe8gxe"]
+
+[ext_resource type="Script" path="res://ui/messageFeed.gd" id="1_n33ah"]
+
+[node name="MessageFeed" type="VBoxContainer"]
+offset_right = 324.0
+offset_bottom = 255.0
+alignment = 2
+script = ExtResource("1_n33ah")

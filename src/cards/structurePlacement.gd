@@ -69,10 +69,10 @@ func _check_placement(targetTile: Tile) -> bool:
 	for tile in affectedTiles:
 		match tile.type:
 			Tile.TerrainType.Mountain:
-				print("Cannot place on mountain")
+				Debug.push_message("Cannot place on mountain")
 				return false
 			Tile.TerrainType.Water:
-				print("Cannot place on water")
+				Debug.push_message("Cannot place on water")
 				return false
 	
 	if (map.structures.get_child_count() == 0):
@@ -82,7 +82,7 @@ func _check_placement(targetTile: Tile) -> bool:
 				isBorderPlacement = true
 				break
 		if !isBorderPlacement:
-			print("First tile must be placed on border")
+			Debug.push_message("First tile must be placed on border")
 			return false
 	else:
 		var tileIsAdjacent = false
@@ -91,16 +91,16 @@ func _check_placement(targetTile: Tile) -> bool:
 				tileIsAdjacent = true
 				break
 		if !tileIsAdjacent:
-			print("Tile needs to be adjacent to another structure")
+			Debug.push_message("Tile needs to be adjacent to another structure")
 			return false
 	
 	if (affectedTiles.size() < structure.cells.size()):
-		print("Part of the structure is outside map")
+		Debug.push_message("Part of the structure is outside map")
 		return false
 	
 	for tile in affectedTiles:
 		if tile.structure != null:
-			print("Tile already contains a structure")
+			Debug.push_message("Tile already contains a structure")
 			return false
 	
 	return structure.alignment.validate_placement(affectedTiles, adjacentTiles)

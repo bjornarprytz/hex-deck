@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Meta="*res://autoload/meta_game_state.tscn"
 Events="*res://autoload/event_bus.tscn"
 Audio="*res://autoload/audio.tscn"
+Debug="*res://autoload/debug.tscn"
 
 [display]
 

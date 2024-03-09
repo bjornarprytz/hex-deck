@@ -34,7 +34,7 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 ## TODO
 
 - Restart button
-- Playtest
+- Version string
 
 - Make structures more visible
 
