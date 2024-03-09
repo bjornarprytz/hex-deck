@@ -92,8 +92,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - Placement bonus
   - Effect
 - Cards
-  - StructureViewer
-    - put border around the whole
   - Abilities
 
 ### Extra
