@@ -80,9 +80,9 @@ position = Vector2(581, 312)
 
 [node name="ScoreHeading" type="RichTextLabel" parent="."]
 offset_left = 1094.0
-offset_top = 6.0
+offset_top = 70.0
 offset_right = 2024.0
-offset_bottom = 386.0
+offset_bottom = 450.0
 scale = Vector2(0.1, 0.1)
 theme = SubResource("Theme_tun70")
 bbcode_enabled = true
@@ -90,18 +90,18 @@ text = "[right]Score: "
 
 [node name="Score" type="RichTextLabel" parent="."]
 offset_left = 1191.0
-offset_top = 6.0
+offset_top = 70.0
 offset_right = 2051.0
-offset_bottom = 386.0
+offset_bottom = 450.0
 scale = Vector2(0.1, 0.1)
 theme = SubResource("Theme_tun70")
 text = "12/5"
 
 [node name="GoldHeading" type="RichTextLabel" parent="."]
 offset_left = 1094.0
-offset_top = 46.0
+offset_top = 110.0
 offset_right = 2024.0
-offset_bottom = 426.0
+offset_bottom = 490.0
 scale = Vector2(0.1, 0.1)
 theme = SubResource("Theme_tun70")
 bbcode_enabled = true
@@ -109,9 +109,9 @@ text = "[right]Gold: "
 
 [node name="Gold" type="RichTextLabel" parent="."]
 offset_left = 1191.0
-offset_top = 46.0
+offset_top = 110.0
 offset_right = 2051.0
-offset_bottom = 426.0
+offset_bottom = 490.0
 scale = Vector2(0.1, 0.1)
 theme = SubResource("Theme_tun70")
 text = "12"
@@ -132,10 +132,16 @@ offset_bottom = 673.0
 disabled = true
 text = "Pass"
 
+[node name="Restart" type="Button" parent="."]
+offset_left = 1209.0
+offset_top = 11.0
+offset_right = 1270.0
+offset_bottom = 56.0
+text = "Restart"
+
 [node name="Focus" type="Node2D" parent="."]
 position = Vector2(971, 355)
 
-[connection signal="event_received" from="State" to="." method="_on_state_event_received"]
 [connection signal="state_entered" from="State/Root/Upkeep" to="." method="_on_upkeep"]
 [connection signal="state_entered" from="State/Root/Main/Idle" to="." method="_on_idle"]
 [connection signal="state_exited" from="State/Root/Main/Idle" to="." method="_off_idle"]
@@ -144,3 +150,4 @@ position = Vector2(971, 355)
 [connection signal="state_entered" from="State/Root/CleanUp" to="." method="_on_clean_up"]
 [connection signal="state_entered" from="State/Root/GameOver" to="." method="_on_game_over"]
 [connection signal="pressed" from="PassTurn" to="." method="_on_pass_turn"]
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]

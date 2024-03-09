@@ -9,21 +9,24 @@ extends Node2D
 		if (structure == value):
 			return
 		structure = value
-		_update_preview.call_deferred()
+		if is_node_ready():
+			_update_preview.call_deferred()
 
 @export var centerPreview: bool:
 	set(value):
 		if (centerPreview == value):
 			return
 		centerPreview = value
-		_update_preview.call_deferred()
+		if is_node_ready():
+			_update_preview.call_deferred()
 
 @export var hex_size: float = 50:
 	set(value):
 		if (hex_size == value):
 			return
 		hex_size = value
-		_update_preview.call_deferred()
+		if is_node_ready():
+			_update_preview.call_deferred()
 
 func get_cells() -> Array[RegularPolygon]:
 	var cells : Array[RegularPolygon] = []
@@ -32,6 +35,9 @@ func get_cells() -> Array[RegularPolygon]:
 		cells.push_back(child)
 	
 	return cells
+
+func _ready() -> void:
+	_update_preview()
 
 func _update_preview():
 	for child in get_children():

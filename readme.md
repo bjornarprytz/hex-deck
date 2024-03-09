@@ -33,8 +33,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Restart button
-
 - Make structures more visible
 
 - Stage 1

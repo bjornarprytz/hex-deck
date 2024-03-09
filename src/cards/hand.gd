@@ -20,13 +20,16 @@ func add_card(card: Card):
 		cardContainer.add_child(card)
 
 func _reposition_cards(_node):
+	if (!is_node_ready() or get_tree() == null):
+		return
+	
 	if positionTween != null:
 		positionTween.kill()
 	var cards = get_cards()
 
 	if cards.size() == 0:
 		return
-	
+		
 	positionTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC).set_parallel()
 	
 	var i = 0

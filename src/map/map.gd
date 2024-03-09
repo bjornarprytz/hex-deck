@@ -33,7 +33,8 @@ class Coordinates:
 		if size == value:
 			return
 		size = value
-		_update_map.call_deferred()
+		if is_node_ready():
+			_update_map.call_deferred()
 
 @onready var tile_spawner = preload("res://map/tile.tscn")
 @onready var structureSpawner = preload("res://map/placed_structure.tscn")
@@ -41,6 +42,9 @@ class Coordinates:
 @onready var tiles = $Tiles
 
 var tilesLookup : Dictionary = {}
+
+func _ready() -> void:
+	_update_map()
 
 func get_neighbours(tile: Tile) -> Array[Tile]:
 	var neighbours: Array[Tile] = []

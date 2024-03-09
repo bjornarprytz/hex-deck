@@ -10,7 +10,6 @@ extends Node2D
 @onready var state : StateChart = $State
 @onready var pass_button : Button = $PassTurn
 @onready var focusArea : Node2D = $Focus
-@onready var message : RichTextLabel = $Message
 
 var cardToPlay : Card
 var structurePlacement : StructurePlacement
@@ -109,18 +108,10 @@ func _on_clean_up() -> void:
 
 # GAME OVER
 func _on_game_over() -> void:
-	_put_message("Game Over!")
-
-func _on_state_event_received(event: StringName) -> void:
-	print("event received %s" % event)
-
-func _put_message(text: String):
-	message.text = text
-
+	Debug.push_message("Game Over!")
 
 
 # GAME ACTIONS
-
 func play_card(card: Card, targetTile: Tile, rotationSteps: int):
 	var rotatedStructure = card.data.structure.get_rotated(rotationSteps)
 	var affectedTiles = rotatedStructure.get_affected_tiles(map, targetTile)
@@ -140,7 +131,7 @@ func draw_card():
 	card.data = cardData
 	card.global_position = drawPile.cardAnchor.global_position
 	
-	hand.add_card(card)
+	hand.add_card.call_deferred(card)
 
 func discard_card(card: Card):
 	drawPile.tuck_card(card.data)
@@ -148,3 +139,8 @@ func discard_card(card: Card):
 
 func _on_pass_turn() -> void:
 	state.send_event("pass turn")
+
+
+func _on_restart_pressed() -> void:
+	Meta.reset()
+	get_tree().change_scene_to_file("res://main.tscn")

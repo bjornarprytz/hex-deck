@@ -1,8 +1,6 @@
 class_name MetaGameState
 extends Node
 
-
-
 var cardSpawner = preload("res://cards/card.tscn")
 var structureSpawner = preload("res://map/placed_structure.tscn")
 
@@ -31,4 +29,6 @@ var deck : Array[CardData] = [
 	CardData.new("Nebular Conundrum"),
 ]
 
+func reset():
+	gold = 0
 
