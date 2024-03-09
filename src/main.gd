@@ -76,7 +76,7 @@ func _on_play_card() -> void:
 	
 	structurePlacement = structurePlacementSpawner.instantiate() as StructurePlacement
 	structurePlacement.structure = cardToPlay.structure
-	structurePlacement.map = map
+	structurePlacement.gameState = self
 	add_child(structurePlacement)
 	structurePlacement.confirmed.connect(_confirm_play)
 	structurePlacement.aborted.connect(_abort_play)

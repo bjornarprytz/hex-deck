@@ -8,6 +8,8 @@ enum TerrainType {
 	Mountain
 }
 
+@export var map : Map
+
 @onready var shape :RegularPolygon = $Shape
 
 @onready var size: float:
@@ -37,9 +39,22 @@ var coordinates: Map.Coordinates:
 
 var structure : Structure
 
+func get_neighbours() -> Array[Tile]:
+	var neighbours: Array[Tile] = []
+	
+	for vec in Utils.get_axial_neighbors(coordinates.to_vec()):
+		var n = map.get_tile(Map.Coordinates.new(vec.x, vec.y))
+		
+		if (n != null):
+			neighbours.push_back(n)
+	
+	return neighbours
+
 func _ready() -> void:
+	assert(map != null)
 	shape.clicked.connect(_on_tile_pressed)
 	shape.hovered.connect(_on_tile_hovered)
+	Debug.toggled.connect(func (on): $Debug.visible = on)
 
 func _on_tile_pressed() -> void:
 	Events.tileClicked.emit(self)

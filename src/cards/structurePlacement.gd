@@ -4,11 +4,10 @@ extends Node2D
 signal confirmed(tile: Tile)
 signal aborted
 
-
 var structurePreview: StructureView:
 	get:
 		return $StructurePreview
-@onready var baseStructurePosition : Vector2 = structurePreview.position
+@onready var baseStructurePosition: Vector2 = structurePreview.position
 	
 var structure: Structure:
 	set(value):
@@ -16,11 +15,15 @@ var structure: Structure:
 	get:
 		return structurePreview.structure
 
-var map : Map:
+var gameState: GameState:
 	set(value):
-		map = value
+		gameState = value
 
-var _targetRotation : float
+var card: Card:
+	set(value):
+		card = value
+
+var _targetRotation: float
 
 var rotationSteps: int:
 	set(value):
@@ -31,7 +34,7 @@ var rotationSteps: int:
 			return
 		
 		rotationSteps = value
-		_targetRotation = (PI/3.0) * rotationSteps
+		_targetRotation = (PI / 3.0) * rotationSteps
 
 func _ready() -> void:
 	structurePreview.visible = false
@@ -63,47 +66,28 @@ func _try_confirm_placement(targetTile: Tile):
 
 func _check_placement(targetTile: Tile) -> bool:
 	var rotatedStructure = structure.get_rotated(rotationSteps)
-	var affectedTiles = rotatedStructure.get_affected_tiles(map, targetTile)
-	var adjacentTiles = rotatedStructure.get_adjacent_tiles(map, targetTile)
+	var affectedTiles = rotatedStructure.get_affected_tiles(gameState.map, targetTile)
+	var adjacentTiles = rotatedStructure.get_adjacent_tiles(gameState.map, targetTile)
+
+	var args = PlacementArgs.new(gameState, card, structure, affectedTiles, adjacentTiles)
 	
-	for tile in affectedTiles:
-		match tile.type:
-			Tile.TerrainType.Mountain:
-				Debug.push_message("Cannot place on mountain")
-				return false
-			Tile.TerrainType.Water:
-				Debug.push_message("Cannot place on water")
-				return false
-	
-	if (map.structures.get_child_count() == 0):
-		var isBorderPlacement = false
-		for tile in affectedTiles:
-			if map.get_neighbours(tile).size() < 6:
-				isBorderPlacement = true
-				break
-		if !isBorderPlacement:
-			Debug.push_message("First tile must be placed on border")
-			return false
-	else:
-		var tileIsAdjacent = false
-		for tile in adjacentTiles:
-			if tile.structure != null:
-				tileIsAdjacent = true
-				break
-		if !tileIsAdjacent:
-			Debug.push_message("Tile needs to be adjacent to another structure")
-			return false
-	
-	if (affectedTiles.size() < structure.cells.size()):
-		Debug.push_message("Part of the structure is outside map")
+	var errors: Array[String] = []
+
+	var placementRules: Array[PlacementRule] = []
+	placementRules.append_array(Meta.placementRules)
+	placementRules.push_back(structure.alignment.placement_rule())
+
+	for rule in placementRules:
+		var error = rule.check(args)
+		if error != "":
+			errors.push_back(error)
+
+	if errors.size() > 0:
+		for error in errors:
+			Debug.push_message(error)
 		return false
 	
-	for tile in affectedTiles:
-		if tile.structure != null:
-			Debug.push_message("Tile already contains a structure")
-			return false
-	
-	return structure.alignment.validate_placement(affectedTiles, adjacentTiles)
+	return true
 
 func _rotate_clockwise():
 	rotationSteps += 1
@@ -116,6 +100,6 @@ func _shake():
 
 func _shake_step(d: float):
 	var shakeIntensity = 5.0 * d
-	var offset = Vector2(randf_range(-shakeIntensity, shakeIntensity), randf_range(-shakeIntensity, shakeIntensity))
+	var offset = Vector2(randf_range( - shakeIntensity, shakeIntensity), randf_range( - shakeIntensity, shakeIntensity))
 	structurePreview.position = baseStructurePosition + offset
 	pass

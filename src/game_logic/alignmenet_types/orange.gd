@@ -6,11 +6,8 @@ func get_color() -> Color:
 
 func resolve(_gameState: GameState, _affectedTiles: Array[Tile], _adjacentTiles: Array[Tile]):
 	pass
-func validate_placement(_affectedTiles: Array[Tile], adjacentTiles: Array[Tile]) -> bool:
-	for tile in adjacentTiles:
-		if tile.structure == null and tile.type == Tile.TerrainType.Water:
-			return true
-	return false
+func placement_rule() -> PlacementRule:
+	return WaterAffinityRule.new()
 
 func rules_text():
 	return "Requires water"

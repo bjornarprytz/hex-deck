@@ -1,10 +1,10 @@
 class_name MetaGameState
 extends Node
 
-var cardSpawner = preload("res://cards/card.tscn")
-var structureSpawner = preload("res://map/placed_structure.tscn")
+var cardSpawner = preload ("res://cards/card.tscn")
+var structureSpawner = preload ("res://map/placed_structure.tscn")
 
-var gold : int:
+var gold: int:
 	get:
 		return gold
 	set(value):
@@ -14,8 +14,7 @@ var gold : int:
 		gold = value
 		Events.goldChanged.emit(oldValue, gold)
 
-
-var deck : Array[CardData] = [
+var deck: Array[CardData] = [
 	CardData.new("Quantum Nexus"),
 	CardData.new("Hyperflux Prism"),
 	CardData.new("Nebula Harmonics"),
@@ -29,6 +28,11 @@ var deck : Array[CardData] = [
 	CardData.new("Nebular Conundrum"),
 ]
 
+var placementRules: Array[PlacementRule] = [
+	AdjacentStructureRule.new(),
+	FreeSpaceRule.new(),
+	TerrainRule.new()
+]
+
 func reset():
 	gold = 0
-

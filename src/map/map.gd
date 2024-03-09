@@ -46,17 +46,6 @@ var tilesLookup : Dictionary = {}
 func _ready() -> void:
 	_update_map()
 
-func get_neighbours(tile: Tile) -> Array[Tile]:
-	var neighbours: Array[Tile] = []
-	
-	for vec in Utils.get_axial_neighbors(tile.coordinates.to_vec()):
-		var n = get_tile(Coordinates.new(vec.x, vec.y))
-		
-		if (n != null):
-			neighbours.push_back(n)
-	
-	return neighbours
-
 func get_tile(coords: Coordinates) -> Tile:
 	var key = coords.get_key()
 	if tilesLookup.has(key):
@@ -104,6 +93,7 @@ func _add_tile(q: int, r: int):
 	new_tile.coordinates = coords
 	
 	new_tile.type = Tile.TerrainType.Basic
+	new_tile.map = self
 	
 	if (randf() < .1):
 		if (randf() < .5):
