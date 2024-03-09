@@ -1,7 +1,7 @@
 class_name StructurePlacement
 extends Node2D
 
-signal confirmed(tile: Tile)
+signal confirmed(args: PlayArgs)
 signal aborted
 
 var structurePreview: StructureView:
@@ -59,18 +59,18 @@ func _preview_structure(hoveredTile: Tile):
 	global_position = hoveredTile.global_position
 
 func _try_confirm_placement(targetTile: Tile):
-	if (_check_placement(targetTile)):
-		confirmed.emit(targetTile)
-	else:
-		_shake()
-
-func _check_placement(targetTile: Tile) -> bool:
 	var rotatedStructure = structure.get_rotated(rotationSteps)
 	var affectedTiles = rotatedStructure.get_affected_tiles(gameState.map, targetTile)
 	var adjacentTiles = rotatedStructure.get_adjacent_tiles(gameState.map, targetTile)
 
-	var args = PlacementArgs.new(gameState, card, structure, affectedTiles, adjacentTiles)
-	
+	var args = PlayArgs.new(gameState, card, rotatedStructure, affectedTiles, adjacentTiles)
+
+	if (_check_placement(args)):
+		confirmed.emit(args)
+	else:
+		_shake()
+
+func _check_placement(args: PlayArgs) -> bool:
 	var errors: Array[String] = []
 
 	var placementRules: Array[PlacementRule] = []

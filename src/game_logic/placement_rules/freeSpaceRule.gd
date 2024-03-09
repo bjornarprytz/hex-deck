@@ -1,7 +1,7 @@
 class_name FreeSpaceRule
 extends PlacementRule
 
-func check(args: PlacementArgs) -> String:
+func check(args: PlayArgs) -> String:
     if (args.affectedTiles.size() < args.structure.cells.size()):
         return "Part of the structure is outside map"
 	

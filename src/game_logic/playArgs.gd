@@ -1,4 +1,4 @@
-class_name PlacementArgs
+class_name PlayArgs
 extends Resource
 
 var gameState: GameState

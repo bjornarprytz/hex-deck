@@ -1,5 +1,5 @@
 class_name UnitRule
 extends PlacementRule
 
-func check(_args: PlacementArgs) -> String:
+func check(_args: PlayArgs) -> String:
     return ""
