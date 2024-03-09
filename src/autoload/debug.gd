@@ -6,6 +6,7 @@ signal toggled(new_state: bool)
 @onready var uiRoot : CanvasLayer = $UI
 @onready var toggleButton : CheckBox = $Toggle
 @onready var messageFeed : MessageFeed = $UI/MessageFeed
+@onready var versionLabel : RichTextLabel = $UI/Version
 
 var enabled: bool:
 	set(value):
@@ -19,9 +20,10 @@ var enabled: bool:
 func push_message(message: String):
 	messageFeed.push(message)
 
-
 func _ready() -> void:
 	enabled = true
+	
+	versionLabel.append_text("[center]Iteration: Stage 1")
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.keycode == KEY_ALT:
