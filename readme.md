@@ -33,7 +33,11 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Make structures more visible
+- Order the points correctly in the Structure border:
+  - Build a graph of all the points in the hexes.
+    - Remove duplicate points
+    - Remove the edges that cross the internals
+  - Pick any point on the outer rim and just walk along it
 
 - Stage 1
   - An NPT with movement

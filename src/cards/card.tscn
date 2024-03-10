@@ -58,7 +58,7 @@ fit_content = true
 position = Vector2(9, 19)
 structure = SubResource("Resource_oux2x")
 centerPreview = true
-hex_size = 20.0
+hexSize = 20.0
 
 [node name="Handle" type="Button" parent="."]
 offset_left = -70.0

@@ -113,32 +113,9 @@ func _add_tile(q: int, r: int):
 	tilesLookup[key] = new_tile
 	
 	tiles.add_child(new_tile)
-	new_tile.position = Map.axial_to_pixel(q, r, new_tile.size)
+	new_tile.position = Utils.axial_to_pixel(q, r, new_tile.size)
 
 func point_to_coords(point: Vector2) -> Coordinates:
 	var q = (2.0 / 3.0 * point.x) / tilesLookup["0,0"].size
 	var r = (-1.0 / 3.0 * point.x + sqrt(3) / 3.0 * point.y) / tilesLookup["0,0"].size
-	return Map.cube_round(Coordinates.new(q, r))
-
-static func axial_to_pixel(q: int, r: int, tileSize: int) -> Vector2:
-	var x: float = tileSize * 3.0 / 2.0 * q
-	var y: float = tileSize * sqrt(3) * (r + q / 2.0)
-	return Vector2(x, y)
-
-static func cube_round(frac: Coordinates) -> Coordinates:
-	var q = round(frac.q)
-	var r = round(frac.r)
-	var s = round(frac.s)
-
-	var q_diff = abs(q - frac.q)
-	var r_diff = abs(r - frac.r)
-	var s_diff = abs(s - frac.s)
-
-	if q_diff > r_diff and q_diff > s_diff:
-		q = -r - s
-	elif r_diff > s_diff:
-		r = -q - s
-	else:
-		s = -q - r
-
-	return Coordinates.new(q, r)
+	return Utils.cube_round(Coordinates.new(q, r))

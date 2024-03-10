@@ -50,9 +50,8 @@ signal hovered(state: bool)
 			return
 		clickable = value
 
-
-@onready var border : Line2D = $Border
-@onready var clickableShape : CollisionPolygon2D = $Clickable/Shape
+@onready var border: Line2D = $Border
+@onready var clickableShape: CollisionPolygon2D = $Clickable/Shape
 
 func _ready() -> void:
 	_update_polygon()
@@ -93,11 +92,3 @@ func _update_polygon():
 	clickableShape.polygon = points
 	
 	queue_redraw()
-
-
-
-
-
-
-
-

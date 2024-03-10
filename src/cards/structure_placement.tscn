@@ -8,4 +8,4 @@ modulate = Color(1, 1, 1, 0.752941)
 script = ExtResource("1_t0hap")
 
 [node name="StructurePreview" parent="." instance=ExtResource("2_v1u4j")]
-hex_size = 50.0
+hexSize = 50.0

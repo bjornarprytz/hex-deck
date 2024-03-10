@@ -99,7 +99,6 @@ func _confirm_play(args: PlayArgs):
 	state.send_event("idle")
 
 func _off_play_card() -> void:
-	cardToPlay = null
 	structurePlacement.queue_free()
 
 # CLEAN UP
