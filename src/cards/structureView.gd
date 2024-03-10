@@ -82,15 +82,14 @@ func _update_preview():
 					edges.erase(key)
 				else:
 					edges[key] = sharedPoints
-		var line = Line2D.new()
 		for edge in edges.values():
+			var line = Line2D.new()
 			line.add_point(edge[0])
 			line.add_point(edge[1])
 			line.width = borderWidth
 			line.default_color = Color.DIM_GRAY
-		
-		add_child(line)
-		line.queue_redraw()
+			add_child(line)
+			line.queue_redraw()
 	
 func _add_hex(q: int, r: int):
 	var new_cell = hex_spawner.instantiate() as RegularPolygon

@@ -33,20 +33,16 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Order the points correctly in the Structure border:
-  - Build a graph of all the points in the hexes.
-    - Remove duplicate points
-    - Remove the edges that cross the internals
-  - Pick any point on the outer rim and just walk along it
-
-- Stage 1
-  - An NPT with movement
-    - Tick down for interval effects
-  - Placement bonuses
-  - Discovery
-  - Needs
-    - Cards with effects
-    - Starting Decks
+- IntervalEffects
+  - Tick down after each card play
+- Movement
+  - Interacting with other tiles
+- Discovery
+  - Add tiles to the map
+- Placement Bonus
+  - Tooltip
+  - Icon
+- Effects on cards
 
 ## Base Rules
 
@@ -63,23 +59,22 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
   - On map or On card
   - Player can order the effects if needed
 
+## Ideas
+
 - Effects
   - Shop
   - Discovery
   - Spawn other tiles
+  - Rotation
+  - Splitting a structure
+  - Sacrifice / Destroy
 
 - Shop
   - Relics
   - Cards
   - Sell / Upgrade / Modify / Combine / Paint cards
 
-## Extra
-
-- Non-player tiles
-  - Movement (X)
-    - Decrease X when playing card
-    - At tick 0, it moves
-  - Interacting with other tiles
+- Non-player tiles  
   - Examples:
     - Herd animals
     - Barbarians
@@ -96,7 +91,7 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - Cards
   - Abilities
 
-### Extra
+## Extra
 
 - itch.io
   - Rename the game
