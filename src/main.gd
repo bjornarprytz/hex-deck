@@ -14,6 +14,9 @@ extends Node2D
 var cardToPlay: Card
 var structurePlacement: StructurePlacement
 
+const INITIAL_FOOD_REQUIREMENT := 5
+const FOOD_REQUIREMENT_INCREASE = 3
+
 var food: int:
 	get:
 		return food
@@ -42,6 +45,8 @@ func _ready() -> void:
 	Events.goldChanged.connect(_handle_food_change)
 	Events.foodRequirementChanged.connect(_handle_food_change)
 	Events.gameOver.connect(func(_result: bool): state.send_event("game over"))
+
+	foodRequirement = INITIAL_FOOD_REQUIREMENT
 
 func _handle_food_change(_oldFood: int, _newFood: int):
 	_update_food()
@@ -101,9 +106,17 @@ func _off_play_card() -> void:
 func _on_clean_up() -> void:
 	for card in hand.get_cards():
 		discard_card(card)
+	
+	for placedStructure in map.get_placed_structures():
+		var args = PlayArgs.new(self, placedStructure.structure, placedStructure.affectedTiles, placedStructure.get_adjacent_tiles())
+		for effect in placedStructure.structure.alignment.income_effects():
+			effect.resolve(args)
+
 	if (food < foodRequirement):
 		state.send_event("game over")
 	else:
+		food -= foodRequirement
+		foodRequirement += FOOD_REQUIREMENT_INCREASE
 		state.send_event("next phase")
 
 # GAME OVER
@@ -112,7 +125,7 @@ func _on_game_over() -> void:
 
 # GAME ACTIONS
 func play_card(args: PlayArgs):
-	for effect in args.card.structure.alignment.effects():
+	for effect in args.structure.alignment.placement_effects():
 		effect.resolve(args)
 	map.place_structure(args.structure, args.affectedTiles)
 

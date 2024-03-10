@@ -63,7 +63,7 @@ func _try_confirm_placement(targetTile: Tile):
 	var affectedTiles = rotatedStructure.get_affected_tiles(gameState.map, targetTile)
 	var adjacentTiles = rotatedStructure.get_adjacent_tiles(gameState.map, targetTile)
 
-	var args = PlayArgs.new(gameState, card, rotatedStructure, affectedTiles, adjacentTiles)
+	var args = PlayArgs.new(gameState, rotatedStructure, affectedTiles, adjacentTiles)
 
 	if (_check_placement(args)):
 		confirmed.emit(args)

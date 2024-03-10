@@ -4,5 +4,5 @@ extends Alignment
 func get_color() -> Color:
 	return Color.CADET_BLUE
 
-func effects() -> Array[Effect]:
+func placement_effects() -> Array[Effect]:
 	return [DrawCard.new()]

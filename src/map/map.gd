@@ -12,7 +12,7 @@ class Coordinates:
 	func _init(qq, rr):
 		q = qq
 		r = rr
-		s = -qq -rr
+		s = -qq - rr
 	
 	func get_key() -> String:
 		return str(q) + "," + str(r)
@@ -24,7 +24,6 @@ class Coordinates:
 	
 	func to_vec() -> Vector2i:
 		return Vector2i(q, r)
-		
 
 @export var size: int:
 	set(value):
@@ -36,15 +35,24 @@ class Coordinates:
 		if is_node_ready():
 			_update_map.call_deferred()
 
-@onready var tile_spawner = preload("res://map/tile.tscn")
-@onready var structureSpawner = preload("res://map/placed_structure.tscn")
+@onready var tile_spawner = preload ("res://map/tile.tscn")
+@onready var structureSpawner = preload ("res://map/placed_structure.tscn")
 @onready var structures = $Structures
 @onready var tiles = $Tiles
 
-var tilesLookup : Dictionary = {}
+var tilesLookup: Dictionary = {}
 
 func _ready() -> void:
 	_update_map()
+
+func get_placed_structures() -> Array[PlacedStructure]:
+	var result: Array[PlacedStructure] = []
+
+	for c in structures.get_children():
+		if c is PlacedStructure:
+			result.push_back(c)
+
+	return result
 
 func get_tile(coords: Coordinates) -> Tile:
 	var key = coords.get_key()
@@ -62,6 +70,7 @@ func place_structure(structure: Structure, affectedTiles: Array[Tile]):
 	structures.add_child(placedStructure)
 	
 	placedStructure.position = affectedTiles[0].position
+	placedStructure.affectedTiles = affectedTiles
 	
 	for tile in affectedTiles:
 		tile.structure = placedStructure.structure
@@ -72,15 +81,15 @@ func _update_map():
 		
 	for q in range(size):
 		for r in range(size):
-			_add_tile(-q, r)
+			_add_tile( - q, r)
 			_add_tile(q, -r)
 			
-			if abs(q+r) >= size:
+			if abs(q + r) >= size:
 				continue
 			
 			_add_tile(q, r)
 			if (q != 0 or r != 0):
-				_add_tile(-q, -r)
+				_add_tile( - q, -r)
 	
 func _add_tile(q: int, r: int):
 	var coords = Coordinates.new(q, r)
@@ -100,8 +109,6 @@ func _add_tile(q: int, r: int):
 			new_tile.type = Tile.TerrainType.Water
 		else:
 			new_tile.type = Tile.TerrainType.Mountain
-			
-		
 	
 	tilesLookup[key] = new_tile
 	
@@ -109,17 +116,16 @@ func _add_tile(q: int, r: int):
 	new_tile.position = Map.axial_to_pixel(q, r, new_tile.size)
 
 func point_to_coords(point: Vector2) -> Coordinates:
-	var q = ( 2.0/3.0 * point.x                        ) / tilesLookup["0,0"].size
-	var r = (-1.0/3.0 * point.x  +  sqrt(3)/3.0 * point.y) / tilesLookup["0,0"].size
+	var q = (2.0 / 3.0 * point.x) / tilesLookup["0,0"].size
+	var r = (-1.0 / 3.0 * point.x + sqrt(3) / 3.0 * point.y) / tilesLookup["0,0"].size
 	return Map.cube_round(Coordinates.new(q, r))
 
-static func axial_to_pixel(q:int,r:int,tileSize:int) -> Vector2:
-	var x :float = tileSize * 3.0/2.0 * q
-	var y :float = tileSize * sqrt(3) * (r + q/2.0)
+static func axial_to_pixel(q: int, r: int, tileSize: int) -> Vector2:
+	var x: float = tileSize * 3.0 / 2.0 * q
+	var y: float = tileSize * sqrt(3) * (r + q / 2.0)
 	return Vector2(x, y)
 
-
-static func cube_round(frac : Coordinates) -> Coordinates:
+static func cube_round(frac: Coordinates) -> Coordinates:
 	var q = round(frac.q)
 	var r = round(frac.r)
 	var s = round(frac.s)
@@ -129,10 +135,10 @@ static func cube_round(frac : Coordinates) -> Coordinates:
 	var s_diff = abs(s - frac.s)
 
 	if q_diff > r_diff and q_diff > s_diff:
-		q = -r-s
+		q = -r - s
 	elif r_diff > s_diff:
-		r = -q-s
+		r = -q - s
 	else:
-		s = -q-r
+		s = -q - r
 
 	return Coordinates.new(q, r)

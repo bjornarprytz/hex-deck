@@ -5,4 +5,4 @@ func resolve(args: PlayArgs):
 	args.gameState.draw_card()
 
 func rules_text() -> String:
-	return "Draw card"
+	return "Draw a card"

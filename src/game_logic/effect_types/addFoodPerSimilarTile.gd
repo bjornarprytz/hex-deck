@@ -17,4 +17,4 @@ func resolve(args: PlayArgs):
     args.gameState.food += maxCount
 
 func rules_text() -> String:
-    return "Add food equal to most numerous color in adjacent tiles"
+    return "Add food per ="

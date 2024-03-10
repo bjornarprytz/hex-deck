@@ -4,5 +4,5 @@ extends Alignment
 func get_color() -> Color:
 	return Color.MEDIUM_PURPLE
 
-func effects() -> Array[Effect]:
+func income_effects() -> Array[Effect]:
 	return [AddGold.new()]

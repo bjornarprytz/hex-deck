@@ -13,4 +13,4 @@ func resolve(args: PlayArgs):
     args.gameState.food += unique_colors.size()
 
 func rules_text() -> String:
-    return "Add food equal to the number of unique colors among adjacent tiles"
+    return "Add food per !="

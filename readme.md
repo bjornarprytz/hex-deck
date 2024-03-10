@@ -38,9 +38,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - Stage 1
   - An NPT with movement
     - Tick down for interval effects
-  - Food
-    - Increases requirement each round
-    - Income from structures
   - Placement bonuses
   - Discovery
   - Needs
