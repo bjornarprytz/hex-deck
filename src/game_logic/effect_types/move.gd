@@ -8,18 +8,18 @@ var path: Array[Vector2i]
 # There's also obstructions to consider
 
 func resolve(args: PlayArgs):
-    var facing = args.structure.state.facing
+	var facing = args.structure.state.facing
 
-    var rotatedPath = Utils.rotate_path(path, facing)
+	var rotatedPath = Utils.rotate_path(path, facing)
 
-    var movedStructure = args.structure
+	var movedStructure = args.structure
 
-    for step in rotatedPath:
-        movedStructure = movedStructure.get_moved(step)
-        # TODO: Check for obstructions
-        # TODO: Visualize the movement
-    
-    args.structure.cells = movedStructure.cells # TODO: Check if it is safe to just assign the cells like this
+	for step in rotatedPath:
+		movedStructure = movedStructure.get_moved(step)
+		# TODO: Check for obstructions
+		# TODO: Visualize the movement
+	
+	args.structure.cells = movedStructure.cells # TODO: Check if it is safe to just assign the cells like this
 
 func rules_text() -> String:
-    return "Discover a tile"
+	return "Discover a tile"

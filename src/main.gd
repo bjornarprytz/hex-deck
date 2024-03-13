@@ -126,6 +126,12 @@ func _on_game_over() -> void:
 func play_card(args: PlayArgs):
 	for effect in args.structure.get_rules().placementEffects:
 		effect.resolve(args)
+	for tile in args.affectedTiles:
+		if (tile.placementBonus == null):
+			continue
+		for effect in tile.placementBonus.rules.placementEffects:
+			effect.resolve(args)
+
 	map.place_structure(args.structure, args.affectedTiles)
 
 func draw_card():
