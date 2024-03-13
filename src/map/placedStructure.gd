@@ -1,15 +1,15 @@
 class_name PlacedStructure
 extends Node2D
 
-var structurePreview: StructureView:
+var structureView: StructureView:
 	get:
 		return $StructureView
 
 @export var structure: Structure:
 	set(value):
-		structurePreview.structure = value
+		structureView.structure = value
 	get:
-		return structurePreview.structure
+		return structureView.structure
 
 var affectedTiles: Array[Tile]
 
