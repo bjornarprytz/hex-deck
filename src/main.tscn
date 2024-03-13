@@ -116,14 +116,6 @@ scale = Vector2(0.1, 0.1)
 theme = SubResource("Theme_tun70")
 text = "12"
 
-[node name="Message" type="RichTextLabel" parent="."]
-offset_left = 18.0
-offset_top = 11.0
-offset_right = 2868.0
-offset_bottom = 391.0
-scale = Vector2(0.2, 0.2)
-theme = SubResource("Theme_tun70")
-
 [node name="PassTurn" type="Button" parent="."]
 offset_left = 1175.0
 offset_top = 628.0

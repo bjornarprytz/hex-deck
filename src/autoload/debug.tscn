@@ -7,14 +7,17 @@
 script = ExtResource("1_2mo3o")
 
 [node name="UI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="MessageFeed" parent="UI" instance=ExtResource("2_uw3rn")]
+mouse_filter = 2
 
 [node name="Version" type="RichTextLabel" parent="UI"]
 offset_left = 795.0
 offset_top = 4.0
 offset_right = 1075.0
 offset_bottom = 58.0
+mouse_filter = 2
 bbcode_enabled = true
 
 [node name="Toggle" type="CheckBox" parent="."]

@@ -21,8 +21,6 @@ func push_message(message: String):
 	messageFeed.push(message)
 
 func _ready() -> void:
-	enabled = true
-	
 	versionLabel.append_text("[center]Iteration: Stage 1")
 
 func _unhandled_key_input(event: InputEvent) -> void:

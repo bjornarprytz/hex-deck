@@ -54,8 +54,9 @@ func _update_preview():
 	for coord in structure.cells:
 		_add_hex(coord.x, coord.y)
 	
+	var centroid := Vector2.ZERO
+	
 	if (centerPreview):
-		var centroid := Vector2.ZERO
 		for cell in get_children():
 			centroid += cell.position
 		
@@ -84,6 +85,7 @@ func _update_preview():
 					edges[key] = sharedPoints
 		for edge in edges.values():
 			var line = Line2D.new()
+			line.position -= centroid
 			line.add_point(edge[0])
 			line.add_point(edge[1])
 			line.width = borderWidth
