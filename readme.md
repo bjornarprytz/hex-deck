@@ -33,8 +33,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Utility function to express cell structure
-
 - IntervalEffects
   - Structures can have an interval effect
   - Tick down after each card play

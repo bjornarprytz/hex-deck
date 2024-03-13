@@ -20,6 +20,19 @@ static func get_path(steps: Array[int]) -> Array[Vector2i]:
 	
 	return path
 
+## Uses the axial coordinate system as described here: https://www.redblobgames.com/grids/hexagons/#coordinates-axial
+static func get_cells(constellation: Array=[]) -> Array[Vector2i]:
+	# Root (0,0) is given
+	var cells: Array[Vector2i] = [Vector2i.ZERO]
+
+	for tuple in constellation:
+		var cell = Vector2i(tuple[0], tuple[1])
+		assert(!cells.has(cell))
+
+		cells.push_back(cell)
+
+	return cells
+
 static func get_polygon_points(vector: Vector2i=Vector2i(0, 0), nSides: int=6, radius: float=1.0) -> PackedVector2Array:
 	var angle_increment = 2 * PI / nSides
 

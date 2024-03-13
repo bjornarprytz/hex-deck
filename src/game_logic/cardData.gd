@@ -20,8 +20,8 @@ static func Random(cardName: String) -> CardData:
 
 	return data
 
-const standardStructures: Array = [
-	[Vector2i(0, 0)],
-	[Vector2i(0, 0), Vector2i(1, -1)],
-	[Vector2i(0, 0), Vector2i(1, -1), Vector2i(1, 0)]
+static var standardStructures: Array = [
+	Utils.get_cells(),
+	Utils.get_cells([[1, -1]]),
+	Utils.get_cells([[1, -1], [1, 0]]),
 ]
