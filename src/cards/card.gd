@@ -19,7 +19,7 @@ var structure: Structure:
 	set(value):
 		structurePreview.structure = value
 
-@export var data: CardData:
+var data: CardData:
 	set(value):
 		if data == value:
 			return

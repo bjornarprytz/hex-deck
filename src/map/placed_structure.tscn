@@ -7,5 +7,4 @@
 script = ExtResource("1_dtail")
 
 [node name="StructureView" parent="." instance=ExtResource("2_yd1v2")]
-hexSize = 50.0
 borderWidth = 4.0

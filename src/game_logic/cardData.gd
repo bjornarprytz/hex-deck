@@ -1,15 +1,17 @@
 class_name CardData
 extends Resource
 
-@export var name: String
-@export var cells: Array[Vector2i]
-@export var alignment: Alignment
-@export var rules: RulesHooks
+var name: String
+var cells: Array[Vector2i]
+var alignment: Alignment
+var rules: RulesHooks
 
-func _init(n: String):
-	name = n
-	
-	alignment = [
+static func Random(cardName: String) -> CardData:
+	var data = CardData.new()
+
+	data.name = cardName
+
+	data.alignment = [
 		RedAlignment.new(),
 		YellowAlignment.new(),
 		BlueAlignment.new(),
@@ -17,14 +19,25 @@ func _init(n: String):
 		OrangeAlignment.new(),
 		PurpleAlignment.new()
 		].pick_random()
-	rules = alignment.get_rules() # TODO: This is placeholder until i decouple alignment and rules hooks
+	
+	data.rules = standardRules[data.alignment.get_color()]
 
-	var structure_name = standardStructures.keys().pick_random()
-	cells.clear()
-	cells.append_array(standardStructures[structure_name])
+	data.cells.clear()
+	data.cells.append_array(standardStructures.pick_random())
 
-const standardStructures: Dictionary = {
-	"unit": [Vector2i(0, 0)],
-	"two": [Vector2i(0, 0), Vector2i(1, -1)],
-	"tri": [Vector2i(0, 0), Vector2i(1, -1), Vector2i(1, 0)]
+	return data
+
+const standardStructures: Array = [
+	[Vector2i(0, 0)],
+	[Vector2i(0, 0), Vector2i(1, -1)],
+	[Vector2i(0, 0), Vector2i(1, -1), Vector2i(1, 0)]
+]
+
+static var standardRules: Dictionary = {
+	Color.YELLOW: RulesHooks.new().with_income_effects([AddFoodPerSimilarTile.new()]),
+	Color.INDIAN_RED: RulesHooks.new().with_income_effects([AddFoodPerDifferentTile.new()]),
+	Color.MEDIUM_PURPLE: RulesHooks.new().with_income_effects([AddGold.new()]),
+	Color.DARK_ORANGE: RulesHooks.new().with_placement_rules([WaterAffinityRule.new()]).with_static_rules_text("Requires water"),
+	Color.FOREST_GREEN: RulesHooks.new().with_income_effects([AddFood.new()]),
+	Color.CADET_BLUE: RulesHooks.new().with_placement_effects([DrawCard.new()]),
 }

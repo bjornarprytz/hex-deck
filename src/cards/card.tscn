@@ -1,14 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bxyxgsia4g2pl"]
+[gd_scene load_steps=7 format=3 uid="uid://bxyxgsia4g2pl"]
 
 [ext_resource type="Script" path="res://cards/card.gd" id="1_53muf"]
-[ext_resource type="Script" path="res://game_logic/cardData.gd" id="2_ppa48"]
 [ext_resource type="Script" path="res://game_logic/structure.gd" id="3_ceyft"]
 [ext_resource type="PackedScene" uid="uid://0oenk04u2ati" path="res://cards/structure_view.tscn" id="4_81358"]
-
-[sub_resource type="Resource" id="Resource_pp5ea"]
-script = ExtResource("2_ppa48")
-name = "Test"
-cells = Array[Vector2i]([])
 
 [sub_resource type="Theme" id="Theme_100nq"]
 default_font_size = 256
@@ -20,7 +14,6 @@ script = ExtResource("3_ceyft")
 
 [node name="Card" type="Node2D"]
 script = ExtResource("1_53muf")
-data = SubResource("Resource_pp5ea")
 
 [node name="Color" type="ColorRect" parent="."]
 offset_left = -69.0

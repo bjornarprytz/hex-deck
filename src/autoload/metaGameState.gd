@@ -15,17 +15,17 @@ var gold: int:
 		Events.goldChanged.emit(oldValue, gold)
 
 var deck: Array[CardData] = [
-	CardData.new("Quantum Nexus"),
-	CardData.new("Hyperflux Prism"),
-	CardData.new("Nebula Harmonics"),
-	CardData.new("Singularity Synchrony"),
-	CardData.new("Chrono Fractal"),
-	CardData.new("Warp Resonance"),
-	CardData.new("Quantum Lattice"),
-	CardData.new("Aetheric Enigma"),
-	CardData.new("Void Mandala"),
-	CardData.new("Celestial Geodesic"),
-	CardData.new("Nebular Conundrum"),
+	CardData.Random("Quantum Nexus"),
+	CardData.Random("Hyperflux Prism"),
+	CardData.Random("Nebula Harmonics"),
+	CardData.Random("Singularity Synchrony"),
+	CardData.Random("Chrono Fractal"),
+	CardData.Random("Warp Resonance"),
+	CardData.Random("Quantum Lattice"),
+	CardData.Random("Aetheric Enigma"),
+	CardData.Random("Void Mandala"),
+	CardData.Random("Celestial Geodesic"),
+	CardData.Random("Nebular Conundrum"),
 ]
 
 var placementRules: Array[PlacementRule] = [

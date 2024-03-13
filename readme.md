@@ -33,17 +33,7 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Refactor
-  - Structure (a constellation of hexes)
-    - Cells (Hex)
-      - Position within the structure
-    - Alignment / Color (Which is benign atm)
-    - Various Effects, hydrated by the CardData
-  - CardData
-    - Play effect
-    - Placement Rules
-    - Income
-    - Ongoing (static, triggered)
+- Utility function to express cell structure
 
 - IntervalEffects
   - Structures can have an interval effect
