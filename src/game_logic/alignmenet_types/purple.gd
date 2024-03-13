@@ -4,5 +4,7 @@ extends Alignment
 func get_color() -> Color:
 	return Color.MEDIUM_PURPLE
 
-func income_effects() -> Array[Effect]:
-	return [AddGold.new()]
+func get_rules() -> RulesHooks:
+	var rules = RulesHooks.new()
+	rules.incomeEffects.push_back(AddGold.new())
+	return rules

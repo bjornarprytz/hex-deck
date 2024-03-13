@@ -1,10 +1,15 @@
 class_name Structure
 extends Resource
 
-@export var alignment: Alignment
-
+var alignment: Alignment
+var rules: RulesHooks
 ## Tuples (q,r) are stored as Vector2i here
-@export var cells: Array[Vector2i]
+var cells: Array[Vector2i]
+
+func _init(inputAlignment: Alignment, inputCells: Array[Vector2i], rulesHooks: RulesHooks):
+	alignment = inputAlignment
+	cells = inputCells
+	rules = rulesHooks
 
 func get_adjacent_tiles(map: Map, originTile: Tile) -> Array[Tile]:
 	var adjacent_tiles: Array[Tile] = []
@@ -45,7 +50,7 @@ func get_rotated(rotationSteps: int) -> Structure:
 	for cell in cells:
 		var q = cell.x
 		var r = cell.y
-		var s = -q-r
+		var s = -q - r
 		
 		for rot in range(rotationSteps):
 			var temp_q = q
@@ -55,8 +60,4 @@ func get_rotated(rotationSteps: int) -> Structure:
 		
 		rotatedCells.push_back(Vector2i(q, r))
 	
-	var rotatedStructure = Structure.new()
-	rotatedStructure.alignment = alignment
-	rotatedStructure.cells = rotatedCells
-	
-	return rotatedStructure
+	return Structure.new(alignment, rotatedCells, rules)

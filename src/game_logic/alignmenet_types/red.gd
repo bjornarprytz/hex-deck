@@ -4,5 +4,7 @@ extends Alignment
 func get_color() -> Color:
 	return Color.INDIAN_RED
 
-func income_effects() -> Array[Effect]:
-	return [AddFoodPerDifferentTile.new()]
+func get_rules() -> RulesHooks:
+	var rules = RulesHooks.new()
+	rules.incomeEffects.push_back(AddFoodPerDifferentTile.new())
+	return rules

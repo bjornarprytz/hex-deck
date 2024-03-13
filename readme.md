@@ -36,10 +36,14 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - Refactor
   - Structure (a constellation of hexes)
     - Cells (Hex)
-      - Color / Alignment
       - Position within the structure
-    - Position on the map
-    - 
+    - Alignment / Color (Which is benign atm)
+    - Various Effects, hydrated by the CardData
+  - CardData
+    - Play effect
+    - Placement Rules
+    - Income
+    - Ongoing (static, triggered)
 
 - IntervalEffects
   - Structures can have an interval effect

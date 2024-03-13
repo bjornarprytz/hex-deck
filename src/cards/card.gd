@@ -3,7 +3,7 @@ extends Node2D
 
 @onready var background: ColorRect = $Color
 
-@onready var width : float = background.size.x
+@onready var width: float = background.size.x
 
 var structurePreview: StructureView:
 	get:
@@ -13,21 +13,20 @@ var rulesText: RichTextLabel:
 	get:
 		return $RulesText
 
-var structure : Structure:
+var structure: Structure:
 	get:
 		return structurePreview.structure
 	set(value):
 		structurePreview.structure = value
 
-@export var data : CardData:
+@export var data: CardData:
 	set(value):
 		if data == value:
 			return
 		
 		data = value
-		structurePreview.structure = data.structure
-		rulesText.text = data.structure.alignment.rules_text()
-		
+		structurePreview.structure = Structure.new(data.alignment, data.cells, data.rules)
+		rulesText.text = data.rules.rules_text()
 
 func cancel():
 	Events.cardReleased.emit(self)

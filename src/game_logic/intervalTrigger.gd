@@ -6,15 +6,15 @@ var counter : int
 var _effects : Array[Effect]
 
 func __init(inputMaxCount: int, triggerEffects: Array[Effect]):
-    maxCount = inputMaxCount
-    counter = maxCount
-    _effects = triggerEffects
+	maxCount = inputMaxCount
+	counter = maxCount
+	_effects = triggerEffects
 
 func tick(args: PlayArgs):
-    counter -= 1
+	counter -= 1
 
-    if counter == 0:
-        for effect in _effects:
-            effect.resolve(args)
-        counter = maxCount
-    
+	if counter == 0:
+		for effect in _effects:
+			effect.resolve(args)
+		counter = maxCount
+	

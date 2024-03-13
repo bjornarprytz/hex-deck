@@ -75,7 +75,7 @@ func _check_placement(args: PlayArgs) -> bool:
 
 	var placementRules: Array[PlacementRule] = []
 	placementRules.append_array(Meta.placementRules)
-	placementRules.push_back(structure.alignment.placement_rule())
+	placementRules.append_array(structure.rules.placementRules)
 
 	for rule in placementRules:
 		var error = rule.check(args)
