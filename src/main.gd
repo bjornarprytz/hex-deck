@@ -7,7 +7,7 @@ extends Node2D
 @onready var map: Map = $Map
 @onready var hand: Hand = $Hand
 @onready var drawPile: DrawPile = $DrawPile
-@onready var state: StateChart = $State
+@onready var state: StateChart = $MutableState
 @onready var pass_button: Button = $PassTurn
 @onready var focusArea: Node2D = $Focus
 

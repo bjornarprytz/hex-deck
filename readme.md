@@ -33,9 +33,7 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-
 - Movement
-  - Maybe I need a State object for structures. To consolidate things like ticks, facing (for movement), and other stuff
   - Move the structure along the given path
   - Interacting with other tiles
 - IntervalEffects

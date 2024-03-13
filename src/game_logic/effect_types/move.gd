@@ -4,13 +4,12 @@ extends Effect
 var path: Array[Vector2i]
 
 ## TODO: Figure out the specifics:
-# In addition to the path, there needs to be a direction, and the path can be rotated to match it
 # There's also obstructions to consider
 
 func resolve(args: PlayArgs):
 	var facing = args.structure.state.facing
 
-	var rotatedPath = Utils.rotate_path(path, facing)
+	var rotatedPath = Utils.get_rotated_cells(path, facing)
 
 	var movedStructure = args.structure
 

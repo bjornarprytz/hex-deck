@@ -33,6 +33,27 @@ static func get_cells(constellation: Array=[]) -> Array[Vector2i]:
 
 	return cells
 
+static func get_rotated_cells(cells: Array[Vector2i], rotationSteps: int) -> Array[Vector2i]:
+	var rotatedCells: Array[Vector2i] = []
+
+	if ((rotationSteps % 6) == 0):
+		return cells
+	
+	for cell in cells:
+		var q = cell.x
+		var r = cell.y
+		var s = -q - r
+		
+		for rot in range(rotationSteps):
+			var temp_q = q
+			q = -r
+			r = -s
+			s = -temp_q
+		
+		rotatedCells.push_back(Vector2i(q, r))
+	
+	return rotatedCells
+
 static func get_polygon_points(vector: Vector2i=Vector2i(0, 0), nSides: int=6, radius: float=1.0) -> PackedVector2Array:
 	var angle_increment = 2 * PI / nSides
 

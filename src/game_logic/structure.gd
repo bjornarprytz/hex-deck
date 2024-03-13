@@ -5,11 +5,13 @@ var alignment: Alignment.Id
 var specialRules: RulesHooks
 ## Tuples (q,r) are stored as Vector2i here
 var cells: Array[Vector2i]
+var state: MutableState
 
-func _init(inputAlignment: Alignment.Id, inputCells: Array[Vector2i], rulesHooks: RulesHooks):
+func _init(inputAlignment: Alignment.Id, inputCells: Array[Vector2i], rulesHooks: RulesHooks, mutableState: MutableState=MutableState.new()):
 	alignment = inputAlignment
 	cells = inputCells
 	specialRules = rulesHooks
+	state = mutableState
 
 func get_color() -> Color:
 	return Meta.alignmentRules[alignment].get_color()
@@ -51,19 +53,6 @@ func get_rotated(rotationSteps: int) -> Structure:
 		rotationSteps += 6
 	rotationSteps = rotationSteps % 6
 	
-	var rotatedCells: Array[Vector2i] = []
+	var rotatedCells = Utils.get_rotated_cells(cells, rotationSteps)
 	
-	for cell in cells:
-		var q = cell.x
-		var r = cell.y
-		var s = -q - r
-		
-		for rot in range(rotationSteps):
-			var temp_q = q
-			q = -r
-			r = -s
-			s = -temp_q
-		
-		rotatedCells.push_back(Vector2i(q, r))
-	
-	return Structure.new(alignment, rotatedCells, specialRules)
+	return Structure.new(alignment, rotatedCells, specialRules, state)
