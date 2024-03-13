@@ -64,6 +64,8 @@ func get_neighbours() -> Array[Tile]:
 
 func _ready() -> void:
 	assert(map != null)
+	scale = Vector2.ONE * .2
+	create_tween().tween_property(self, 'scale', Vector2.ONE, .2)
 	shape.clicked.connect(_on_tile_pressed)
 	shape.hovered.connect(_on_tile_hovered)
 	Debug.toggled.connect(func(on): $Debug.visible=on)
