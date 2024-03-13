@@ -3,12 +3,22 @@ class_name Utils
 static func get_axial_neighbors(vector: Vector2i) -> Array[Vector2i]:
 	return [
 		vector + Vector2i(1, 0),
-		vector + Vector2i(1, -1),
-		vector + Vector2i(0, -1),
-		vector + Vector2i( - 1, 0),
-		vector + Vector2i( - 1, 1),
 		vector + Vector2i(0, 1),
+		vector + Vector2i( - 1, 1),
+		vector + Vector2i( - 1, 0),
+		vector + Vector2i(0, -1),
+		vector + Vector2i(1, -1),
 	]
+
+static func get_path(steps: Array[int]) -> Array[Vector2i]:
+	var path: Array[Vector2i] = []
+	var currentPos := Vector2i.ZERO
+	for stepDirection in steps:
+		assert(stepDirection >= 0 and stepDirection < 6)
+		currentPos = get_axial_neighbors(currentPos)[stepDirection]
+		path.push_back(currentPos)
+	
+	return path
 
 static func get_polygon_points(vector: Vector2i=Vector2i(0, 0), nSides: int=6, radius: float=1.0) -> PackedVector2Array:
 	var angle_increment = 2 * PI / nSides
@@ -25,7 +35,7 @@ static func get_polygon_points(vector: Vector2i=Vector2i(0, 0), nSides: int=6, r
 
 	return points
 
-static func axial_to_pixel(q: int, r: int, tileSize: int) -> Vector2:
+static func axial_to_pixel(q: int, r: int, tileSize: float) -> Vector2:
 	var x: float = tileSize * 3.0 / 2.0 * q
 	var y: float = tileSize * sqrt(3) * (r + q / 2.0)
 	return Vector2(x, y)

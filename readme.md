@@ -33,8 +33,18 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
+- Refactor
+  - Structure (a constellation of hexes)
+    - Cells (Hex)
+      - Color / Alignment
+      - Position within the structure
+    - Position on the map
+    - 
+
 - IntervalEffects
+  - Structures can have an interval effect
   - Tick down after each card play
+  - Resolve an effect and reset countdown when it reaches 0
 - Movement
   - Interacting with other tiles
 - Discovery
