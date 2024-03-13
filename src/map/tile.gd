@@ -32,6 +32,8 @@ enum TerrainType {
 				modulate = Color.LIGHT_BLUE
 			TerrainType.Mountain:
 				modulate = Color.ROSY_BROWN
+		
+		baseModulate = modulate
 
 var coordinates: Map.Coordinates:
 	set(value):
@@ -51,16 +53,25 @@ var placementBonus: PlacementBonus:
 			$PlacementBonus.visible = true
 var structure: Structure
 
+var isHovered: bool
+var baseModulate: Color
+
 func get_neighbours() -> Array[Tile]:
 	var neighbours: Array[Tile] = []
 
-	for vec in Utils.get_axial_neighbors(coordinates.to_vec()):
-		var n = map.get_tile(Map.Coordinates.new(vec.x, vec.y))
+	for nCoord in coordinates.get_neighbours():
+		var n = map.get_tile(nCoord)
 
 		if (n != null):
 			neighbours.push_back(n)
 
 	return neighbours
+
+func _physics_process(_delta: float) -> void:
+	if isHovered:
+		modulate = baseModulate * (pingpong(Time.get_ticks_msec() / 1000.0, 1.0) + .5)
+	else:
+		modulate = baseModulate
 
 func _ready() -> void:
 	assert(map != null)
@@ -76,6 +87,8 @@ func _on_tile_hovered(state: bool) -> void:
 	if (state):
 		Events.tileHovered.emit(self)
 	
+	isHovered = state
+
 	if tooltip.text.length() > 0:
 		tooltip.visible = state
 	else:

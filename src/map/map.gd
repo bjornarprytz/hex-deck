@@ -139,7 +139,7 @@ func _add_tile(q: int, r: int) -> Tile:
 		else:
 			new_tile.type = Tile.TerrainType.Mountain
 	elif (randf() < .2):
-		new_tile.placementBonus = PlacementBonus.new([[DiscoverTile.new()].pick_random()]) #DrawCard.new(), AddFood.new(), AddFoodPerDifferentTile.new(),
+		new_tile.placementBonus = PlacementBonus.new([[DrawCard.new(), AddFood.new(), AddFoodPerDifferentTile.new(), DiscoverTile.new()].pick_random()])
 	
 	tilesLookup[key] = new_tile
 	
