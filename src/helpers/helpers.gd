@@ -1,5 +1,7 @@
 class_name Utils
 
+static var axialForward: Vector2i = Vector2i(1, 0)
+
 static func get_axial_neighbors(vector: Vector2i) -> Array[Vector2i]:
 	return [
 		vector + Vector2i(1, 0),

@@ -1,7 +1,7 @@
 class_name Move
 extends Effect
 
-var path: Array[Vector2i]
+var path: Array[Vector2i] = [Utils.axialForward]
 
 ## TODO: Figure out the specifics:
 # There's also obstructions to consider
@@ -20,5 +20,7 @@ func resolve(args: PlayArgs):
 	
 	args.structure.cells = movedStructure.cells # TODO: Check if it is safe to just assign the cells like this
 
+	# TODO: Update the tiles
+
 func rules_text() -> String:
-	return "DiscoverTile a tile"
+	return "Move"

@@ -1,20 +1,15 @@
 class_name IntervalTrigger
 extends Resource
 
-var maxCount : int
-var counter : int
-var _effects : Array[Effect]
+var effects: Array[Effect]
 
-func __init(inputMaxCount: int, triggerEffects: Array[Effect]):
-	maxCount = inputMaxCount
-	counter = maxCount
-	_effects = triggerEffects
+func __init(triggerEffects: Array[Effect]):
+	effects = triggerEffects
 
 func tick(args: PlayArgs):
-	counter -= 1
+	var state = args.structure.state
 
-	if counter == 0:
-		for effect in _effects:
+	if state.counter == 0:
+		for effect in effects:
 			effect.resolve(args)
-		counter = maxCount
-	
+		state.counter = state.maxCounter
