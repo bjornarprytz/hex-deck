@@ -97,5 +97,5 @@ func _add_hex(q: int, r: int):
 	var new_cell = hex_spawner.instantiate() as RegularPolygon
 	new_cell.size = hexSize
 	new_cell.position = Utils.axial_to_pixel(q, r, new_cell.size)
-	new_cell.color = structure.alignment.get_color()
+	new_cell.color = Meta.alignmentRules[structure.alignment].get_color()
 	add_child(new_cell)

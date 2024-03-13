@@ -1,15 +1,21 @@
 class_name Structure
 extends Resource
 
-var alignment: Alignment
-var rules: RulesHooks
+var alignment: Alignment.Id
+var specialRules: RulesHooks
 ## Tuples (q,r) are stored as Vector2i here
 var cells: Array[Vector2i]
 
-func _init(inputAlignment: Alignment, inputCells: Array[Vector2i], rulesHooks: RulesHooks):
+func _init(inputAlignment: Alignment.Id, inputCells: Array[Vector2i], rulesHooks: RulesHooks):
 	alignment = inputAlignment
 	cells = inputCells
-	rules = rulesHooks
+	specialRules = rulesHooks
+
+func get_color() -> Color:
+	return Meta.alignmentRules[alignment].get_color()
+
+func get_rules() -> RulesHooks:
+	return Meta.alignmentRules[alignment].get_rules().merge(specialRules)
 
 func get_adjacent_tiles(map: Map, originTile: Tile) -> Array[Tile]:
 	var adjacent_tiles: Array[Tile] = []
@@ -60,4 +66,4 @@ func get_rotated(rotationSteps: int) -> Structure:
 		
 		rotatedCells.push_back(Vector2i(q, r))
 	
-	return Structure.new(alignment, rotatedCells, rules)
+	return Structure.new(alignment, rotatedCells, specialRules)

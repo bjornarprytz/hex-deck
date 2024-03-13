@@ -34,5 +34,14 @@ var placementRules: Array[PlacementRule] = [
 	TerrainRule.new()
 ]
 
+var alignmentRules: Dictionary = {
+	Alignment.Id.Red: RedAlignment.new(),
+	Alignment.Id.Yellow: YellowAlignment.new(),
+	Alignment.Id.Blue: BlueAlignment.new(),
+	Alignment.Id.Green: GreenAlignment.new(),
+	Alignment.Id.Orange: OrangeAlignment.new(),
+	Alignment.Id.Purple: PurpleAlignment.new(),
+}
+
 func reset():
 	gold = 0

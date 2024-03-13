@@ -108,7 +108,7 @@ func _on_clean_up() -> void:
 	
 	for placedStructure in map.get_placed_structures():
 		var args = PlayArgs.new(self, placedStructure.structure, placedStructure.affectedTiles, placedStructure.get_adjacent_tiles())
-		for effect in placedStructure.structure.rules.incomeEffects:
+		for effect in placedStructure.structure.get_rules().incomeEffects:
 			effect.resolve(args)
 
 	if (food < foodRequirement):
@@ -124,7 +124,7 @@ func _on_game_over() -> void:
 
 # GAME ACTIONS
 func play_card(args: PlayArgs):
-	for effect in args.structure.rules.placementEffects:
+	for effect in args.structure.get_rules().placementEffects:
 		effect.resolve(args)
 	map.place_structure(args.structure, args.affectedTiles)
 

@@ -13,16 +13,24 @@ var incomeEffects: Array[Effect] = []
 var triggeredEffects: Dictionary
 
 func rules_text() -> String:
-	var placementText = ""
+	var placementRulesText = ""
+	var placementEffectsText = ""
 	var incomeText = ""
 
 	if (_rulesText == ""):
+		for rule in placementRules:
+			var text = rule.rules_text()
+			if placementRulesText == "":
+				placementRulesText = "Restrictions: %s" % [text]
+			else:
+				placementRulesText = "%s %s" % [placementRulesText, text]
+
 		for effect in placementEffects:
 			var text = effect.rules_text()
-			if placementText == "":
-				placementText = "Immediate: %s" % [text]
+			if placementEffectsText == "":
+				placementEffectsText = "Immediate: %s" % [text]
 			else:
-				placementText = "%s %s" % [placementText, text]
+				placementEffectsText = "%s %s" % [placementEffectsText, text]
 		
 		for effect in incomeEffects:
 			var text = effect.rules_text()
@@ -31,7 +39,7 @@ func rules_text() -> String:
 			else:
 				incomeText = "%s %s" % [incomeText, text]
 	
-	for part in [placementText, incomeText]:
+	for part in [placementRulesText, placementEffectsText, incomeText]:
 		if part != "":
 			if _rulesText != "":
 				_rulesText += "\n"
@@ -52,6 +60,13 @@ func with_income_effects(effects: Array[Effect]) -> RulesHooks:
 	incomeEffects.append_array(effects)
 	return self
 
-func with_static_rules_text(text: String) -> RulesHooks:
-	_rulesText = text
-	return self
+func merge(other: RulesHooks) -> RulesHooks:
+	return RulesHooks.new() \
+		.with_placement_rules(placementRules) \
+		.with_placement_rules(other.placementRules) \
+
+		.with_placement_effects(placementEffects) \
+		.with_placement_effects(other.placementEffects) \
+
+		.with_income_effects(incomeEffects) \
+		.with_income_effects(other.incomeEffects)
