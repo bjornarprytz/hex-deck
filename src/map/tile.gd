@@ -1,20 +1,21 @@
 class_name Tile
 extends Node2D
 
-
 enum TerrainType {
 	Basic,
 	Water,
 	Mountain
 }
 
-@export var map : Map
+@export var map: Map
 
-@onready var shape :RegularPolygon = $Shape
+@onready var shape: RegularPolygon = $Shape
 
 @onready var size: float:
 	get:
 		return shape.size
+	set(value):
+		shape.size = value
 
 @onready var type: TerrainType:
 	set(value):
@@ -37,7 +38,7 @@ var coordinates: Map.Coordinates:
 		$Debug/R.text = str(coordinates.r)
 		$Debug/S.text = str(coordinates.s)
 
-var structure : Structure
+var structure: Structure
 
 func get_neighbours() -> Array[Tile]:
 	var neighbours: Array[Tile] = []
@@ -54,11 +55,11 @@ func _ready() -> void:
 	assert(map != null)
 	shape.clicked.connect(_on_tile_pressed)
 	shape.hovered.connect(_on_tile_hovered)
-	Debug.toggled.connect(func (on): $Debug.visible = on)
+	Debug.toggled.connect(func(on): $Debug.visible=on)
 
 func _on_tile_pressed() -> void:
 	Events.tileClicked.emit(self)
-func _on_tile_hovered(state:bool) -> void:
+func _on_tile_hovered(state: bool) -> void:
 	if (state):
 		Events.tileHovered.emit(self)
 	

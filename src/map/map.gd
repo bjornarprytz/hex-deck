@@ -25,15 +25,19 @@ class Coordinates:
 	func to_vec() -> Vector2i:
 		return Vector2i(q, r)
 
-@export var size: int:
+@export var radius: int:
 	set(value):
 		if (value < 1):
 			value = 1
-		if size == value:
+		if radius == value:
 			return
-		size = value
-		if is_node_ready():
-			_update_map.call_deferred()
+		radius = value
+
+@export var tileSize: float:
+	set(value):
+		if tileSize == value:
+			return
+		tileSize = value
 
 @onready var tile_spawner = preload ("res://map/tile.tscn")
 @onready var structureSpawner = preload ("res://map/placed_structure.tscn")
@@ -41,9 +45,10 @@ class Coordinates:
 @onready var tiles = $Tiles
 
 var tilesLookup: Dictionary = {}
+var undiscoveredTiles: Array[Vector2i]
 
 func _ready() -> void:
-	_update_map()
+	_initialize_map()
 
 func get_placed_structures() -> Array[PlacedStructure]:
 	var result: Array[PlacedStructure] = []
@@ -53,6 +58,12 @@ func get_placed_structures() -> Array[PlacedStructure]:
 			result.push_back(c)
 
 	return result
+
+## Add tile to the edge of the map, mute the returned tile to configure it
+func discover_tile(vec: Vector2i) -> Tile:
+	assert(undiscoveredTiles.has(vec))
+	
+	return _add_tile(vec.x, vec.y)
 
 func get_tile(coords: Coordinates) -> Tile:
 	var key = coords.get_key()
@@ -75,23 +86,20 @@ func place_structure(structure: Structure, affectedTiles: Array[Tile]):
 	for tile in affectedTiles:
 		tile.structure = placedStructure.structure
 
-func _update_map():
-	for tile in tiles.get_children():
-		tile.queue_free()
-		
-	for q in range(size):
-		for r in range(size):
+func _initialize_map():
+	for q in range(radius):
+		for r in range(radius):
 			_add_tile( - q, r)
 			_add_tile(q, -r)
 			
-			if abs(q + r) >= size:
+			if abs(q + r) >= radius:
 				continue
 			
 			_add_tile(q, r)
 			if (q != 0 or r != 0):
 				_add_tile( - q, -r)
 	
-func _add_tile(q: int, r: int):
+func _add_tile(q: int, r: int) -> Tile:
 	var coords = Coordinates.new(q, r)
 	var key = coords.get_key()
 	
@@ -113,9 +121,12 @@ func _add_tile(q: int, r: int):
 	tilesLookup[key] = new_tile
 	
 	tiles.add_child(new_tile)
-	new_tile.position = Utils.axial_to_pixel(q, r, new_tile.size)
+	new_tile.position = Utils.axial_to_pixel(q, r, tileSize)
+	new_tile.size = tileSize
+
+	return new_tile
 
 func point_to_coords(point: Vector2) -> Coordinates:
-	var q = (2.0 / 3.0 * point.x) / tilesLookup["0,0"].size
-	var r = (-1.0 / 3.0 * point.x + sqrt(3) / 3.0 * point.y) / tilesLookup["0,0"].size
+	var q = (2.0 / 3.0 * point.x) / tilesLookup["0,0"].radius
+	var r = (-1.0 / 3.0 * point.x + sqrt(3) / 3.0 * point.y) / tilesLookup["0,0"].radius
 	return Utils.cube_round(Coordinates.new(q, r))

@@ -73,6 +73,8 @@ event = &"game over"
 
 [node name="Map" parent="." instance=ExtResource("1_jqq6o")]
 position = Vector2(581, 312)
+radius = 4
+tileSize = 50.0
 
 [node name="Hand" parent="." instance=ExtResource("2_4d8mv")]
 

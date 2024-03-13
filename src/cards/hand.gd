@@ -20,7 +20,7 @@ func add_card(card: Card):
 		cardContainer.add_child(card)
 
 func _reposition_cards(_node):
-	if (!is_node_ready() or get_tree() == null):
+	if (!is_node_ready() or !is_inside_tree()):
 		return
 	
 	if positionTween != null:
