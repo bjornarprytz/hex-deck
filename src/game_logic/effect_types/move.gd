@@ -22,4 +22,4 @@ func resolve(args: PlayArgs):
 	args.structure.cells = movedStructure.cells # TODO: Check if it is safe to just assign the cells like this
 
 func rules_text() -> String:
-	return "Discover a tile"
+	return "DiscoverTile a tile"

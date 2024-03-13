@@ -9,19 +9,30 @@ class Coordinates:
 	## LowerLeft-UpperRight line
 	var s: int
 	
+	var _neighbours: Array[Coordinates]
+
 	func _init(qq, rr):
 		q = qq
 		r = rr
 		s = -qq - rr
-	
+
+	static func from_vec(vec: Vector2i) -> Coordinates:
+		return Coordinates.new(vec.x, vec.y)
+
+	func get_neighbours() -> Array[Coordinates]:
+		if _neighbours != null:
+			_neighbours = []
+			for nVec in Utils.get_axial_neighbors(Vector2i(q, r)):
+				_neighbours.push_back(Coordinates.from_vec(nVec))
+		
+		return _neighbours
+		
 	func get_key() -> String:
 		return str(q) + "," + str(r)
-	
 	func add_coord(other: Coordinates) -> Coordinates:
 		return Coordinates.new(q + other.q, r + other.r)
 	func add_vec(vec: Vector2i) -> Coordinates:
 		return Coordinates.new(q + vec.x, r + vec.y)
-	
 	func to_vec() -> Vector2i:
 		return Vector2i(q, r)
 
@@ -35,6 +46,8 @@ class Coordinates:
 
 @export var tileSize: float:
 	set(value):
+		if value <= 1.0:
+			value = 1.0
 		if tileSize == value:
 			return
 		tileSize = value
@@ -44,8 +57,10 @@ class Coordinates:
 @onready var structures = $Structures
 @onready var tiles = $Tiles
 
+## Key -> Tile
 var tilesLookup: Dictionary = {}
-var undiscoveredTiles: Array[Vector2i]
+## Key -> Coordinate
+var undiscoveredTiles: Dictionary = {}
 
 func _ready() -> void:
 	_initialize_map()
@@ -60,10 +75,10 @@ func get_placed_structures() -> Array[PlacedStructure]:
 	return result
 
 ## Add tile to the edge of the map, mute the returned tile to configure it
-func discover_tile(vec: Vector2i) -> Tile:
-	assert(undiscoveredTiles.has(vec))
+func discover_tile(coords: Coordinates) -> Tile:
+	assert(undiscoveredTiles.has(coords.get_key()))
 	
-	return _add_tile(vec.x, vec.y)
+	return _add_tile(coords.q, coords.r)
 
 func get_tile(coords: Coordinates) -> Tile:
 	var key = coords.get_key()
@@ -106,6 +121,12 @@ func _add_tile(q: int, r: int) -> Tile:
 	if tilesLookup.has(key):
 		return
 	
+	undiscoveredTiles.erase(key)
+	for n in coords.get_neighbours():
+		var nKey = n.get_key()
+		if !tilesLookup.has(nKey):
+			undiscoveredTiles[nKey] = n
+
 	var new_tile = tile_spawner.instantiate() as Tile
 	new_tile.coordinates = coords
 	
@@ -118,7 +139,7 @@ func _add_tile(q: int, r: int) -> Tile:
 		else:
 			new_tile.type = Tile.TerrainType.Mountain
 	elif (randf() < .2):
-		new_tile.placementBonus = PlacementBonus.new([[DrawCard.new(), AddFood.new(), AddFoodPerDifferentTile.new()].pick_random()])
+		new_tile.placementBonus = PlacementBonus.new([[DiscoverTile.new()].pick_random()]) #DrawCard.new(), AddFood.new(), AddFoodPerDifferentTile.new(),
 	
 	tilesLookup[key] = new_tile
 	
@@ -129,6 +150,6 @@ func _add_tile(q: int, r: int) -> Tile:
 	return new_tile
 
 func point_to_coords(point: Vector2) -> Coordinates:
-	var q = (2.0 / 3.0 * point.x) / tilesLookup["0,0"].radius
-	var r = (-1.0 / 3.0 * point.x + sqrt(3) / 3.0 * point.y) / tilesLookup["0,0"].radius
+	var q = (2.0 / 3.0 * point.x) / tileSize
+	var r = (-1.0 / 3.0 * point.x + sqrt(3) / 3.0 * point.y) / tileSize
 	return Utils.cube_round(Coordinates.new(q, r))
