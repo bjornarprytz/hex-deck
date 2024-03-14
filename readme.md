@@ -33,8 +33,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Movement
-  - Interacting with other tiles
 - IntervalEffects
   - Structures can have an interval effect
   - Tick down after each card play
@@ -44,6 +42,9 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - UI
   - Show points change
   - Camera movement
+  - Show state on structure
+    - Countdown
+    - Facing Direction
 - Procedural Generation
   - Tile pool, not dice rolls
 

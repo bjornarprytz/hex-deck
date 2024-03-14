@@ -3,8 +3,8 @@ extends Effect
 
 var path: Array[Vector2i] = [Utils.axialForward]
 
-## TODO: Figure out the specifics:
-# There's also obstructions to consider
+func _init(inputPath: Array[Vector2i]=[Utils.axialForward]) -> void:
+	path = inputPath
 
 func resolve(args: EffectArgs):
 	var placedStructure = args.placedStructure
