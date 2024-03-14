@@ -51,7 +51,8 @@ var placementBonus: PlacementBonus:
 		tooltip.text = placementBonus.rules.rules_text()
 		if tooltip.text.length() > 0:
 			$PlacementBonus.visible = true
-var structure: Structure
+
+var placedStructure: PlacedStructure
 
 var isHovered: bool
 var baseModulate: Color

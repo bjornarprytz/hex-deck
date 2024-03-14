@@ -99,7 +99,7 @@ func place_structure(structure: Structure, affectedTiles: Array[Tile]) -> Placed
 	placedStructure.affectedTiles = affectedTiles
 	
 	for tile in affectedTiles:
-		tile.structure = placedStructure.structure
+		tile.placedStructure = placedStructure
 	
 	return placedStructure
 

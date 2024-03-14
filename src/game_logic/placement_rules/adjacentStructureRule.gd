@@ -10,6 +10,6 @@ func check(args: PlayArgs) -> String:
 		return "First structure must be placed on border"
 	else:
 		for tile in args.adjacentTiles:
-			if tile.structure != null:
+			if tile.placedStructure != null:
 				return ""
 		return "Structure needs to be placed next to another structure"

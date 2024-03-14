@@ -4,9 +4,9 @@ extends Effect
 func resolve(args: EffectArgs):
 	var unique_colors: Array[Color] = []
 	for t in args.adjacentTiles:
-		if (t.structure == null):
+		if (t.placedStructure == null):
 			continue
-		var color = t.structure.get_color()
+		var color = t.placedStructure.structure.get_color()
 		if !unique_colors.has(color):
 			unique_colors.push_back(color)
 		

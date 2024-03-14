@@ -34,8 +34,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 ## TODO
 
 - Movement
-  - May need a reference to the PlacedStructure in order to move it
-  - Move the structure along the given path
   - Interacting with other tiles
 - IntervalEffects
   - Structures can have an interval effect
