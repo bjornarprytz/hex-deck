@@ -1,7 +1,7 @@
 class_name DrawCard
 extends Effect
 
-func resolve(args: PlayArgs):
+func resolve(args: EffectArgs):
 	args.gameState.draw_card()
 
 func rules_text() -> String:

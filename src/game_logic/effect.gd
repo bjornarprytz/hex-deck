@@ -1,7 +1,7 @@
 class_name Effect
 extends Resource
 
-func resolve(_args: PlayArgs):
+func resolve(_args: EffectArgs):
 	push_error("resolve() should be overridden")
 
 func rules_text() -> String:

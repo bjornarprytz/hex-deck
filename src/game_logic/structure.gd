@@ -5,13 +5,11 @@ var alignment: Alignment.Id
 var specialRules: RulesHooks
 ## Tuples (q,r) are stored as Vector2i here
 var cells: Array[Vector2i]
-var state: MutableState
 
-func _init(inputAlignment: Alignment.Id, inputCells: Array[Vector2i], rulesHooks: RulesHooks, mutableState: MutableState=MutableState.new()):
+func _init(inputAlignment: Alignment.Id, inputCells: Array[Vector2i], rulesHooks: RulesHooks):
 	alignment = inputAlignment
 	cells = inputCells
 	specialRules = rulesHooks
-	state = mutableState
 
 func get_color() -> Color:
 	return Meta.alignmentRules[alignment].get_color()
@@ -19,7 +17,8 @@ func get_color() -> Color:
 func get_rules() -> RulesHooks:
 	return Meta.alignmentRules[alignment].get_rules().merge(specialRules)
 
-func get_adjacent_tiles(map: Map, originTile: Tile) -> Array[Tile]:
+func get_adjacent_tiles(originTile: Tile) -> Array[Tile]:
+	var map = originTile.map
 	var adjacent_tiles: Array[Tile] = []
 	var adjacent_cells: Array[Vector2i] = []
 	
@@ -36,7 +35,8 @@ func get_adjacent_tiles(map: Map, originTile: Tile) -> Array[Tile]:
 	
 	return adjacent_tiles
 
-func get_affected_tiles(map: Map, originTile: Tile) -> Array[Tile]:
+func get_affected_tiles(originTile: Tile) -> Array[Tile]:
+	var map = originTile.map
 	var affectedTiles: Array[Tile] = []
 	
 	for cell in cells:
@@ -55,4 +55,4 @@ func get_rotated(rotationSteps: int) -> Structure:
 	
 	var rotatedCells = Utils.get_rotated_cells(cells, rotationSteps)
 	
-	return Structure.new(alignment, rotatedCells, specialRules, state)
+	return Structure.new(alignment, rotatedCells, specialRules)

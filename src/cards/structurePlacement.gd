@@ -60,8 +60,8 @@ func _preview_structure(hoveredTile: Tile):
 
 func _try_confirm_placement(targetTile: Tile):
 	var rotatedStructure = structure.get_rotated(rotationSteps)
-	var affectedTiles = rotatedStructure.get_affected_tiles(gameState.map, targetTile)
-	var adjacentTiles = rotatedStructure.get_adjacent_tiles(gameState.map, targetTile)
+	var affectedTiles = rotatedStructure.get_affected_tiles(targetTile)
+	var adjacentTiles = rotatedStructure.get_adjacent_tiles(targetTile)
 
 	var args = PlayArgs.new(gameState, rotatedStructure, affectedTiles, adjacentTiles)
 

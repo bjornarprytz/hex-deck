@@ -1,7 +1,7 @@
 class_name DiscoverTile
 extends Effect
 
-func resolve(args: PlayArgs):
+func resolve(args: EffectArgs):
 	var map = args.gameState.map
 	var newTileCoords = map.undiscoveredTiles.values().pick_random()
 	var _newTile = map.discover_tile(newTileCoords)

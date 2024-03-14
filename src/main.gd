@@ -107,7 +107,7 @@ func _on_clean_up() -> void:
 		discard_card(card)
 	
 	for placedStructure in map.get_placed_structures():
-		var args = PlayArgs.new(self, placedStructure.structure, placedStructure.affectedTiles, placedStructure.get_adjacent_tiles())
+		var args = EffectArgs.new(self, placedStructure)
 		for effect in placedStructure.structure.get_rules().incomeEffects:
 			effect.resolve(args)
 
@@ -124,15 +124,17 @@ func _on_game_over() -> void:
 
 # GAME ACTIONS
 func play_card(args: PlayArgs):
+	var placedStructure = map.place_structure(args.structure, args.affectedTiles)
+
+	var effectArgs = EffectArgs.new(self, placedStructure)
+
 	for effect in args.structure.get_rules().placementEffects:
-		effect.resolve(args)
+		effect.resolve(effectArgs)
 	for tile in args.affectedTiles:
 		if (tile.placementBonus == null):
 			continue
 		for effect in tile.placementBonus.rules.placementEffects:
-			effect.resolve(args)
-
-	map.place_structure(args.structure, args.affectedTiles)
+			effect.resolve(effectArgs)
 
 func draw_card():
 	var cardData = drawPile.pop_card()

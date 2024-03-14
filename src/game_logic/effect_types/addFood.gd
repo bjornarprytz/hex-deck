@@ -6,7 +6,7 @@ var amount: int
 func _init(inputAmount: int=1):
     amount = inputAmount
 
-func resolve(args: PlayArgs):
+func resolve(args: EffectArgs):
     assert(amount > 0)
     args.gameState.food += amount
 

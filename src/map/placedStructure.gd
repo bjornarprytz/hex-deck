@@ -5,13 +5,14 @@ var structureView: StructureView:
 	get:
 		return $StructureView
 
-@export var structure: Structure:
+var structure: Structure:
 	set(value):
 		structureView.structure = value
 	get:
 		return structureView.structure
 
 var affectedTiles: Array[Tile]
+var state: MutableState = MutableState.new()
 
 func get_adjacent_tiles() -> Array[Tile]:
 	var adjacent_tiles: Array[Tile] = []

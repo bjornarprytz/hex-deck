@@ -90,7 +90,7 @@ func get_tile_from_mouse_pointer() -> Tile:
 	var coords = point_to_coords(get_local_mouse_position())
 	return get_tile(coords)
 
-func place_structure(structure: Structure, affectedTiles: Array[Tile]):
+func place_structure(structure: Structure, affectedTiles: Array[Tile]) -> PlacedStructure:
 	var placedStructure = structureSpawner.instantiate() as PlacedStructure
 	placedStructure.structure = structure
 	structures.add_child(placedStructure)
@@ -100,6 +100,8 @@ func place_structure(structure: Structure, affectedTiles: Array[Tile]):
 	
 	for tile in affectedTiles:
 		tile.structure = placedStructure.structure
+	
+	return placedStructure
 
 func _initialize_map():
 	for q in range(radius):

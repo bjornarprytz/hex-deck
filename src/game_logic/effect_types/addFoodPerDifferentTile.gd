@@ -1,7 +1,7 @@
 class_name AddFoodPerDifferentTile
 extends Effect
 
-func resolve(args: PlayArgs):
+func resolve(args: EffectArgs):
 	var unique_colors: Array[Color] = []
 	for t in args.adjacentTiles:
 		if (t.structure == null):

@@ -6,12 +6,13 @@ var path: Array[Vector2i] = [Utils.axialForward]
 ## TODO: Figure out the specifics:
 # There's also obstructions to consider
 
-func resolve(args: PlayArgs):
-	var facing = args.structure.state.facing
+func resolve(args: EffectArgs):
+	var placedStructure = args.structure
+	var facing = placedStructure.state.facing
 
 	var rotatedPath = Utils.get_rotated_cells(path, facing)
 
-	var movedStructure = args.structure
+	var movedStructure = placedStructure
 
 	for step in rotatedPath:
 		movedStructure = movedStructure.get_moved(step)

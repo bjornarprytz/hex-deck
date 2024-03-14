@@ -1,7 +1,7 @@
 class_name AddFoodPerSimilarTile
 extends Effect
 
-func resolve(args: PlayArgs):
+func resolve(args: EffectArgs):
 	var maxCount: int = 0
 	var colors: Dictionary = {}
 	for t in args.adjacentTiles:
