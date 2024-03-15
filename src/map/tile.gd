@@ -68,6 +68,10 @@ func get_neighbours() -> Array[Tile]:
 
 	return neighbours
 
+func get_relative_tile(displacement: Vector2i) -> Tile:
+	var targetCoords = coordinates.add_vec(displacement)
+	return map.get_tile(targetCoords)
+
 func _physics_process(_delta: float) -> void:
 	if isHovered:
 		modulate = baseModulate * (pingpong(Time.get_ticks_msec() / 1000.0, 1.0) + .5)
