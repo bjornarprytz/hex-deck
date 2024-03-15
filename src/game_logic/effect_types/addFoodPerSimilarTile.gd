@@ -13,8 +13,8 @@ func resolve(args: EffectArgs):
 		else:
 			colors[color] += 1
 		maxCount = max(colors[color], maxCount)
-		
-	args.gameState.food += maxCount
+	
+	args.gameState.add_food(maxCount, args.affectedTiles)
 
 func rules_text() -> String:
 	return "Add food per ="

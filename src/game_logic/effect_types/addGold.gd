@@ -6,9 +6,9 @@ var amount: int
 func _init(inputAmount: int=1):
     amount = inputAmount
 
-func resolve(_args: EffectArgs):
+func resolve(args: EffectArgs):
     assert(amount > 0)
-    Meta.gold += amount
+    Meta.add_gold(amount, args.affectedTiles)
 
 func rules_text() -> String:
     return "Add %d gold" % amount

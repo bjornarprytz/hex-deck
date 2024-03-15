@@ -39,6 +39,10 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
   - Resolve an effect and reset countdown when it reaches 0
 - Effects on cards
 
+- Event system
+  - Effects that trigger based on game events
+    - Income, Card play, etc.
+
 - UI
   - Show points change
   - Camera movement

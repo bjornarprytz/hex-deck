@@ -3,6 +3,7 @@ extends Node2D
 
 @onready var structurePlacementSpawner = preload ("res://cards/structure_placement.tscn")
 @onready var cardSpawner = preload ("res://cards/card.tscn")
+@onready var scoreSpawner = preload ("res://ui/score_coin.tscn")
 
 @onready var map: Map = $Map
 @onready var hand: Hand = $Hand
@@ -17,15 +18,7 @@ var structurePlacement: StructurePlacement
 const INITIAL_FOOD_REQUIREMENT := 5
 const FOOD_REQUIREMENT_INCREASE = 3
 
-var food: int:
-	get:
-		return food
-	set(value):
-		if (value == food):
-			return
-		var oldValue = food
-		food = value
-		Events.foodChanged.emit(oldValue, food)
+var food: int
 
 var foodRequirement: int:
 	get:
@@ -35,7 +28,7 @@ var foodRequirement: int:
 			return
 		var oldValue = foodRequirement
 		foodRequirement = value
-		Events.foodRequirementChanged.emit(oldValue, foodRequirement)
+		_update_food() # TODO: Hook this up to an event and make it juicy
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -48,7 +41,16 @@ func _ready() -> void:
 
 	foodRequirement = INITIAL_FOOD_REQUIREMENT
 
-func _handle_food_change(_oldFood: int, _newFood: int):
+func _handle_food_change(_oldFood: int, _newFood: int, source: Array[Tile]):
+	var tile = source.pick_random()
+	var coin = scoreSpawner.instantiate() as ScoreCoin
+
+	coin.val = _newFood - _oldFood
+	get_tree().root.add_child(coin)
+	coin.global_position = tile.global_position
+	await create_tween().tween_property(coin, 'global_position', $Food.global_position, .4).finished
+	coin.queue_free()
+
 	_update_food()
 
 func _update_food():
@@ -152,6 +154,11 @@ func draw_card():
 func discard_card(card: Card):
 	drawPile.tuck_card(card.data)
 	card.queue_free()
+
+func add_food(n: int, source: Array[Tile]):
+	var oldValue = food
+	food += n
+	Events.foodChanged.emit(oldValue, food, source)
 
 func _on_pass_turn() -> void:
 	state.send_event("pass turn")

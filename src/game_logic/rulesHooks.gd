@@ -9,6 +9,8 @@ var placementRules: Array[PlacementRule] = []
 var placementEffects: Array[Effect] = []
 ## Effects that trigger during cleanup (after each hand)
 var incomeEffects: Array[Effect] = []
+## Effects that trigger after a card is played
+var cardPlayEffects: Array[Effect] = []
 ## Effects that trigger on specific events ({eventName: Array[Effects]})
 var triggeredEffects: Dictionary
 
@@ -16,6 +18,7 @@ func rules_text() -> String:
 	var placementRulesText = ""
 	var placementEffectsText = ""
 	var incomeText = ""
+	var cardPlayText = ""
 
 	if (_rulesText == ""):
 		for rule in placementRules:
@@ -38,8 +41,15 @@ func rules_text() -> String:
 				incomeText = "Income: %s" % [text]
 			else:
 				incomeText = "%s %s" % [incomeText, text]
+		
+		for effect in cardPlayEffects:
+			var text = effect.rules_text()
+			if cardPlayText == "":
+				cardPlayText = "When a card i played: %s" % [text]
+			else:
+				cardPlayText = "%s %s" % [cardPlayText, text]
 	
-	for part in [placementRulesText, placementEffectsText, incomeText]:
+	for part in [placementRulesText, placementEffectsText, incomeText, cardPlayText]:
 		if part != "":
 			if _rulesText != "":
 				_rulesText += "\n"
@@ -60,6 +70,10 @@ func with_income_effects(effects: Array[Effect]) -> RulesHooks:
 	incomeEffects.append_array(effects)
 	return self
 
+func with_card_play_effects(effects: Array[Effect]) -> RulesHooks:
+	cardPlayEffects.append_array(effects)
+	return self
+
 func merge(other: RulesHooks) -> RulesHooks:
 	return RulesHooks.new() \
 		.with_placement_rules(placementRules) \
@@ -69,4 +83,7 @@ func merge(other: RulesHooks) -> RulesHooks:
 		.with_placement_effects(other.placementEffects) \
 
 		.with_income_effects(incomeEffects) \
-		.with_income_effects(other.incomeEffects)
+		.with_income_effects(other.incomeEffects) \
+
+		.with_card_play_effects(cardPlayEffects) \
+		.with_card_play_effects(other.cardPlayEffects)

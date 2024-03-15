@@ -4,15 +4,7 @@ extends Node
 var cardSpawner = preload ("res://cards/card.tscn")
 var structureSpawner = preload ("res://map/placed_structure.tscn")
 
-var gold: int:
-	get:
-		return gold
-	set(value):
-		if (value == gold):
-			return
-		var oldValue = gold
-		gold = value
-		Events.goldChanged.emit(oldValue, gold)
+var gold: int
 
 var deck: Array[CardData] = [
 	CardData.Random("Quantum Nexus"),
@@ -45,3 +37,8 @@ var alignmentRules: Dictionary = {
 
 func reset():
 	gold = 0
+
+func add_gold(n: int, source: Array[Tile]):
+	var oldValue = gold
+	gold += n
+	Events.goldChanged.emit(oldValue, gold, source)

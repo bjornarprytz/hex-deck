@@ -8,7 +8,7 @@ func _init(inputAmount: int=1):
 
 func resolve(args: EffectArgs):
     assert(amount > 0)
-    args.gameState.food += amount
+    args.gameState.add_food(amount, args.affectedTiles)
 
 func rules_text() -> String:
     return "Add %d food" % amount
