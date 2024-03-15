@@ -52,7 +52,7 @@ func move_along_path(rotatedPath: Array[Vector2i]):
 
 		# Move to the new placement
 		currentAffectedTiles = newAffectedTiles
-		position = targetTile.position
+		await create_tween().tween_property(self, 'position', targetTile.position, .1).finished
 
 	affectedTiles = currentAffectedTiles
 	for tile in affectedTiles:
