@@ -33,24 +33,35 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- IntervalEffects
-  - Structures can have an interval effect
-  - Tick down after each card play
-  - Resolve an effect and reset countdown when it reaches 0
-- Effects on cards
-
 - Event system
   - Effects that trigger based on game events
     - Income, Card play, etc.
+  - Put all effects in rules layer
+    - Placement
+    - Draw card
+
+- Prompt system
+  - Draft
+  - Trade
+  - Loot
+  - Modal cards
+
+- Procedural Generation
+  - Tile pool, not dice rolls
+
+- Make cards
+  - 12 cards
+    - 1 common and 1 uncommon in each color
+
+
+- If possible:
+  - Refactor such that I can have effects without needing the structure reference. E.g. "Rules layer" effects
 
 - UI
-  - Show points change
   - Camera movement
   - Show state on structure
     - Countdown
     - Facing Direction
-- Procedural Generation
-  - Tile pool, not dice rolls
 
 ## Base Rules
 
@@ -80,6 +91,7 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - Shop
   - Relics
   - Cards
+  - Packs
   - Sell / Upgrade / Modify / Combine / Paint cards
 
 - Non-player tiles  
@@ -98,6 +110,11 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
   - Effect
 - Cards
   - Abilities
+
+- IntervalEffects
+  - Structures can have an interval effect
+  - Tick down after each card play
+  - Resolve an effect and reset countdown when it reaches 0
 
 ## Extra
 

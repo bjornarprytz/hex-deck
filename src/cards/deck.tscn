@@ -9,30 +9,27 @@ default_font_size = 256
 script = ExtResource("1_hvdpq")
 
 [node name="Color" type="ColorRect" parent="."]
-offset_left = 13.0
-offset_top = 528.0
-offset_right = 151.0
-offset_bottom = 714.0
+offset_left = -70.0
+offset_top = -91.0
+offset_right = 68.0
+offset_bottom = 95.0
 color = Color(0.443137, 0.443137, 0.443137, 1)
-
-[node name="CardAnchor" type="Node2D" parent="Color"]
-position = Vector2(69, 93)
 
 [node name="Label" type="RichTextLabel" parent="."]
 modulate = Color(0, 0, 0, 1)
-offset_left = 46.0
-offset_top = 604.0
-offset_right = 1026.0
-offset_bottom = 1034.0
+offset_left = -37.0
+offset_top = -14.9999
+offset_right = 943.0
+offset_bottom = 415.0
 scale = Vector2(0.1, 0.1)
 theme = SubResource("Theme_owjdq")
 text = "Deck"
 
 [node name="CardCount" type="RichTextLabel" parent="."]
 modulate = Color(0, 0, 0, 1)
-offset_left = 88.0
-offset_top = 676.0
-offset_right = 698.0
-offset_bottom = 1036.0
+offset_left = 5.00001
+offset_top = 57.0001
+offset_right = 615.0
+offset_bottom = 417.0
 scale = Vector2(0.1, 0.1)
 theme = SubResource("Theme_owjdq")

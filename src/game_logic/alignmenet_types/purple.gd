@@ -8,4 +8,5 @@ func get_id() -> Alignment.Id:
 	return Alignment.Id.Purple
 
 func get_rules() -> RulesHooks:
-	return RulesHooks.new().with_income_effects([AddGold.new()])
+	return RulesHooks.new() \
+		.with_income_effects([AddGold.new()])

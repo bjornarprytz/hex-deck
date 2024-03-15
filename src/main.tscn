@@ -20,7 +20,7 @@ script = ExtResource("4_gd748")
 
 [node name="Root" type="Node" parent="State"]
 script = ExtResource("5_toycd")
-initial_state = NodePath("Upkeep")
+initial_state = NodePath("CleanUp")
 
 [node name="Upkeep" type="Node" parent="State/Root"]
 script = ExtResource("6_u802m")
@@ -77,8 +77,10 @@ radius = 4
 tileSize = 40.0
 
 [node name="Hand" parent="." instance=ExtResource("2_4d8mv")]
+position = Vector2(640, 649)
 
 [node name="DrawPile" parent="." instance=ExtResource("8_i4sgb")]
+position = Vector2(1201, 516)
 
 [node name="FoodHeading" type="RichTextLabel" parent="."]
 offset_left = 1094.0
@@ -97,7 +99,26 @@ offset_right = 2051.0
 offset_bottom = 450.0
 scale = Vector2(0.1, 0.1)
 theme = SubResource("Theme_tun70")
-text = "12/5"
+text = "0/25"
+
+[node name="TurnsHeading" type="RichTextLabel" parent="."]
+offset_left = 1094.0
+offset_top = 145.0
+offset_right = 2024.0
+offset_bottom = 525.0
+scale = Vector2(0.1, 0.1)
+theme = SubResource("Theme_tun70")
+bbcode_enabled = true
+text = "[right]Turns: "
+
+[node name="Turns" type="RichTextLabel" parent="."]
+offset_left = 1192.0
+offset_top = 145.0
+offset_right = 2052.0
+offset_bottom = 525.0
+scale = Vector2(0.1, 0.1)
+theme = SubResource("Theme_tun70")
+text = "5"
 
 [node name="GoldHeading" type="RichTextLabel" parent="."]
 offset_left = 1094.0
@@ -116,7 +137,7 @@ offset_right = 2051.0
 offset_bottom = 490.0
 scale = Vector2(0.1, 0.1)
 theme = SubResource("Theme_tun70")
-text = "12"
+text = "3"
 
 [node name="PassTurn" type="Button" parent="."]
 offset_left = 1175.0

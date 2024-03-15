@@ -28,6 +28,10 @@ var data: CardData:
 		structurePreview.structure = Structure.new(data.alignment, data.cells, data.rules)
 		rulesText.text = structurePreview.structure.get_rules().rules_text()
 
+var cost: CardData.Cost:
+	get:
+		return data.cost
+
 func cancel():
 	Events.cardReleased.emit(self)
 

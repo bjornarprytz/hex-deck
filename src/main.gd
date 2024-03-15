@@ -15,20 +15,16 @@ extends Node2D
 var cardToPlay: Card
 var structurePlacement: StructurePlacement
 
-const INITIAL_FOOD_REQUIREMENT := 5
-const FOOD_REQUIREMENT_INCREASE = 3
+const FOOD_REQUIREMENT = 25
+const TURN_LIMIT = 5
 
 var food: int
-
-var foodRequirement: int:
-	get:
-		return foodRequirement
+var turnsLeft: int = TURN_LIMIT + 1: # +1 because we're starting in the cleanup step
 	set(value):
-		if (value == foodRequirement):
+		if value == turnsLeft:
 			return
-		var oldValue = foodRequirement
-		foodRequirement = value
-		_update_food() # TODO: Hook this up to an event and make it juicy
+		turnsLeft = value
+		$Turns.text = "%d" % [turnsLeft]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,10 +35,13 @@ func _ready() -> void:
 	Events.foodRequirementChanged.connect(_handle_food_change)
 	Events.gameOver.connect(func(_result: bool): state.send_event("game over"))
 
-	foodRequirement = INITIAL_FOOD_REQUIREMENT
-
 func _handle_food_change(_oldFood: int, _newFood: int, source: Array[Tile]):
-	var tile = source.pick_random()
+	var tile: Tile
+	if source.size() == 0:
+		tile = map.get_tile(Map.Coordinates.new(0, 0))
+	else:
+		tile = source.pick_random()
+	
 	var coin = scoreSpawner.instantiate() as ScoreCoin
 
 	coin.val = _newFood - _oldFood
@@ -54,7 +53,7 @@ func _handle_food_change(_oldFood: int, _newFood: int, source: Array[Tile]):
 	_update_food()
 
 func _update_food():
-	$Food.text = "%d/%d" % [food, foodRequirement]
+	$Food.text = "%d/%d" % [food, FOOD_REQUIREMENT]
 	$Gold.text = "%d" % [Meta.gold]
 
 # UPKEEP
@@ -95,9 +94,10 @@ func _abort_play():
 func _confirm_play(args: PlayArgs):
 	play_card(args)
 	
+	cardToPlay.reparent(self)
 	var tween = create_tween()
-	tween.tween_property(cardToPlay, 'modulate:a', 0.0, .2)
-	tween.tween_callback(cardToPlay.queue_free)
+	tween.tween_property(cardToPlay, 'position', drawPile.position, .4)
+	tween.tween_callback(discard_card.bind(cardToPlay))
 	state.send_event("idle")
 
 func _off_play_card() -> void:
@@ -108,29 +108,39 @@ func _on_clean_up() -> void:
 	for card in hand.get_cards():
 		discard_card(card)
 	
+	for effect in Meta.incomeRules:
+		effect.resolve(EffectArgs.new(self, null))
+
 	for placedStructure in map.get_placed_structures():
 		var args = EffectArgs.new(self, placedStructure)
 		for effect in placedStructure.structure.get_rules().incomeEffects:
 			effect.resolve(args)
 
-	if (food < foodRequirement):
+	if (turnsLeft < 0 and food < FOOD_REQUIREMENT):
 		state.send_event("game over")
-	else:
-		food -= foodRequirement
-		foodRequirement += FOOD_REQUIREMENT_INCREASE
-		state.send_event("next phase")
+		return
+	
+	turnsLeft -= 1
+	state.send_event("next phase")
 
 # GAME OVER
 func _on_game_over() -> void:
 	Debug.push_message("Game Over!")
+	if (food < FOOD_REQUIREMENT):
+		Debug.push_message("Lose")
+	else:
+		Debug.push_message("Win!")
 
 # GAME ACTIONS
 func play_card(args: PlayArgs):
-	var placedStructure = map.place_structure(args.structure, args.affectedTiles)
+	for effect in Meta.playEffects:
+		effect.resolve(args)
+
+	var placedStructure = map.place_structure(args.rotatedStructure, args.affectedTiles)
 
 	var effectArgs = EffectArgs.new(self, placedStructure)
 
-	for effect in args.structure.get_rules().placementEffects:
+	for effect in args.rotatedStructure.get_rules().placementEffects:
 		effect.resolve(effectArgs)
 	for tile in args.affectedTiles:
 		if (tile.placementBonus == null):
@@ -147,7 +157,7 @@ func draw_card():
 	
 	var card = cardSpawner.instantiate() as Card
 	card.data = cardData
-	card.global_position = drawPile.cardAnchor.global_position
+	card.global_position = drawPile.global_position
 	
 	hand.add_card.call_deferred(card)
 
@@ -155,9 +165,14 @@ func discard_card(card: Card):
 	drawPile.tuck_card(card.data)
 	card.queue_free()
 
-func add_food(n: int, source: Array[Tile]):
+func add_food(n: int, source: Array[Tile]=[]):
 	var oldValue = food
 	food += n
+	Events.foodChanged.emit(oldValue, food, source)
+
+func remove_food(n: int, source: Array[Tile]=[]):
+	var oldValue = food
+	food -= n
 	Events.foodChanged.emit(oldValue, food, source)
 
 func _on_pass_turn() -> void:

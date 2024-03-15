@@ -3,7 +3,6 @@ extends Node2D
 
 @onready var cards : Array[CardData] = []
 
-@onready var cardAnchor : Node2D = $Color/CardAnchor
 @onready var cardCount : RichTextLabel = $CardCount
 
 func add_cards(cardsToAdd: Array[CardData]):

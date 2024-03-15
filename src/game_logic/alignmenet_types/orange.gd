@@ -8,4 +8,5 @@ func get_id() -> Alignment.Id:
 	return Alignment.Id.Orange
 
 func get_rules() -> RulesHooks:
-	return RulesHooks.new().with_placement_rules([WaterAffinityRule.new()])
+	return RulesHooks.new() \
+			.with_placement_effects([TriggerPlacementBonuses.new()])

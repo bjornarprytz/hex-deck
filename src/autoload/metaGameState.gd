@@ -7,23 +7,31 @@ var structureSpawner = preload ("res://map/placed_structure.tscn")
 var gold: int
 
 var deck: Array[CardData] = [
-	CardData.Random("Quantum Nexus"),
-	CardData.Random("Hyperflux Prism"),
-	CardData.Random("Nebula Harmonics"),
-	CardData.Random("Singularity Synchrony"),
-	CardData.Random("Chrono Fractal"),
-	CardData.Random("Warp Resonance"),
-	CardData.Random("Quantum Lattice"),
-	CardData.Random("Aetheric Enigma"),
-	CardData.Random("Void Mandala"),
-	CardData.Random("Celestial Geodesic"),
-	CardData.Random("Nebular Conundrum"),
+	CardData.Create(1, Alignment.Id.Green).with_gold_cost(1),
+	CardData.Create(1, Alignment.Id.Green).with_gold_cost(1),
+	CardData.Create(1, Alignment.Id.Green).with_gold_cost(1),
+	CardData.Create(1, Alignment.Id.Purple).with_gold_cost(1),
+	CardData.Create(1, Alignment.Id.Yellow).with_gold_cost(1),
+	CardData.Create(1, Alignment.Id.Orange).with_gold_cost(1),
+	CardData.Create(1, Alignment.Id.Red).with_gold_cost(1),
+	CardData.Create(1, Alignment.Id.Green).with_gold_cost(1),
+	CardData.Create(2, Alignment.Id.Red).with_gold_cost(1),
+	CardData.Create(3, Alignment.Id.Green).with_gold_cost(1),
+]
+
+var incomeRules: Array[Effect] = [
+	AddGold.new(3)
 ]
 
 var placementRules: Array[PlacementRule] = [
 	AdjacentStructureRule.new(),
 	FreeSpaceRule.new(),
-	TerrainRule.new()
+	TerrainRule.new(),
+	PaymentRule.new()
+]
+
+var playEffects: Array[PlayEffect] = [
+	PayCost.new()
 ]
 
 var alignmentRules: Dictionary = {
@@ -38,7 +46,12 @@ var alignmentRules: Dictionary = {
 func reset():
 	gold = 0
 
-func add_gold(n: int, source: Array[Tile]):
+func add_gold(n: int, source: Array[Tile]=[]):
 	var oldValue = gold
 	gold += n
+	Events.goldChanged.emit(oldValue, gold, source)
+
+func remove_gold(n: int, source: Array[Tile]=[]):
+	var oldValue = gold
+	gold -= n
 	Events.goldChanged.emit(oldValue, gold, source)
