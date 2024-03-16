@@ -128,13 +128,11 @@ func _on_game_over() -> void:
 func play_card(args: PlayEffectArgs):
 	for effect in Meta.playEffects:
 		effect.resolve(args)
-
-func draw_card():
-	var cardData = drawPile.pop_card()
 	
-	if (cardData == null):
-		Events.gameOver.emit(false)
-		return
+	Events.onCardPlayed.emit(args)
+
+func draw_card() -> Card:
+	var cardData = drawPile.pop_card()
 	
 	var card = cardSpawner.instantiate() as Card
 	card.data = cardData
@@ -142,9 +140,13 @@ func draw_card():
 	
 	hand.add_card.call_deferred(card)
 
-func discard_card(card: Card):
-	drawPile.tuck_card(card.data)
+	return card
+
+func discard_card(card: Card) -> CardData:
+	var cardData = card.data
+	drawPile.tuck_card(cardData)
 	card.queue_free()
+	return cardData
 
 func add_food(n: int, source: Array[Tile]=[]):
 	var oldValue = food

@@ -15,3 +15,5 @@ func resolve(args: PlayEffectArgs):
 			continue
 		for effect in tile.placementBonus.rules.placementEffects:
 			effect.resolve(structureEffectArgs)
+	
+	Events.onStructurePlaced.emit(structureEffectArgs)

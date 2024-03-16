@@ -1,4 +1,4 @@
-class_name DrawCard
+class_name DrawCards
 extends Effect
 
 var amount: int
@@ -7,8 +7,12 @@ func _init(cardsToDraw: int=1):
 	amount = cardsToDraw
 
 func resolve(args: EffectArgs):
+	var cards: Array[Card] = []
+
 	for i in range(amount):
-		args.gameState.draw_card()
+		cards.push_back(args.gameState.draw_card())
+	
+	Events.onCardsDrawn.emit(args, cards)
 
 func rules_text() -> String:
 	return "Draw a card"

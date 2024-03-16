@@ -10,4 +10,4 @@ func get_id() -> Alignment.Id:
 func get_rules() -> RulesHooks:
 	return RulesHooks.new() \
 		.with_placement_rules([WaterAffinityRule.new()]) \
-		.with_placement_effects([DrawCard.new()])
+		.with_placement_effects([DrawCards.new()])

@@ -18,7 +18,7 @@ var deck: Array[CardData] = [
 ]
 
 var upkeepRules: Array[Effect] = [
-	DrawCard.new(5),
+	DrawCards.new(5),
 	AddGold.new(3)
 ]
 

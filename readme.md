@@ -33,39 +33,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Event system
-  - Effects that trigger based on game events
-    - Income, Card play, etc.
-  - Put all effects in rules layer
-    - Placement
-    - Draw cards
-- Rules:
-  - PlayRule
-- EffectTypes:
-  - GameEffect (only gameState as input)
-  - PlayEffect (gamestate + card)
-  - StructureEffect (gamestate + placedStructure)
-- EffectTrigges:
-  - Upkeep
-    - GameEffect
-    - StructureEffects
-  - Main
-    - Play
-      - PlayRules
-      - PlayEffects
-      - StructureEffect
-  - CleanUp
-    - GameEffect
-    - StructureEffects
-  - Events:
-    - OnStructurePlaced(gameState, placedStructure)
-    - OnDraw(gameState, drawnCard)
-    - OnDiscard(gameState, discardedCard)
-    - OnDiscover(gameState, tiles)
-
-- How do I know which effect types to resolve?
-- Triggers should also be categorized. So some phases trigger certain types of effects
-
 - Prompt system
   - Can I use await signal to program the prompt?
   - Draft
