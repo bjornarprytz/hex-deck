@@ -34,7 +34,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 ## TODO
 
 - Prompt system
-  - Can I use await signal to program the prompt?
   - Draft
   - Trade
   - Loot
@@ -47,15 +46,10 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
   - 12 cards
     - 1 common and 1 uncommon in each color
 
-
-- If possible:
-  - Refactor such that I can have effects without needing the structure reference. E.g. "Rules layer" effects
-
 - UI
   - Camera movement
-  - Show state on structure
-    - Countdown
-    - Facing Direction
+
+- Extend the Create class to include all instantiated scenes
 
 ## Base Rules
 

@@ -2,7 +2,7 @@ class_name GameState
 extends Node2D
 
 @onready var structurePlacementSpawner = preload ("res://cards/structure_placement.tscn")
-@onready var cardSpawner = preload ("res://cards/card.tscn")
+#@onready var cardSpawner = preload ("res://cards/card.tscn")
 @onready var scoreSpawner = preload ("res://ui/score_coin.tscn")
 
 @onready var map: Map = $Map
@@ -134,8 +134,7 @@ func play_card(args: PlayEffectArgs):
 func draw_card() -> Card:
 	var cardData = drawPile.pop_card()
 	
-	var card = cardSpawner.instantiate() as Card
-	card.data = cardData
+	var card = Create.card(cardData)
 	card.global_position = drawPile.global_position
 	
 	hand.add_card.call_deferred(card)

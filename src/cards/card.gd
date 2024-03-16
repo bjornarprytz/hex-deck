@@ -1,5 +1,5 @@
 class_name Card
-extends Node2D
+extends Control
 
 @onready var background: ColorRect = $Color
 
