@@ -39,8 +39,15 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
   - Put all effects in rules layer
     - Placement
     - Draw card
+- EffectTypes:
+  - GameEffect (only gameState as input)
+  - PlayEffect (gamestate + card)
+  - StructureEffect (gamestate + placedStructure)
+- EffectTrigges:
+  - phases, actions, etc
 
 - Prompt system
+  - Can I use await signal to program the prompt?
   - Draft
   - Trade
   - Loot

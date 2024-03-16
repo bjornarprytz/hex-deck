@@ -34,6 +34,8 @@ func _reposition_cards(_node):
 	
 	var i = 0
 	for card in cards:
+		if card.is_queued_for_deletion():
+			continue
 		var h_spacing = card.width + 20.0
 		var targetPosition = int(h_spacing * (i-cards.size() / 2.0) ) * Vector2.RIGHT
 		positionTween.tween_property(card, 'position', targetPosition, .4)
