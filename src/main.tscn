@@ -20,7 +20,7 @@ script = ExtResource("4_gd748")
 
 [node name="Root" type="Node" parent="State"]
 script = ExtResource("5_toycd")
-initial_state = NodePath("CleanUp")
+initial_state = NodePath("Upkeep")
 
 [node name="Upkeep" type="Node" parent="State/Root"]
 script = ExtResource("6_u802m")

@@ -17,8 +17,7 @@ var deck: Array[CardData] = [
 	CardData.Create(3, Alignment.Id.Green).with_gold_cost(1),
 ]
 
-var cleanUpRules: Array[Effect] = [
-	DiscardHand.new(),
+var upkeepRules: Array[Effect] = [
 	DrawCard.new(5),
 	AddGold.new(3)
 ]
@@ -31,7 +30,13 @@ var placementRules: Array[PlacementRule] = [
 ]
 
 var playEffects: Array[Effect] = [
-	PayCost.new()
+	PayCost.new(),
+	PlaceStructure.new()
+]
+
+var cleanUpRules: Array[Effect] = [
+	DiscardHand.new(),
+	Income.new()
 ]
 
 var alignmentRules: Dictionary = {

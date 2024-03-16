@@ -59,8 +59,8 @@ func _update_food():
 
 # UPKEEP
 func _on_upkeep() -> void:
-	for i in range(5):
-		draw_card()
+	for effect in Meta.upkeepRules:
+		effect.resolve(StructureEffectArgs.new(self, null))
 	state.send_event("next phase")
 
 # MAIN/IDLE
@@ -109,11 +109,6 @@ func _on_clean_up() -> void:
 	for effect in Meta.cleanUpRules:
 		effect.resolve(StructureEffectArgs.new(self, null))
 
-	for placedStructure in map.get_placed_structures():
-		var args = StructureEffectArgs.new(self, placedStructure)
-		for effect in placedStructure.structure.get_rules().incomeEffects:
-			effect.resolve(args)
-
 	if (turnsLeft < 0 and food < FOOD_REQUIREMENT):
 		state.send_event("game over")
 		return
@@ -133,18 +128,6 @@ func _on_game_over() -> void:
 func play_card(args: PlayEffectArgs):
 	for effect in Meta.playEffects:
 		effect.resolve(args)
-
-	var placedStructure = map.place_structure(args.rotatedStructure, args.affectedTiles)
-
-	var structureEffectArgs = StructureEffectArgs.new(self, placedStructure)
-
-	for effect in args.rotatedStructure.get_rules().placementEffects:
-		effect.resolve(structureEffectArgs)
-	for tile in args.affectedTiles:
-		if (tile.placementBonus == null):
-			continue
-		for effect in tile.placementBonus.rules.placementEffects:
-			effect.resolve(structureEffectArgs)
 
 func draw_card():
 	var cardData = drawPile.pop_card()
