@@ -1,7 +1,6 @@
-class_name PlayArgs
-extends Resource
+class_name PlayEffectArgs
+extends GameEffectArgs
 
-var gameState: GameState
 var card: Card
 var rotatedStructure: Structure
 var affectedTiles: Array[Tile] = []

@@ -1,7 +1,7 @@
 class_name AddFoodPerSimilarTile
-extends Effect
+extends StructureEffect
 
-func resolve(args: EffectArgs):
+func resolve(args: StructureEffectArgs):
 	var maxCount: int = 0
 	var colors: Dictionary = {}
 	for t in args.adjacentTiles:

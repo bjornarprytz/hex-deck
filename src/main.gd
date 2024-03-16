@@ -19,6 +19,7 @@ const FOOD_REQUIREMENT = 25
 const TURN_LIMIT = 5
 
 var food: int
+var gold: int
 var turnsLeft: int = TURN_LIMIT + 1: # +1 because we're starting in the cleanup step
 	set(value):
 		if value == turnsLeft:
@@ -54,7 +55,7 @@ func _handle_food_change(_oldFood: int, _newFood: int, source: Array[Tile]):
 
 func _update_food():
 	$Food.text = "%d/%d" % [food, FOOD_REQUIREMENT]
-	$Gold.text = "%d" % [Meta.gold]
+	$Gold.text = "%d" % [gold]
 
 # UPKEEP
 func _on_upkeep() -> void:
@@ -91,7 +92,7 @@ func _abort_play():
 	hand.add_card(cardToPlay)
 	state.send_event("idle")
 
-func _confirm_play(args: PlayArgs):
+func _confirm_play(args: PlayEffectArgs):
 	play_card(args)
 	
 	cardToPlay.reparent(self)
@@ -109,10 +110,10 @@ func _on_clean_up() -> void:
 		discard_card(card)
 	
 	for effect in Meta.incomeRules:
-		effect.resolve(EffectArgs.new(self, null))
+		effect.resolve(StructureEffectArgs.new(self, null))
 
 	for placedStructure in map.get_placed_structures():
-		var args = EffectArgs.new(self, placedStructure)
+		var args = StructureEffectArgs.new(self, placedStructure)
 		for effect in placedStructure.structure.get_rules().incomeEffects:
 			effect.resolve(args)
 
@@ -132,21 +133,21 @@ func _on_game_over() -> void:
 		Debug.push_message("Win!")
 
 # GAME ACTIONS
-func play_card(args: PlayArgs):
+func play_card(args: PlayEffectArgs):
 	for effect in Meta.playEffects:
 		effect.resolve(args)
 
 	var placedStructure = map.place_structure(args.rotatedStructure, args.affectedTiles)
 
-	var effectArgs = EffectArgs.new(self, placedStructure)
+	var StructureEffectArgs = StructureEffectArgs.new(self, placedStructure)
 
 	for effect in args.rotatedStructure.get_rules().placementEffects:
-		effect.resolve(effectArgs)
+		effect.resolve(StructureEffectArgs)
 	for tile in args.affectedTiles:
 		if (tile.placementBonus == null):
 			continue
 		for effect in tile.placementBonus.rules.placementEffects:
-			effect.resolve(effectArgs)
+			effect.resolve(StructureEffectArgs)
 
 func draw_card():
 	var cardData = drawPile.pop_card()
@@ -174,6 +175,16 @@ func remove_food(n: int, source: Array[Tile]=[]):
 	var oldValue = food
 	food -= n
 	Events.foodChanged.emit(oldValue, food, source)
+
+func add_gold(n: int, source: Array[Tile]=[]):
+	var oldValue = gold
+	gold += n
+	Events.goldChanged.emit(oldValue, gold, source)
+
+func remove_gold(n: int, source: Array[Tile]=[]):
+	var oldValue = gold
+	gold -= n
+	Events.goldChanged.emit(oldValue, gold, source)
 
 func _on_pass_turn() -> void:
 	state.send_event("pass turn")

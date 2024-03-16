@@ -1,7 +1,7 @@
 class_name TerrainRule
 extends PlacementRule
 
-func check(args: PlayArgs) -> String:
+func check(args: PlayEffectArgs) -> String:
     for tile in args.affectedTiles:
         match tile.type:
             Tile.TerrainType.Mountain:

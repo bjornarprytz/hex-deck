@@ -1,7 +1,7 @@
 class_name WaterAffinityRule
 extends PlacementRule
 
-func check(args: PlayArgs) -> String:
+func check(args: PlayEffectArgs) -> String:
 	for tile in args.adjacentTiles:
 		if tile.placedStructure == null and tile.type == Tile.TerrainType.Water:
 			return ""

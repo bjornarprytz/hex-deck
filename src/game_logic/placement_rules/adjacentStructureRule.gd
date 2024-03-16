@@ -1,7 +1,7 @@
 class_name AdjacentStructureRule
 extends PlacementRule
 
-func check(args: PlayArgs) -> String:
+func check(args: PlayEffectArgs) -> String:
 	# First tile must be on the border
 	if args.gameState.map.structures.get_child_count() == 0:
 		for tile in args.affectedTiles:

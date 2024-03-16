@@ -1,12 +1,12 @@
 class_name AddFood
-extends Effect
+extends StructureEffect
 
 var amount: int
 
 func _init(inputAmount: int=1):
 	amount = inputAmount
 
-func resolve(args: EffectArgs):
+func resolve(args: StructureEffectArgs):
 	assert(amount > 0)
 	args.gameState.add_food(amount, args.affectedTiles)
 

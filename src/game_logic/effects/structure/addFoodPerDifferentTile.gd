@@ -1,7 +1,7 @@
 class_name AddFoodPerDifferentTile
-extends Effect
+extends StructureEffect
 
-func resolve(args: EffectArgs):
+func resolve(args: StructureEffectArgs):
 	var unique_colors: Array[Color] = []
 	for t in args.adjacentTiles:
 		if (t.placedStructure == null):

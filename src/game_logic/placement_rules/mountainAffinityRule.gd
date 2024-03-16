@@ -1,7 +1,7 @@
 class_name MountainAffinityRule
 extends PlacementRule
 
-func check(args: PlayArgs) -> String:
+func check(args: PlayEffectArgs) -> String:
 	for tile in args.adjacentTiles:
 		if tile.placedStructure == null and tile.type == Tile.TerrainType.Mountain:
 			return ""

@@ -1,7 +1,6 @@
-class_name EffectArgs
-extends Resource
+class_name StructureEffectArgs
+extends GameEffectArgs
 
-var gameState: GameState
 var placedStructure: PlacedStructure
 var affectedTiles: Array[Tile] = []
 var adjacentTiles: Array[Tile] = []

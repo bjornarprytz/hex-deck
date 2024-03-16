@@ -4,8 +4,6 @@ extends Node
 var cardSpawner = preload ("res://cards/card.tscn")
 var structureSpawner = preload ("res://map/placed_structure.tscn")
 
-var gold: int
-
 var deck: Array[CardData] = [
 	CardData.Create(1, Alignment.Id.Green).with_gold_cost(1),
 	CardData.Create(1, Alignment.Id.Green).with_gold_cost(1),
@@ -19,7 +17,7 @@ var deck: Array[CardData] = [
 	CardData.Create(3, Alignment.Id.Green).with_gold_cost(1),
 ]
 
-var incomeRules: Array[Effect] = [
+var incomeRules: Array[StructureEffect] = [
 	AddGold.new(3)
 ]
 
@@ -29,6 +27,8 @@ var placementRules: Array[PlacementRule] = [
 	TerrainRule.new(),
 	PaymentRule.new()
 ]
+
+
 
 var playEffects: Array[PlayEffect] = [
 	PayCost.new()
@@ -44,14 +44,5 @@ var alignmentRules: Dictionary = {
 }
 
 func reset():
-	gold = 0
-
-func add_gold(n: int, source: Array[Tile]=[]):
-	var oldValue = gold
-	gold += n
-	Events.goldChanged.emit(oldValue, gold, source)
-
-func remove_gold(n: int, source: Array[Tile]=[]):
-	var oldValue = gold
-	gold -= n
-	Events.goldChanged.emit(oldValue, gold, source)
+	Debug.push_message("Game reset!")
+	pass
