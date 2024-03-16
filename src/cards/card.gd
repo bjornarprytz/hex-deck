@@ -1,8 +1,9 @@
 class_name Card
 extends Control
 
-@onready var background: ColorRect = $Color
+signal clicked
 
+@onready var background: ColorRect = $Color
 @onready var width: float = background.size.x
 
 var structurePreview: StructureView:
@@ -36,4 +37,5 @@ func cancel():
 	Events.cardReleased.emit(self)
 
 func _on_handle_pressed() -> void:
+	clicked.emit()
 	Events.cardGrabbed.emit(self)

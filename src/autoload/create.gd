@@ -5,6 +5,6 @@ extends Node2D
 
 
 func card(data: CardData) -> Card:
-	var card = cardSpawner.instantiate() as Card
-	card.data = data
-	return card
+	var cardScene = cardSpawner.instantiate() as Card
+	cardScene.data = data
+	return cardScene

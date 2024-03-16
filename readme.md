@@ -33,11 +33,8 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Prompt system
-  - Draft
-  - Trade
-  - Loot
-  - Modal cards
+- Fix bug with Events.cardGrabbed
+  - It's too sweeping, and 
 
 - Procedural Generation
   - Tile pool, not dice rolls

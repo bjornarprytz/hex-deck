@@ -20,6 +20,7 @@ size_flags_vertical = 3
 script = ExtResource("1_53muf")
 
 [node name="Color" type="ColorRect" parent="."]
+layout_mode = 0
 offset_left = -69.0
 offset_top = -69.0
 offset_right = 69.0
@@ -27,6 +28,7 @@ offset_bottom = 69.0
 color = Color(0.815686, 0.780392, 0.8, 1)
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
+layout_mode = 0
 offset_left = -69.0
 offset_top = -69.0
 offset_right = 69.0
@@ -37,6 +39,7 @@ editor_only = false
 
 [node name="RulesText" type="RichTextLabel" parent="."]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = -63.0
 offset_top = -64.0
 offset_right = 1857.0
@@ -54,6 +57,7 @@ hexSize = 20.0
 borderWidth = 2.0
 
 [node name="Handle" type="Button" parent="."]
+layout_mode = 0
 offset_left = -70.0
 offset_top = -71.0
 offset_right = 71.0

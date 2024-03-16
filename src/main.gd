@@ -66,10 +66,10 @@ func _on_upkeep() -> void:
 # MAIN/IDLE
 func _on_idle() -> void:
 	pass_button.disabled = false
-	Events.cardGrabbed.connect(func(c: Card):
-		cardToPlay=c
-		state.send_event("play")
-		, CONNECT_ONE_SHOT)
+	
+	cardToPlay = await PickCards.one(hand.get_cards())
+	state.send_event("play")
+	
 func _off_idle() -> void:
 	pass_button.disabled = true
 
@@ -106,6 +106,14 @@ func _off_play_card() -> void:
 
 # CLEAN UP
 func _on_clean_up() -> void:
+	var draftedCard = await Draft.from([
+		CardData.Create(1, Alignment.Id.Purple).with_gold_cost(1),
+		CardData.Create(1, Alignment.Id.Yellow).with_gold_cost(1),
+		CardData.Create(1, Alignment.Id.Orange).with_gold_cost(1),
+	])
+
+	drawPile.tuck_card(draftedCard)
+
 	for effect in Meta.cleanUpRules:
 		effect.resolve(StructureEffectArgs.new(self, null))
 
@@ -137,7 +145,7 @@ func draw_card() -> Card:
 	var card = Create.card(cardData)
 	card.global_position = drawPile.global_position
 	
-	hand.add_card.call_deferred(card)
+	hand.add_card(card)
 
 	return card
 

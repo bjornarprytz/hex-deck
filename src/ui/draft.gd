@@ -8,8 +8,11 @@ signal choice(cardData: CardData)
 
 func add_card(cardData: CardData):
 	var card = Create.card(cardData)
-	card.clicked
+	card.clicked.connect(select.bind(card))
 	cardContainer.add_child(card)
+
+func select(card: Card):
+	choice.emit(card.data)
 
 static func from(cards: Array[CardData]) -> CardData:
 	var draft = preload("res://ui/draft.tscn").instantiate() as Draft
@@ -18,4 +21,8 @@ static func from(cards: Array[CardData]) -> CardData:
 	for cardData in cards:
 		draft.add_card(cardData)
 	
-	return await draft.choice
+	var draftedCard = await draft.choice
+
+	draft.queue_free()
+	
+	return draftedCard

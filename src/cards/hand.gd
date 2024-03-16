@@ -10,8 +10,12 @@ func _ready() -> void:
 	cardContainer.child_entered_tree.connect(_reposition_cards, CONNECT_DEFERRED)
 	cardContainer.child_exiting_tree.connect(_reposition_cards, CONNECT_DEFERRED)
 
-func get_cards():
-	return cardContainer.get_children() as Array[Card]
+func get_cards() -> Array[Card]:
+	var cards : Array[Card] = []
+	for card in cardContainer.get_children():
+		assert(card is Card)
+		cards.push_back(card)
+	return cards
 
 func add_card(card: Card):
 	if card.get_parent() != null:
