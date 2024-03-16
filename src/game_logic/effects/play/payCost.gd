@@ -1,5 +1,5 @@
 class_name PayCost
-extends PlayEffect
+extends Effect
 
 func resolve(args: PlayEffectArgs):
 	var cost = args.card.cost

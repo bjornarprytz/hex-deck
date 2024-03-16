@@ -1,5 +1,5 @@
 class_name Move
-extends StructureEffect
+extends Effect
 
 var path: Array[Vector2i] = [Utils.axialForward]
 

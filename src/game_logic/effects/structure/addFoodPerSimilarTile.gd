@@ -1,5 +1,5 @@
 class_name AddFoodPerSimilarTile
-extends StructureEffect
+extends Effect
 
 func resolve(args: StructureEffectArgs):
 	var maxCount: int = 0

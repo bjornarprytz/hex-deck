@@ -1,7 +1,7 @@
-class_name StructureEffect
+class_name Effect
 extends Resource
 
-func resolve(_args: StructureEffectArgs):
+func resolve(_args):
 	push_error("resolve() should be overridden")
 
 func rules_text() -> String:

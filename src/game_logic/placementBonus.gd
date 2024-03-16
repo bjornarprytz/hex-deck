@@ -3,5 +3,5 @@ extends Resource
 
 var rules: RulesHooks
 
-func _init(placementEffects: Array[StructureEffect]) -> void:
-    rules = RulesHooks.new().with_placement_effects(placementEffects)
+func _init(placementEffects: Array[Effect]) -> void:
+	rules = RulesHooks.new().with_placement_effects(placementEffects)

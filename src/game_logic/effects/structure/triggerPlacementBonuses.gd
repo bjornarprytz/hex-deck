@@ -1,5 +1,5 @@
 class_name TriggerPlacementBonuses
-extends StructureEffect
+extends Effect
 
 func resolve(args: StructureEffectArgs):
 	for tile in args.affectedTiles:

@@ -1,5 +1,5 @@
 class_name AddFood
-extends StructureEffect
+extends Effect
 
 var amount: int
 

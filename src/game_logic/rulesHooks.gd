@@ -6,11 +6,11 @@ var _rulesText: String = ""
 ## Rules that restrict the placement of a structure
 var placementRules: Array[PlacementRule] = []
 ## Effects that trigger when the structure is placed on the map
-var placementEffects: Array[StructureEffect] = []
+var placementEffects: Array[Effect] = []
 ## Effects that trigger during cleanup (after each hand)
-var incomeEffects: Array[StructureEffect] = []
+var incomeEffects: Array[Effect] = []
 ## Effects that trigger after a card is played
-var cardPlayEffects: Array[StructureEffect] = []
+var cardPlayEffects: Array[Effect] = []
 
 ## Effects that trigger on specific events ({eventName: Array[Effects]})
 var triggeredEffects: Dictionary
@@ -63,15 +63,15 @@ func with_placement_rules(rules: Array[PlacementRule]) -> RulesHooks:
 	placementRules.append_array(rules)
 	return self
 
-func with_placement_effects(effects: Array[StructureEffect]) -> RulesHooks:
+func with_placement_effects(effects: Array[Effect]) -> RulesHooks:
 	placementEffects.append_array(effects)
 	return self
 
-func with_income_effects(effects: Array[StructureEffect]) -> RulesHooks:
+func with_income_effects(effects: Array[Effect]) -> RulesHooks:
 	incomeEffects.append_array(effects)
 	return self
 
-func with_card_play_effects(effects: Array[StructureEffect]) -> RulesHooks:
+func with_card_play_effects(effects: Array[Effect]) -> RulesHooks:
 	cardPlayEffects.append_array(effects)
 	return self
 

@@ -17,7 +17,9 @@ var deck: Array[CardData] = [
 	CardData.Create(3, Alignment.Id.Green).with_gold_cost(1),
 ]
 
-var incomeRules: Array[StructureEffect] = [
+var cleanUpRules: Array[Effect] = [
+	DiscardHand.new(),
+	DrawCard.new(5),
 	AddGold.new(3)
 ]
 
@@ -28,9 +30,7 @@ var placementRules: Array[PlacementRule] = [
 	PaymentRule.new()
 ]
 
-
-
-var playEffects: Array[PlayEffect] = [
+var playEffects: Array[Effect] = [
 	PayCost.new()
 ]
 

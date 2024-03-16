@@ -106,10 +106,7 @@ func _off_play_card() -> void:
 
 # CLEAN UP
 func _on_clean_up() -> void:
-	for card in hand.get_cards():
-		discard_card(card)
-	
-	for effect in Meta.incomeRules:
+	for effect in Meta.cleanUpRules:
 		effect.resolve(StructureEffectArgs.new(self, null))
 
 	for placedStructure in map.get_placed_structures():
@@ -139,15 +136,15 @@ func play_card(args: PlayEffectArgs):
 
 	var placedStructure = map.place_structure(args.rotatedStructure, args.affectedTiles)
 
-	var StructureEffectArgs = StructureEffectArgs.new(self, placedStructure)
+	var structureEffectArgs = StructureEffectArgs.new(self, placedStructure)
 
 	for effect in args.rotatedStructure.get_rules().placementEffects:
-		effect.resolve(StructureEffectArgs)
+		effect.resolve(structureEffectArgs)
 	for tile in args.affectedTiles:
 		if (tile.placementBonus == null):
 			continue
 		for effect in tile.placementBonus.rules.placementEffects:
-			effect.resolve(StructureEffectArgs)
+			effect.resolve(structureEffectArgs)
 
 func draw_card():
 	var cardData = drawPile.pop_card()

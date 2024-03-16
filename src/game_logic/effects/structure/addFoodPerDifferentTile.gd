@@ -1,5 +1,5 @@
 class_name AddFoodPerDifferentTile
-extends StructureEffect
+extends Effect
 
 func resolve(args: StructureEffectArgs):
 	var unique_colors: Array[Color] = []

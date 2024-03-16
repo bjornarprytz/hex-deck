@@ -1,5 +1,5 @@
 class_name PlayEffectArgs
-extends GameEffectArgs
+extends EffectArgs
 
 var card: Card
 var rotatedStructure: Structure

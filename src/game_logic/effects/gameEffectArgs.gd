@@ -1,4 +1,4 @@
-class_name GameEffectArgs
+class_name EffectArgs
 extends Resource
 
 var gameState: GameState

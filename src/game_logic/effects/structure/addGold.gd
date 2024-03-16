@@ -1,5 +1,5 @@
 class_name AddGold
-extends StructureEffect
+extends Effect
 
 var amount: int
 

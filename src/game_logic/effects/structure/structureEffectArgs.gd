@@ -1,5 +1,5 @@
 class_name StructureEffectArgs
-extends GameEffectArgs
+extends EffectArgs
 
 var placedStructure: PlacedStructure
 var affectedTiles: Array[Tile] = []
