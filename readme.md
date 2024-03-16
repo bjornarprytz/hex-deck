@@ -33,9 +33,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Fix bug with Events.cardGrabbed
-  - It's too sweeping, and 
-
 - Procedural Generation
   - Tile pool, not dice rolls
 
@@ -46,7 +43,7 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - UI
   - Camera movement
 
-- Extend the Create class to include all instantiated scenes
+- Extend the Create-class to include all instantiated scenes
 
 ## Base Rules
 
