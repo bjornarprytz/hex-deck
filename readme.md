@@ -33,9 +33,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Procedural Generation
-  - Tile pool, not dice rolls
-
 - Parameterize affinity placement rule (for terrain type)
 
 - UI
@@ -43,13 +40,18 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 - Extend the Create-class to include all instantiated scenes
 
-- Refactor
+- Refactor Prompts
   - Streamline the prompts a little bit.
   - Consolidate factory functions
   - Remove the boilerplate from the factory functions
   - Make sure the UI works as intended.
   - Add a damping effect to hide the clutter
   - Special pick from-hand prompt?
+
+- Refactor map generation
+  - More parameterized
+  - More robust to the discovery mechanic, and new tile types
+  - Consolidated (it's currently spread across Meta and Map)
 
 ## Base Rules
 

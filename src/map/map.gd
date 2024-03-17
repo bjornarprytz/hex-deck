@@ -121,7 +121,7 @@ func _add_tile(q: int, r: int) -> Tile:
 	var key = coords.get_key()
 	
 	if tilesLookup.has(key):
-		return
+		return null
 	
 	undiscoveredTiles.erase(key)
 	for n in coords.get_neighbours():
@@ -129,27 +129,22 @@ func _add_tile(q: int, r: int) -> Tile:
 		if !tilesLookup.has(nKey):
 			undiscoveredTiles[nKey] = n
 
-	var new_tile = tile_spawner.instantiate() as Tile
-	new_tile.coordinates = coords
+	var newTile = tile_spawner.instantiate() as Tile
+	newTile.coordinates = coords
 	
-	new_tile.type = Tile.TerrainType.Basic
-	new_tile.map = self
+	newTile.type = Meta.random_tile_type()
+	newTile.map = self
 	
-	if (randf() < .1):
-		if (randf() < .5):
-			new_tile.type = Tile.TerrainType.Water
-		else:
-			new_tile.type = Tile.TerrainType.Mountain
-	elif (randf() < .2):
-		new_tile.placementBonus = PlacementBonus.new([[DrawCards.new(), AddFood.new(), AddFoodPerDifferentTile.new(), DiscoverTile.new()].pick_random()])
+	if (newTile.type == Tile.TerrainType.Basic and randf() < .2):
+		newTile.placementBonus = PlacementBonus.new([[DrawCards.new(), AddFood.new(), AddFoodPerDifferentTile.new()].pick_random()])
 	
-	tilesLookup[key] = new_tile
+	tilesLookup[key] = newTile
 	
-	tiles.add_child(new_tile)
-	new_tile.position = Utils.axial_to_pixel(q, r, tileSize)
-	new_tile.size = tileSize
+	tiles.add_child(newTile)
+	newTile.position = Utils.axial_to_pixel(q, r, tileSize)
+	newTile.size = tileSize
 
-	return new_tile
+	return newTile
 
 func point_to_coords(point: Vector2) -> Coordinates:
 	var q = (2.0 / 3.0 * point.x) / tileSize

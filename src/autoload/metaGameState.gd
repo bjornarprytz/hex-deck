@@ -84,7 +84,41 @@ var alignmentRules: Dictionary = {
 	Alignment.Id.Purple: PurpleAlignment.new(),
 }
 
+var tilePool: Dictionary = {
+	Tile.TerrainType.Basic: 32,
+	Tile.TerrainType.Water: 4,
+	Tile.TerrainType.Mountain: 4
+}
+
+func random_tile_type() -> Tile.TerrainType:
+	var total = 0
+
+	var inTheRunning = tilePool.keys()
+
+	for type in tilePool.keys():
+		var subTotal = tilePool[type]
+		if subTotal == 0:
+			inTheRunning.erase(type)
+		
+		total += subTotal
+	
+	var index = randi_range(0, total)
+
+	for type in inTheRunning:
+		index -= tilePool[type]
+		if (index <= 0):
+			tilePool[type] -= 1
+			return type
+	
+	print("Ran out of index, returning random tile")
+	return Tile.TerrainType.values().pick_random()
+
 func reset():
+	tilePool = {
+		Tile.TerrainType.Basic: 32,
+		Tile.TerrainType.Water: 4,
+		Tile.TerrainType.Mountain: 4
+	}
 	Debug.push_message("Game reset!")
 
 func create_deck() -> Array[CardData]:
