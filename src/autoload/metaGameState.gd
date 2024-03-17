@@ -86,13 +86,13 @@ var alignmentRules: Dictionary = {
 
 func reset():
 	Debug.push_message("Game reset!")
-	pass
 
-func get_deck() -> Array[CardData]:
+func create_deck() -> Array[CardData]:
 	var deck: Array[CardData] = []
 
 	deck.append_array(basicSet)
-	deck.append_array(basicSet)
+	deck.push_back(cardPool.pick_random())
+	deck.push_back(cardPool.pick_random())
 	deck.push_back(cardPool.pick_random())
 	deck.push_back(cardPool.pick_random())
 

@@ -29,7 +29,7 @@ var turnsLeft: int = TURN_LIMIT + 1: # +1 because we're starting in the cleanup 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	drawPile.add_cards(Meta.get_deck())
+	drawPile.add_cards(Meta.create_deck())
 	_update_food()
 	Events.foodChanged.connect(_handle_food_change)
 	Events.goldChanged.connect(_handle_food_change)
