@@ -1,16 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxyxgsia4g2pl"]
+[gd_scene load_steps=9 format=3 uid="uid://bxyxgsia4g2pl"]
 
 [ext_resource type="Script" path="res://cards/card.gd" id="1_53muf"]
 [ext_resource type="Script" path="res://game_logic/structure.gd" id="3_ceyft"]
 [ext_resource type="PackedScene" uid="uid://0oenk04u2ati" path="res://cards/structure_view.tscn" id="4_81358"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vftis"]
+
 [sub_resource type="Theme" id="Theme_100nq"]
 default_font_size = 256
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edgkr"]
+bg_color = Color(0.603922, 0.423529, 0.0666667, 1)
+corner_radius_top_left = 200
+corner_radius_top_right = 200
+corner_radius_bottom_right = 200
+corner_radius_bottom_left = 200
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6h0ne"]
+bg_color = Color(0.341176, 0.517647, 0.294118, 1)
+corner_radius_top_left = 200
+corner_radius_top_right = 200
+corner_radius_bottom_right = 200
+corner_radius_bottom_left = 200
+
 [sub_resource type="Resource" id="Resource_oux2x"]
 script = ExtResource("3_ceyft")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vftis"]
 
 [node name="Card" type="Control"]
 layout_mode = 3
@@ -24,45 +38,94 @@ layout_mode = 0
 offset_left = -69.0
 offset_top = -69.0
 offset_right = 69.0
-offset_bottom = 69.0
+offset_bottom = 127.0
 color = Color(0.815686, 0.780392, 0.8, 1)
 
-[node name="ReferenceRect" type="ReferenceRect" parent="."]
-layout_mode = 0
-offset_left = -69.0
-offset_top = -69.0
-offset_right = 69.0
-offset_bottom = 69.0
+[node name="ReferenceRect" type="ReferenceRect" parent="Color"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 border_color = Color(0.188235, 0.188235, 0.188235, 1)
 border_width = 5.0
 editor_only = false
+
+[node name="Handle" type="Button" parent="Color"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vftis")
+keep_pressed_outside = true
+
+[node name="Name" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = -63.0
+offset_top = -64.0
+offset_right = 1957.0
+offset_bottom = 376.0
+scale = Vector2(0.05, 0.05)
+mouse_filter = 2
+theme = SubResource("Theme_100nq")
+bbcode_enabled = true
+text = "[u]Name"
+fit_content = true
+scroll_active = false
+
+[node name="GoldCost" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 43.0
+offset_top = -65.0
+offset_right = 463.0
+offset_bottom = 355.0
+scale = Vector2(0.05, 0.05)
+mouse_filter = 2
+theme = SubResource("Theme_100nq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_edgkr")
+bbcode_enabled = true
+text = "[center]5"
+fit_content = true
+scroll_active = false
+
+[node name="FoodCost" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 43.0
+offset_top = -42.0
+offset_right = 463.0
+offset_bottom = 378.0
+scale = Vector2(0.05, 0.05)
+mouse_filter = 2
+theme = SubResource("Theme_100nq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6h0ne")
+bbcode_enabled = true
+text = "[center]5"
+fit_content = true
+scroll_active = false
 
 [node name="RulesText" type="RichTextLabel" parent="."]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
 offset_left = -63.0
-offset_top = -64.0
+offset_top = -40.0
 offset_right = 1857.0
-offset_bottom = 1196.0
+offset_bottom = 1220.0
 scale = Vector2(0.05, 0.05)
+mouse_filter = 2
 theme = SubResource("Theme_100nq")
 text = "Points for !="
 fit_content = true
+scroll_active = false
 
 [node name="StructurePreview" parent="." instance=ExtResource("4_81358")]
-position = Vector2(9, 19)
+position = Vector2(-1, 72)
 structure = SubResource("Resource_oux2x")
 centerPreview = true
 hexSize = 20.0
 borderWidth = 2.0
 
-[node name="Handle" type="Button" parent="."]
-layout_mode = 0
-offset_left = -70.0
-offset_top = -71.0
-offset_right = 71.0
-offset_bottom = 71.0
-theme_override_styles/normal = SubResource("StyleBoxEmpty_vftis")
-keep_pressed_outside = true
-
-[connection signal="pressed" from="Handle" to="." method="_on_handle_pressed"]
+[connection signal="pressed" from="Color/Handle" to="." method="_on_handle_pressed"]

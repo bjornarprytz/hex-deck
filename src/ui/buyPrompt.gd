@@ -14,6 +14,7 @@ func _on_skip_button_pressed() -> void:
 
 static func ask() -> Array[Effect]:
 	var prompt = preload ("res://ui/buy_prompt.tscn").instantiate() as BuyPrompt
+	Meta.add_child(prompt)
 
 	var effects = await prompt.confirm
 

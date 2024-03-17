@@ -14,6 +14,18 @@ var rulesText: RichTextLabel:
 	get:
 		return $RulesText
 
+var cardName: RichTextLabel:
+	get:
+		return $Name
+
+var goldCost: RichTextLabel:
+	get:
+		return $GoldCost
+
+var foodCost: RichTextLabel:
+	get:
+		return $FoodCost
+
 var structure: Structure:
 	get:
 		return structurePreview.structure
@@ -26,6 +38,9 @@ var data: CardData:
 			return
 		
 		data = value
+		cardName.text = "[u]%s" % [data.name]
+		goldCost.text = "[center]%s" % [data.cost.gold]
+		foodCost.text = "[center]%s" % [data.cost.food]
 		structurePreview.structure = Structure.new(data.alignment, data.cells, data.rules)
 		rulesText.text = structurePreview.structure.get_rules().rules_text()
 

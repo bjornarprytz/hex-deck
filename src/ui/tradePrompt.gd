@@ -26,8 +26,9 @@ func _on_gold_button_pressed() -> void:
 func _on_skip_button_pressed() -> void:
 	confirm.emit(null, null)
 
-static func from(options: Array[Card], isMandatory: bool=false) -> Array[Effect]:
+static func from(options: Array[Card], isMandatory: bool=false) -> Array:
 	var trade = preload ("res://ui/trade_prompt.tscn").instantiate() as TradePrompt
+	Meta.add_child(trade)
 	trade.mandatory = isMandatory
 
 	for card in options:

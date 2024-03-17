@@ -33,9 +33,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Update Card UI
-  - Cost, Name
-
 - Procedural Generation
   - Tile pool, not dice rolls
 
@@ -45,6 +42,14 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
   - Camera movement
 
 - Extend the Create-class to include all instantiated scenes
+
+- Refactor
+  - Streamline the prompts a little bit.
+  - Consolidate factory functions
+  - Remove the boilerplate from the factory functions
+  - Make sure the UI works as intended.
+  - Add a damping effect to hide the clutter
+  - Special pick from-hand prompt?
 
 ## Base Rules
 
