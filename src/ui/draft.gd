@@ -3,7 +3,6 @@ extends Node2D
 
 signal choice(cardData: CardData)
 
-@onready var cardSpawner = preload("res://cards/card.tscn")
 @onready var cardContainer: HBoxContainer = $Cards
 
 func add_card(cardData: CardData):

@@ -33,12 +33,13 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
+- Update Card UI
+  - Cost, Name
+
 - Procedural Generation
   - Tile pool, not dice rolls
 
-- Make cards
-  - 12 cards
-    - 1 common and 1 uncommon in each color
+- Parameterize affinity placement rule (for terrain type)
 
 - UI
   - Camera movement

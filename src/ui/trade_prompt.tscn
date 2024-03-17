@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://t2u75a1e7mp1"]
+
+[ext_resource type="Script" path="res://ui/tradePrompt.gd" id="1_orfv2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1i25"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.14902, 0.8, 0.8, 1)
+
+[node name="TradePrompt" type="Node2D"]
+z_index = 1
+script = ExtResource("1_orfv2")
+
+[node name="Explanation" type="RichTextLabel" parent="."]
+offset_left = 493.0
+offset_top = 108.0
+offset_right = 874.0
+offset_bottom = 161.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_p1i25")
+text = "Trade:
+Discard 1 card for 2 food or 1 gold"
+
+[node name="FoodButton" type="Button" parent="."]
+modulate = Color(0.219608, 0.772549, 0.172549, 1)
+offset_left = 466.0
+offset_top = 194.0
+offset_right = 684.0
+offset_bottom = 274.0
+disabled = true
+text = "2 Food"
+
+[node name="GoldButton" type="Button" parent="."]
+modulate = Color(1, 1, 0.0235294, 1)
+offset_left = 703.0
+offset_top = 194.0
+offset_right = 921.0
+offset_bottom = 274.0
+disabled = true
+text = "1 Gold"
+
+[node name="SkipButton" type="Button" parent="."]
+modulate = Color(0.972549, 0.352941, 0.666667, 1)
+offset_left = 978.0
+offset_top = 246.0
+offset_right = 1103.0
+offset_bottom = 292.0
+text = "Skip"
+
+[connection signal="pressed" from="FoodButton" to="." method="_on_food_button_pressed"]
+[connection signal="pressed" from="GoldButton" to="." method="_on_gold_button_pressed"]
+[connection signal="pressed" from="SkipButton" to="." method="_on_skip_button_pressed"]

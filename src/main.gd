@@ -29,7 +29,7 @@ var turnsLeft: int = TURN_LIMIT + 1: # +1 because we're starting in the cleanup 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	drawPile.add_cards(Meta.deck)
+	drawPile.add_cards(Meta.get_deck())
 	_update_food()
 	Events.foodChanged.connect(_handle_food_change)
 	Events.goldChanged.connect(_handle_food_change)
@@ -106,14 +106,6 @@ func _off_play_card() -> void:
 
 # CLEAN UP
 func _on_clean_up() -> void:
-	var draftedCard = await Draft.from([
-		CardData.Create(1, Alignment.Id.Purple).with_gold_cost(1),
-		CardData.Create(1, Alignment.Id.Yellow).with_gold_cost(1),
-		CardData.Create(1, Alignment.Id.Orange).with_gold_cost(1),
-	])
-
-	drawPile.tuck_card(draftedCard)
-
 	for effect in Meta.cleanUpRules:
 		effect.resolve(StructureEffectArgs.new(self, null))
 

@@ -8,4 +8,4 @@ func get_id() -> Alignment.Id:
 	return Alignment.Id.Yellow
 
 func get_rules() -> RulesHooks:
-	return RulesHooks.new().with_income_effects([AddFoodPerSimilarTile.new()])
+	return RulesHooks.new() # Add alignment rules here
