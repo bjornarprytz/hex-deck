@@ -13,7 +13,7 @@ func resolve(args: EffectArgs):
     var hand = args.gameState.hand
     var cards: Array[CardData] = []
 
-    var cardsToDiscard = await PickCards.from(hand.get_cards(), amount)
+    var cardsToDiscard = await hand.prompt_pick_n(amount)
 
     for card in cardsToDiscard:
         cards.push_back(args.gameState.discard_card(card))

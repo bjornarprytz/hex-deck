@@ -2,7 +2,6 @@ class_name GameState
 extends Node2D
 
 @onready var structurePlacementSpawner = preload ("res://cards/structure_placement.tscn")
-#@onready var cardSpawner = preload ("res://cards/card.tscn")
 @onready var scoreSpawner = preload ("res://ui/score_coin.tscn")
 
 @onready var map: Map = $Map
@@ -36,38 +35,17 @@ func _ready() -> void:
 	Events.foodRequirementChanged.connect(_handle_food_change)
 	Events.gameOver.connect(func(_result: bool): state.send_event("game over"))
 
-func _handle_food_change(_oldFood: int, _newFood: int, source: Array[Tile]):
-	var tile: Tile
-	if source.size() == 0:
-		tile = map.get_tile(Map.Coordinates.new(0, 0))
-	else:
-		tile = source.pick_random()
-	
-	var coin = scoreSpawner.instantiate() as ScoreCoin
-
-	coin.val = _newFood - _oldFood
-	get_tree().root.add_child(coin)
-	coin.global_position = tile.global_position
-	await create_tween().tween_property(coin, 'global_position', $Food.global_position, .4).finished
-	coin.queue_free()
-
-	_update_food()
-
-func _update_food():
-	$Food.text = "%d/%d" % [food, FOOD_REQUIREMENT]
-	$Gold.text = "%d" % [gold]
-
 # UPKEEP
 func _on_upkeep() -> void:
 	for effect in Meta.upkeepRules:
-		effect.resolve(StructureEffectArgs.new(self, null))
+		await effect.resolve(StructureEffectArgs.new(self, null))
 	state.send_event("next phase")
 
 # MAIN/IDLE
 func _on_idle() -> void:
 	pass_button.disabled = false
 	
-	cardToPlay = await PickCards.one(hand.get_cards())
+	cardToPlay = await hand.prompt_pick_one()
 	state.send_event("play")
 	
 func _off_idle() -> void:
@@ -93,7 +71,7 @@ func _abort_play():
 	state.send_event("idle")
 
 func _confirm_play(args: PlayEffectArgs):
-	play_card(args)
+	await play_card(args)
 	
 	cardToPlay.reparent(self)
 	var tween = create_tween()
@@ -107,7 +85,7 @@ func _off_play_card() -> void:
 # CLEAN UP
 func _on_clean_up() -> void:
 	for effect in Meta.cleanUpRules:
-		effect.resolve(StructureEffectArgs.new(self, null))
+		await effect.resolve(StructureEffectArgs.new(self, null))
 
 	if (turnsLeft < 0 and food < FOOD_REQUIREMENT):
 		state.send_event("game over")
@@ -127,7 +105,7 @@ func _on_game_over() -> void:
 # GAME ACTIONS
 func play_card(args: PlayEffectArgs):
 	for effect in Meta.playEffects:
-		effect.resolve(args)
+		await effect.resolve(args)
 	
 	Events.onCardPlayed.emit(args)
 
@@ -173,3 +151,24 @@ func _on_pass_turn() -> void:
 func _on_restart_pressed() -> void:
 	Meta.reset()
 	get_tree().change_scene_to_file("res://main.tscn")
+
+func _handle_food_change(_oldFood: int, _newFood: int, source: Array[Tile]):
+	var tile: Tile
+	if source.size() == 0:
+		tile = map.get_tile(Map.Coordinates.new(0, 0))
+	else:
+		tile = source.pick_random()
+	
+	var coin = scoreSpawner.instantiate() as ScoreCoin
+
+	coin.val = _newFood - _oldFood
+	get_tree().root.add_child(coin)
+	coin.global_position = tile.global_position
+	await create_tween().tween_property(coin, 'global_position', $Food.global_position, .4).finished
+	coin.queue_free()
+
+	_update_food()
+
+func _update_food():
+	$Food.text = "%d/%d" % [food, FOOD_REQUIREMENT]
+	$Gold.text = "%d" % [gold]

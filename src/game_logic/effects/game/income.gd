@@ -9,7 +9,7 @@ func resolve(args: EffectArgs):
 	for placedStructure in map.get_placed_structures():
 		var structureEffectArgs = StructureEffectArgs.new(args.gameState, placedStructure)
 		for effect in placedStructure.structure.get_rules().incomeEffects:
-			effect.resolve(structureEffectArgs)
+			await effect.resolve(structureEffectArgs)
 	
 	Events.onAfterIncome.emit(args)
 

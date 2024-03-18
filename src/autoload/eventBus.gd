@@ -3,8 +3,6 @@ extends Node
 
 # Interaction Events
 
-signal cardGrabbed(card: Card)
-signal cardReleased(card: Card)
 signal tileClicked(tile: Tile)
 signal tileHovered(tile: Tile)
 

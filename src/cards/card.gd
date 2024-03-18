@@ -1,7 +1,7 @@
 class_name Card
 extends Control
 
-signal clicked
+signal clicked(card: Card)
 
 @onready var background: ColorRect = $Color
 @onready var width: float = background.size.x
@@ -48,9 +48,5 @@ var cost: CardData.Cost:
 	get:
 		return data.cost
 
-func cancel():
-	Events.cardReleased.emit(self)
-
 func _on_handle_pressed() -> void:
-	clicked.emit()
-	Events.cardGrabbed.emit(self)
+	clicked.emit(self)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://t2u75a1e7mp1"]
 
-[ext_resource type="Script" path="res://ui/tradePrompt.gd" id="1_orfv2"]
+[ext_resource type="Script" path="res://ui/prompt/tradePrompt.gd" id="1_orfv2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1i25"]
 bg_color = Color(0, 0, 0, 1)

@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://btkk70qgfyefa"]
 
-[ext_resource type="Script" path="res://ui/draft.gd" id="1_fbyfu"]
+[ext_resource type="Script" path="res://ui/prompt/draftPrompt.gd" id="1_humcl"]
 
 [node name="Draft" type="Node2D"]
 z_index = 1
-script = ExtResource("1_fbyfu")
+script = ExtResource("1_humcl")
 
 [node name="Cards" type="HBoxContainer" parent="."]
 offset_left = 483.0

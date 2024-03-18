@@ -38,7 +38,9 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - UI
   - Camera movement
 
-- Extend the Create-class to include all instantiated scenes
+- Extend the Create-class
+  - Tiles
+  - PlacedStructure
 
 - Refactor Prompts
   - Streamline the prompts a little bit.

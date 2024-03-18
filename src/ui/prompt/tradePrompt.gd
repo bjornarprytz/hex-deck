@@ -4,13 +4,18 @@ extends Node2D
 signal confirm(cardToDiscard: Card, effect: Effect)
 
 var choice: Card
+
+var hand : Hand:
+	set(value):
+		if (hand == value):
+			return
+		hand = value
+		hand.cardClicked.connect(select)
+
 var mandatory: bool:
 	set(value):
 		mandatory = value
 		$SkipButton.visible = !value
-
-func register_card(card: Card):
-	card.clicked.connect(select.bind(card))
 
 func select(card: Card):
 	choice = card
@@ -25,17 +30,3 @@ func _on_gold_button_pressed() -> void:
 
 func _on_skip_button_pressed() -> void:
 	confirm.emit(null, null)
-
-static func from(options: Array[Card], isMandatory: bool=false) -> Array:
-	var trade = preload ("res://ui/trade_prompt.tscn").instantiate() as TradePrompt
-	Meta.add_child(trade)
-	trade.mandatory = isMandatory
-
-	for card in options:
-		trade.register_card(card)
-
-	var result = await trade.confirm
-
-	trade.queue_free()
-
-	return result

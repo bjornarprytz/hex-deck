@@ -1,17 +1,41 @@
 class_name Hand
 extends Node2D
 
-@onready var cardContainer : Node2D = $Cards
+signal cardClicked(card: Card)
 
-var positionTween : Tween
+@onready var cardContainer: Node2D = $Cards
+
+var positionTween: Tween
+var selectedCards: Array[Card]
 
 func _ready() -> void:
+	cardContainer.child_entered_tree.connect(_card_added)
+	cardContainer.child_exiting_tree.connect(_card_removed)
+
+func prompt_pick_one() -> Card:
+	selectedCards.clear()
+	return await cardClicked
+
+func prompt_pick_n(n: int) -> Array[Card]:
+	selectedCards.clear()
+
+	var cardsInHand = get_cards()
+
+	if (cardsInHand.size() <= n):
+		return cardsInHand
+
+	while selectedCards.size() < n:
+		var card = await cardClicked
+
+		if (selectedCards.has(card)):
+			selectedCards.erase(card)
+		else:
+			selectedCards.push_back(card)
 	
-	cardContainer.child_entered_tree.connect(_reposition_cards, CONNECT_DEFERRED)
-	cardContainer.child_exiting_tree.connect(_reposition_cards, CONNECT_DEFERRED)
+	return selectedCards
 
 func get_cards() -> Array[Card]:
-	var cards : Array[Card] = []
+	var cards: Array[Card] = []
 	for card in cardContainer.get_children():
 		assert(card is Card)
 		cards.push_back(card)
@@ -23,7 +47,18 @@ func add_card(card: Card):
 	else:
 		cardContainer.add_child(card)
 
-func _reposition_cards(_node):
+func _card_added(card: Card):
+	card.clicked.connect(_on_card_clicked)
+	_reposition_cards.call_deferred()
+
+func _card_removed(card: Card):
+	card.clicked.disconnect(_on_card_clicked)
+	_reposition_cards.call_deferred()
+
+func _on_card_clicked(card: Card):
+	cardClicked.emit(card)
+
+func _reposition_cards():
 	if (!is_node_ready() or !is_inside_tree()):
 		return
 	
@@ -41,6 +76,6 @@ func _reposition_cards(_node):
 		if card.is_queued_for_deletion():
 			continue
 		var h_spacing = card.width + 20.0
-		var targetPosition = int(h_spacing * (i-cards.size() / 2.0) ) * Vector2.RIGHT
+		var targetPosition = int(h_spacing * (i - cards.size() / 2.0)) * Vector2.RIGHT
 		positionTween.tween_property(card, 'position', targetPosition, .4)
 		i += 1
