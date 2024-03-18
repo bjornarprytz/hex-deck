@@ -43,12 +43,9 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
   - PlacedStructure
 
 - Refactor Prompts
-  - Streamline the prompts a little bit.
-  - Consolidate factory functions
-  - Remove the boilerplate from the factory functions
-  - Make sure the UI works as intended.
-  - Add a damping effect to hide the clutter
-  - Special pick from-hand prompt?
+  - Test the draft
+  - Make hand.pick__ methods better UI
+    - Selected cards should be marked somehow
 
 - Refactor map generation
   - More parameterized

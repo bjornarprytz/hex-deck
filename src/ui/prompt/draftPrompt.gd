@@ -7,7 +7,7 @@ signal choice(cardData: CardData)
 
 func add_card(cardData: CardData):
 	var card = Create.card(cardData)
-	card.clicked.connect(select.bind(card))
+	card.clicked.connect(select)
 	cardContainer.add_child(card)
 
 func select(card: Card):
