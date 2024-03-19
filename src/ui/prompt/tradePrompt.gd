@@ -15,12 +15,15 @@ var hand : Hand:
 var mandatory: bool:
 	set(value):
 		mandatory = value
-		$SkipButton.visible = !value
+		$Background/SkipButton.visible = !value
 
 func select(card: Card):
+	if choice != null:
+		choice.selected = false
 	choice = card
-	$FoodButton.disabled = false
-	$GoldButton.disabled = false
+	choice.selected = true
+	$Background/FoodButton.disabled = false
+	$Background/GoldButton.disabled = false
 
 func _on_food_button_pressed() -> void:
 	confirm.emit(choice, AddFood.new(2))
@@ -30,3 +33,7 @@ func _on_gold_button_pressed() -> void:
 
 func _on_skip_button_pressed() -> void:
 	confirm.emit(null, null)
+
+func _exit_tree() -> void:
+	if choice != null:
+		choice.selected = false

@@ -136,7 +136,7 @@ func _add_tile(q: int, r: int) -> Tile:
 	newTile.map = self
 	
 	if (newTile.type == Tile.TerrainType.Basic and randf() < .2):
-		newTile.placementBonus = PlacementBonus.new([[DrawCards.new(), AddFood.new(), AddFoodPerDifferentTile.new()].pick_random()])
+		newTile.placementBonus = PlacementBonus.new([Meta.placementBonuses.pick_random()])
 	
 	tilesLookup[key] = newTile
 	

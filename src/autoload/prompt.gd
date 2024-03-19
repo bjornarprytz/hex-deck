@@ -51,7 +51,9 @@ func draft(cards: Array[CardData]):
 	return draftedCard
 
 func background_on():
+	background.color.a = 0
 	background.visible = true
+	create_tween().tween_property(background, 'color', baseBackgroundColor, .2)
 	
 func background_off():
 	background.visible = false

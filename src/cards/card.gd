@@ -5,6 +5,8 @@ signal clicked(card: Card)
 
 @onready var background: ColorRect = $Color
 @onready var width: float = background.size.x
+@onready var border: ReferenceRect = $Color/Border
+@onready var baseBorderColor = border.border_color
 
 var structurePreview: StructureView:
 	get:
@@ -47,6 +49,15 @@ var data: CardData:
 var cost: CardData.Cost:
 	get:
 		return data.cost
+
+var selected: bool:
+	set(value):
+		selected = value
+		
+		if (selected):
+			border.border_color = Color.CORAL
+		else:
+			border.border_color = baseBorderColor
 
 func _on_handle_pressed() -> void:
 	clicked.emit(self)

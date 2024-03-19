@@ -6,17 +6,21 @@ signal cardClicked(card: Card)
 @onready var cardContainer: Node2D = $Cards
 
 var positionTween: Tween
-var selectedCards: Array[Card]
+var selectedCards: Array[Card] = []
 
 func _ready() -> void:
 	cardContainer.child_entered_tree.connect(_card_added)
 	cardContainer.child_exiting_tree.connect(_card_removed)
 
 func prompt_pick_one() -> Card:
+	for card in selectedCards:
+		card.selected = false
 	selectedCards.clear()
 	return await cardClicked
 
 func prompt_pick_n(n: int) -> Array[Card]:
+	for card in selectedCards:
+		card.selected = false
 	selectedCards.clear()
 
 	var cardsInHand = get_cards()
@@ -29,8 +33,10 @@ func prompt_pick_n(n: int) -> Array[Card]:
 
 		if (selectedCards.has(card)):
 			selectedCards.erase(card)
+			card.selected = false
 		else:
 			selectedCards.push_back(card)
+			card.selected = true
 	
 	return selectedCards
 

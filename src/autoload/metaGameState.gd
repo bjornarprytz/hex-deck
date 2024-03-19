@@ -90,6 +90,12 @@ var tilePool: Dictionary = {
 	Tile.TerrainType.Mountain: 4
 }
 
+var placementBonuses: Array[Effect] = [
+	Draft.new(),
+	AddFood.new(), 
+	AddFoodPerDifferentTile.new()
+]
+
 func random_tile_type() -> Tile.TerrainType:
 	var total = 0
 

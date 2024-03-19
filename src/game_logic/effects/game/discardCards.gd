@@ -11,14 +11,21 @@ func resolve(args: EffectArgs):
         return
 
     var hand = args.gameState.hand
-    var cards: Array[CardData] = []
+    var cardsInHand = hand.get_cards()
 
-    var cardsToDiscard = await hand.prompt_pick_n(amount)
+    var discardedCards: Array[CardData] = []
+
+    var cardsToDiscard: Array[Card] = []
+    
+    if (amount >= cardsInHand.size()):
+        cardsToDiscard.append_array(cardsInHand)
+    else:
+        cardsToDiscard.append_array(await hand.prompt_pick_n(amount))
 
     for card in cardsToDiscard:
-        cards.push_back(args.gameState.discard_card(card))
+        discardedCards.push_back(args.gameState.discard_card(card))
 
-    Events.onCardsDiscarded.emit(args, cards)
+    Events.onCardsDiscarded.emit(args, discardedCards)
 
 func rules_text() -> String:
     return "Discard %d cards" % amount
