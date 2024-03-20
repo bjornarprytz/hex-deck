@@ -22,6 +22,7 @@ offset_bottom = 383.0
 color = Color(0, 0, 0, 1)
 
 [node name="Explanation" type="RichTextLabel" parent="Background"]
+layout_mode = 0
 offset_left = 65.0
 offset_top = 45.0
 offset_right = 446.0
@@ -33,6 +34,7 @@ Discard 1 card for 2 food or 1 gold"
 
 [node name="FoodButton" type="Button" parent="Background"]
 modulate = Color(0.219608, 0.772549, 0.172549, 1)
+layout_mode = 0
 offset_left = 29.0
 offset_top = 130.0
 offset_right = 247.0
@@ -42,6 +44,7 @@ text = "2 Food"
 
 [node name="GoldButton" type="Button" parent="Background"]
 modulate = Color(1, 1, 0.0235294, 1)
+layout_mode = 0
 offset_left = 266.0
 offset_top = 130.0
 offset_right = 484.0
@@ -51,6 +54,7 @@ text = "1 Gold"
 
 [node name="SkipButton" type="Button" parent="Background"]
 modulate = Color(0.972549, 0.352941, 0.666667, 1)
+layout_mode = 0
 offset_left = 362.0
 offset_top = 248.0
 offset_right = 487.0

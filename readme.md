@@ -37,6 +37,7 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 - UI
   - Camera movement
+  - Selected cards should be raised sligtly
 
 - Extend the Create-class
   - Tiles

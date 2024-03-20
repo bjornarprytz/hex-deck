@@ -4,28 +4,28 @@ extends Effect
 var amount: int
 
 func _init(inputAmount: int=1):
-    amount = inputAmount
+	amount = inputAmount
 
 func resolve(args: EffectArgs):
-    if (amount == 0):
-        return
+	if (amount == 0):
+		return
 
-    var hand = args.gameState.hand
-    var cardsInHand = hand.get_cards()
+	var hand = args.gameState.hand
+	var cardsInHand = hand.get_cards()
 
-    var discardedCards: Array[CardData] = []
+	var discardedCards: Array[CardData] = []
 
-    var cardsToDiscard: Array[Card] = []
-    
-    if (amount >= cardsInHand.size()):
-        cardsToDiscard.append_array(cardsInHand)
-    else:
-        cardsToDiscard.append_array(await hand.prompt_pick_n(amount))
+	var cardsToDiscard: Array[Card] = []
+	
+	if (amount >= cardsInHand.size()):
+		cardsToDiscard.append_array(cardsInHand)
+	else:
+		cardsToDiscard.append_array(await Prompt.nFromHand(hand, amount, "Discard %d cards." % amount, true))
 
-    for card in cardsToDiscard:
-        discardedCards.push_back(args.gameState.discard_card(card))
+	for card in cardsToDiscard:
+		discardedCards.push_back(args.gameState.discard_card(card))
 
-    Events.onCardsDiscarded.emit(args, discardedCards)
+	Events.onCardsDiscarded.emit(args, discardedCards)
 
 func rules_text() -> String:
-    return "Discard %d cards" % amount
+	return "Discard %d cards" % amount

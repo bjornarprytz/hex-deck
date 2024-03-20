@@ -45,7 +45,7 @@ func _on_upkeep() -> void:
 func _on_idle() -> void:
 	pass_button.disabled = false
 	
-	cardToPlay = await hand.prompt_pick_one()
+	cardToPlay = await Prompt.oneFromHand(hand, "Pick one card to play")
 	state.send_event("play")
 	
 func _off_idle() -> void:
@@ -111,6 +111,10 @@ func play_card(args: PlayEffectArgs):
 
 func draw_card() -> Card:
 	var cardData = drawPile.pop_card()
+	
+	if cardData == null:
+		Debug.push_message("Draw cancelled. Draw pile is empty.")
+		return
 	
 	var card = Create.card(cardData)
 	card.global_position = drawPile.global_position

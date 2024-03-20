@@ -71,7 +71,8 @@ var playEffects: Array[Effect] = [
 ]
 
 var cleanUpRules: Array[Effect] = [
-	DiscardHand.new(),
+	DiscardCards.new(2),
+	#DiscardHand.new(),
 	Income.new()
 ]
 
@@ -92,7 +93,7 @@ var tilePool: Dictionary = {
 
 var placementBonuses: Array[Effect] = [
 	Draft.new(),
-	AddFood.new(), 
+	AddFood.new(),
 	AddFoodPerDifferentTile.new()
 ]
 

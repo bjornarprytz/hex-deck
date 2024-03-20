@@ -39,6 +39,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="FoodButton" type="Button" parent="Background"]
 modulate = Color(0.219608, 0.772549, 0.172549, 1)
+layout_mode = 0
 offset_left = 46.0
 offset_top = 112.0
 offset_right = 264.0
@@ -49,6 +50,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="GoldButton" type="Button" parent="Background"]
 modulate = Color(1, 1, 0.0235294, 1)
+layout_mode = 0
 offset_left = 283.0
 offset_top = 112.0
 offset_right = 501.0
