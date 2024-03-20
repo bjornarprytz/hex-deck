@@ -71,8 +71,7 @@ var playEffects: Array[Effect] = [
 ]
 
 var cleanUpRules: Array[Effect] = [
-	DiscardCards.new(2),
-	#DiscardHand.new(),
+	DiscardHand.new(),
 	Income.new()
 ]
 
@@ -126,6 +125,7 @@ func reset():
 		Tile.TerrainType.Water: 4,
 		Tile.TerrainType.Mountain: 4
 	}
+	Prompt.clear_prompts()
 	Debug.push_message("Game reset!")
 
 func create_deck() -> Array[CardData]:

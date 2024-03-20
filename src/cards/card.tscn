@@ -27,6 +27,7 @@ corner_radius_bottom_left = 200
 script = ExtResource("3_ceyft")
 
 [node name="Card" type="Control"]
+custom_minimum_size = Vector2(135, 0)
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 3
@@ -34,7 +35,7 @@ size_flags_vertical = 3
 script = ExtResource("1_53muf")
 
 [node name="Color" type="ColorRect" parent="."]
-layout_mode = 0
+layout_mode = 2
 offset_left = -69.0
 offset_top = -69.0
 offset_right = 69.0
@@ -64,7 +65,7 @@ keep_pressed_outside = true
 
 [node name="Name" type="RichTextLabel" parent="."]
 modulate = Color(0, 0, 0, 1)
-layout_mode = 0
+layout_mode = 2
 offset_left = -63.0
 offset_top = -64.0
 offset_right = 1957.0
@@ -78,7 +79,7 @@ fit_content = true
 scroll_active = false
 
 [node name="GoldCost" type="RichTextLabel" parent="."]
-layout_mode = 0
+layout_mode = 2
 offset_left = 43.0
 offset_top = -65.0
 offset_right = 463.0
@@ -93,7 +94,7 @@ fit_content = true
 scroll_active = false
 
 [node name="FoodCost" type="RichTextLabel" parent="."]
-layout_mode = 0
+layout_mode = 2
 offset_left = 43.0
 offset_top = -42.0
 offset_right = 463.0
@@ -109,7 +110,7 @@ scroll_active = false
 
 [node name="RulesText" type="RichTextLabel" parent="."]
 modulate = Color(0, 0, 0, 1)
-layout_mode = 0
+layout_mode = 2
 offset_left = -63.0
 offset_top = -40.0
 offset_right = 1857.0

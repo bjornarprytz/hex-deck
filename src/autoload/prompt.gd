@@ -6,9 +6,13 @@ extends Node2D
 @onready var draftSpawner = preload ("res://ui/prompt/draft_prompt.tscn")
 @onready var fromHandSpawner = preload ("res://ui/prompt/from_hand_prompt.tscn")
 
-@onready var promptContainer: CanvasLayer = $Root
+@onready var promptContainer: Node2D = $Root/Prompts
 @onready var background: ColorRect = $Root/BackgroundBlur
 @onready var baseBackgroundColor: Color = background.color
+
+func clear_prompts():
+	for child in promptContainer.get_children():
+		child.queue_free()
 
 func buy() -> Array[Effect]:
 	_background_on()
