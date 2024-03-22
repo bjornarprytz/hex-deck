@@ -33,8 +33,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
-- Parameterize affinity placement rule (for terrain type)
-
 - UI
   - Camera movement
   - Selected cards should be raised sligtly
@@ -42,11 +40,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - Extend the Create-class
   - Tiles
   - PlacedStructure
-
-- Refactor Prompts
-  - Test the draft
-  - Make hand.pick__ methods better UI
-    - Selected cards should be marked somehow
 
 - Refactor map generation
   - More parameterized

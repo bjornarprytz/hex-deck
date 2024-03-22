@@ -17,13 +17,13 @@ var cardPool: Array[CardData] = [
 	CardData.Create("Gold Mine", MetaGameState.size(1), Alignment.Id.Purple) \
 		.with_gold_cost(3) \
 		.with_special_rules(RulesHooks.new() \
-			.with_placement_rules([MountainAffinityRule.new()]) \
+			.with_placement_rules([AdjacentAffinityRule.new(Tile.TerrainType.Mountain)]) \
 			.with_income_effects([PayFood.new(1), AddGold.new(1)]) \
 			),
 	CardData.Create("Fishery", MetaGameState.size(1), Alignment.Id.Blue) \
 		.with_gold_cost(1) \
 		.with_special_rules(RulesHooks.new() \
-			.with_placement_rules([WaterAffinityRule.new()]) \
+			.with_placement_rules([AdjacentAffinityRule.new(Tile.TerrainType.Water)]) \
 			.with_placement_effects([DrawCards.new(), Trade.new()]) \
 			),
 	CardData.Create("Village I", MetaGameState.size(1), Alignment.Id.Yellow) \
