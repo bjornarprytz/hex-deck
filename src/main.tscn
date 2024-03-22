@@ -148,11 +148,18 @@ disabled = true
 text = "Pass"
 
 [node name="Restart" type="Button" parent="."]
-offset_left = 1209.0
+offset_left = 1132.0
 offset_top = 11.0
-offset_right = 1270.0
+offset_right = 1197.0
 offset_bottom = 56.0
 text = "Restart"
+
+[node name="Settings" type="Button" parent="."]
+offset_left = 1203.0
+offset_top = 11.0
+offset_right = 1273.0
+offset_bottom = 56.0
+text = "Settings"
 
 [node name="Focus" type="Node2D" parent="."]
 position = Vector2(971, 355)
@@ -165,3 +172,4 @@ position = Vector2(971, 355)
 [connection signal="state_entered" from="State/Root/GameOver" to="." method="_on_game_over"]
 [connection signal="pressed" from="PassTurn" to="." method="_on_pass_turn"]
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]

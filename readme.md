@@ -33,6 +33,12 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
+- Make a menu where the player can choose some parameters themselves
+  - Code the functionality
+    - Make everything read Meta.settings
+  - Add some docs
+    - E.g. Update minimum terrain pool when radius changes
+
 - UI
   - Camera movement
   - Selected cards should be raised sligtly
@@ -43,14 +49,6 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
   - More robust to the discovery mechanic, and new tile types
   - Consolidated (it's currently spread across Meta and Map)
 
-- Make a menu where the player can choose some parameters themselves
-  - Deck
-  - Tile type distribution (Basic, mountain, water)
-  - Map size (radius)
-  - Food requirement
-  - Turn size
-  - Starting gold
-  - Starting hand size
 
 ## Base Rules
 

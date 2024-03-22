@@ -84,11 +84,7 @@ var alignmentRules: Dictionary = {
 	Alignment.Id.Purple: PurpleAlignment.new(),
 }
 
-var tilePool: Dictionary = {
-	TileInfo.TerrainType.Basic: 32,
-	TileInfo.TerrainType.Water: 4,
-	TileInfo.TerrainType.Mountain: 4
-}
+var settings: GameSettings = GameSettings.new()
 
 var placementBonuses: Array[Effect] = [
 	Draft.new(),
@@ -98,6 +94,7 @@ var placementBonuses: Array[Effect] = [
 
 func random_tile_type() -> TileInfo.TerrainType:
 	var total = 0
+	var tilePool = settings.terrainTypePool
 
 	var inTheRunning = tilePool.keys()
 
@@ -128,11 +125,7 @@ func random_tile_data() -> TileInfo:
 	return TileInfo.new(type, placementBonus)
 
 func reset():
-	tilePool = {
-		TileInfo.TerrainType.Basic: 32,
-		TileInfo.TerrainType.Water: 4,
-		TileInfo.TerrainType.Mountain: 4
-	}
+	settings = GameSettings.new()
 	Prompt.clear_prompts()
 	Debug.push_message("Game reset!")
 

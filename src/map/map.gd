@@ -39,14 +39,6 @@ class Coordinates:
 signal tileHovered(tile: Tile)
 signal tileClicked(tile: Tile)
 
-@export var radius: int:
-	set(value):
-		if (value < 1):
-			value = 1
-		if radius == value:
-			return
-		radius = value
-
 @export var tileSize: float:
 	set(value):
 		if value <= 1.0:
@@ -104,6 +96,7 @@ func place_structure(structure: Structure, affectedTiles: Array[Tile]) -> Placed
 	return placedStructure
 
 func _initialize_map():
+	var radius = Meta.settings.mapRadius
 	for q in range(radius):
 		for r in range(radius):
 			_add_tile( - q, r)

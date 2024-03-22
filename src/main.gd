@@ -150,6 +150,9 @@ func _on_restart_pressed() -> void:
 	Meta.reset()
 	get_tree().change_scene_to_file("res://main.tscn")
 
+func _on_settings_pressed() -> void:
+	get_tree().change_scene_to_file("res://ui/settings/settings.tscn")
+	
 func _handle_food_change(_oldFood: int, _newFood: int, source: Array[Tile]):
 	var tile: Tile
 	if source.size() == 0:
@@ -170,3 +173,5 @@ func _handle_food_change(_oldFood: int, _newFood: int, source: Array[Tile]):
 func _update_food():
 	$Food.text = "%d/%d" % [food, FOOD_REQUIREMENT]
 	$Gold.text = "%d" % [gold]
+
+
