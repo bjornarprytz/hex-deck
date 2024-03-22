@@ -1,12 +1,6 @@
 class_name Tile
 extends Node2D
 
-enum TerrainType {
-	Basic,
-	Water,
-	Mountain
-}
-
 signal onHovered(tile: Tile)
 signal onClicked(tile: Tile)
 
@@ -23,17 +17,17 @@ signal onClicked(tile: Tile)
 	set(value):
 		shape.size = value
 
-@onready var type: TerrainType:
+var type: TileInfo.TerrainType:
 	set(value):
 
 		type = value
 
 		match type:
-			TerrainType.Basic:
+			TileInfo.TerrainType.Basic:
 				modulate = Color.LIGHT_GREEN
-			TerrainType.Water:
+			TileInfo.TerrainType.Water:
 				modulate = Color.LIGHT_BLUE
-			TerrainType.Mountain:
+			TileInfo.TerrainType.Mountain:
 				modulate = Color.ROSY_BROWN
 		
 		baseModulate = modulate
@@ -51,7 +45,12 @@ var placementBonus: PlacementBonus:
 		if (value == placementBonus):
 			return
 		placementBonus = value
-		tooltip.text = placementBonus.rules.rules_text()
+			
+		if value == null:
+			tooltip.text = ""
+		else:
+			tooltip.text = placementBonus.rules.rules_text()
+		
 		if tooltip.text.length() > 0:
 			$PlacementBonus.visible = true
 

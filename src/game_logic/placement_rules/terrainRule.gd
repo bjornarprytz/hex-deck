@@ -4,8 +4,8 @@ extends PlacementRule
 func check(args: PlayEffectArgs) -> String:
     for tile in args.affectedTiles:
         match tile.type:
-            Tile.TerrainType.Mountain:
+            TileInfo.TerrainType.Mountain:
                 return "Cannot place on mountain"
-            Tile.TerrainType.Water:
+            TileInfo.TerrainType.Water:
                 return "Cannot place on water"
     return ""

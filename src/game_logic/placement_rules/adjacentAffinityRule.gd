@@ -1,9 +1,9 @@
 class_name AdjacentAffinityRule
 extends PlacementRule
 
-var terrainType: Tile.TerrainType
+var terrainType: TileInfo.TerrainType
 
-func _init(terrain: Tile.TerrainType) -> void:
+func _init(terrain: TileInfo.TerrainType) -> void:
 	terrainType = terrain
 
 func check(args: PlayEffectArgs) -> String:
@@ -13,4 +13,4 @@ func check(args: PlayEffectArgs) -> String:
 	return rules_text()
 
 func rules_text():
-	return "Requires adjacent %s" % [Tile.TerrainType.keys()[terrainType]]
+	return "Requires adjacent %s" % [TileInfo.TerrainType.keys()[terrainType]]

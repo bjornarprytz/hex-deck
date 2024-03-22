@@ -17,13 +17,13 @@ var cardPool: Array[CardData] = [
 	CardData.Create("Gold Mine", MetaGameState.size(1), Alignment.Id.Purple) \
 		.with_gold_cost(3) \
 		.with_special_rules(RulesHooks.new() \
-			.with_placement_rules([AdjacentAffinityRule.new(Tile.TerrainType.Mountain)]) \
+			.with_placement_rules([AdjacentAffinityRule.new(TileInfo.TerrainType.Mountain)]) \
 			.with_income_effects([PayFood.new(1), AddGold.new(1)]) \
 			),
 	CardData.Create("Fishery", MetaGameState.size(1), Alignment.Id.Blue) \
 		.with_gold_cost(1) \
 		.with_special_rules(RulesHooks.new() \
-			.with_placement_rules([AdjacentAffinityRule.new(Tile.TerrainType.Water)]) \
+			.with_placement_rules([AdjacentAffinityRule.new(TileInfo.TerrainType.Water)]) \
 			.with_placement_effects([DrawCards.new(), Trade.new()]) \
 			),
 	CardData.Create("Village I", MetaGameState.size(1), Alignment.Id.Yellow) \
@@ -85,9 +85,9 @@ var alignmentRules: Dictionary = {
 }
 
 var tilePool: Dictionary = {
-	Tile.TerrainType.Basic: 32,
-	Tile.TerrainType.Water: 4,
-	Tile.TerrainType.Mountain: 4
+	TileInfo.TerrainType.Basic: 32,
+	TileInfo.TerrainType.Water: 4,
+	TileInfo.TerrainType.Mountain: 4
 }
 
 var placementBonuses: Array[Effect] = [
@@ -96,7 +96,7 @@ var placementBonuses: Array[Effect] = [
 	AddFoodPerDifferentTile.new()
 ]
 
-func random_tile_type() -> Tile.TerrainType:
+func random_tile_type() -> TileInfo.TerrainType:
 	var total = 0
 
 	var inTheRunning = tilePool.keys()
@@ -117,13 +117,21 @@ func random_tile_type() -> Tile.TerrainType:
 			return type
 	
 	print("Ran out of index, returning random tile")
-	return Tile.TerrainType.values().pick_random()
+	return TileInfo.TerrainType.values().pick_random()
+
+func random_tile_data() -> TileInfo:
+	var type = random_tile_type()
+	var placementBonus: PlacementBonus = null
+	if (type == TileInfo.TerrainType.Basic and randf() < .2):
+		placementBonus = PlacementBonus.new([Meta.placementBonuses.pick_random()])
+	
+	return TileInfo.new(type, placementBonus)
 
 func reset():
 	tilePool = {
-		Tile.TerrainType.Basic: 32,
-		Tile.TerrainType.Water: 4,
-		Tile.TerrainType.Mountain: 4
+		TileInfo.TerrainType.Basic: 32,
+		TileInfo.TerrainType.Water: 4,
+		TileInfo.TerrainType.Mountain: 4
 	}
 	Prompt.clear_prompts()
 	Debug.push_message("Game reset!")

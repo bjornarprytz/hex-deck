@@ -55,7 +55,6 @@ signal tileClicked(tile: Tile)
 			return
 		tileSize = value
 
-@onready var tile_spawner = preload ("res://map/tile.tscn")
 @onready var structures = $Structures
 @onready var tiles = $Tiles
 
@@ -130,14 +129,9 @@ func _add_tile(q: int, r: int) -> Tile:
 		if !tilesLookup.has(nKey):
 			undiscoveredTiles[nKey] = n
 
-	var newTile = tile_spawner.instantiate() as Tile
+	var newTile = Create.tile(Meta.random_tile_data())
 	newTile.coordinates = coords
-	
-	newTile.type = Meta.random_tile_type()
 	newTile.map = self
-	
-	if (newTile.type == Tile.TerrainType.Basic and randf() < .2):
-		newTile.placementBonus = PlacementBonus.new([Meta.placementBonuses.pick_random()])
 	
 	tilesLookup[key] = newTile
 	
