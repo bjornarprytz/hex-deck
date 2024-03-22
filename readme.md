@@ -33,6 +33,10 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 ## TODO
 
+- Refactor StructurePlacement
+  - Map should collect tileClicked and tileHovered signals
+    - Take it out of Events
+
 - UI
   - Camera movement
   - Selected cards should be raised sligtly

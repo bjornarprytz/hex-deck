@@ -1,7 +1,6 @@
 class_name GameState
 extends Node2D
 
-@onready var structurePlacementSpawner = preload ("res://cards/structure_placement.tscn")
 @onready var scoreSpawner = preload ("res://ui/score_coin.tscn")
 
 @onready var map: Map = $Map
@@ -12,7 +11,6 @@ extends Node2D
 @onready var focusArea: Node2D = $Focus
 
 var cardToPlay: Card
-var structurePlacement: StructurePlacement
 
 const FOOD_REQUIREMENT = 25
 const TURN_LIMIT = 5
@@ -58,13 +56,12 @@ func _on_play_card() -> void:
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC)
 	tween.tween_property(cardToPlay, 'position', Vector2.ZERO, .4)
 	
-	structurePlacement = structurePlacementSpawner.instantiate() as StructurePlacement
-	structurePlacement.structure = cardToPlay.structure
-	structurePlacement.gameState = self
-	structurePlacement.card = cardToPlay
-	add_child(structurePlacement)
-	structurePlacement.confirmed.connect(_confirm_play)
-	structurePlacement.aborted.connect(_abort_play)
+	var playEffectArgs = await Prompt.place_structure(self, cardToPlay)
+
+	if playEffectArgs == null:
+		_abort_play()
+	else:
+		_confirm_play(playEffectArgs)
 
 func _abort_play():
 	hand.add_card(cardToPlay)
@@ -78,9 +75,6 @@ func _confirm_play(args: PlayEffectArgs):
 	tween.tween_property(cardToPlay, 'position', drawPile.position, .4)
 	tween.tween_callback(discard_card.bind(cardToPlay))
 	state.send_event("idle")
-
-func _off_play_card() -> void:
-	structurePlacement.queue_free()
 
 # CLEAN UP
 func _on_clean_up() -> void:

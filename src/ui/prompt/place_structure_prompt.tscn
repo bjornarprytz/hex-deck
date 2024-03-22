@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8vdmxq6igi8u"]
+
+[ext_resource type="Script" path="res://ui/prompt/placeStructurePrompt.gd" id="1_i7lqt"]
+[ext_resource type="PackedScene" uid="uid://0oenk04u2ati" path="res://cards/structure_view.tscn" id="2_t8shg"]
+
+[node name="PlaceStructure" type="Node2D"]
+modulate = Color(1, 1, 1, 0.752941)
+script = ExtResource("1_i7lqt")
+
+[node name="StructurePreview" parent="." instance=ExtResource("2_t8shg")]
+hexSize = 40.0
+borderWidth = 2.0

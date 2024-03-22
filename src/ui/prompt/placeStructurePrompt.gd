@@ -1,8 +1,7 @@
-class_name StructurePlacement
+class_name PlaceStructurePrompt
 extends Node2D
 
 signal confirmed(args: PlayEffectArgs)
-signal aborted
 
 var structurePreview: StructureView:
 	get:
@@ -10,8 +9,6 @@ var structurePreview: StructureView:
 @onready var baseStructurePosition: Vector2 = structurePreview.position
 	
 var structure: Structure:
-	set(value):
-		structurePreview.structure = value
 	get:
 		return structurePreview.structure
 
@@ -22,6 +19,7 @@ var gameState: GameState:
 var card: Card:
 	set(value):
 		card = value
+		structurePreview.structure = card.structure
 
 var _targetRotation: float
 
@@ -49,7 +47,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			MOUSE_BUTTON_WHEEL_DOWN:
 				_rotate_clockwise()
 			MOUSE_BUTTON_RIGHT:
-				aborted.emit()
+				confirmed.emit(null)
 
 func _physics_process(delta: float) -> void:
 	rotation = rotate_toward(rotation, _targetRotation, delta * 10.0)
