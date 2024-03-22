@@ -7,6 +7,9 @@ enum TerrainType {
 	Mountain
 }
 
+signal onHovered(tile: Tile)
+signal onClicked(tile: Tile)
+
 @export var map: Map
 
 @onready var shape: RegularPolygon = $Shape
@@ -87,10 +90,10 @@ func _ready() -> void:
 	Debug.toggled.connect(func(on): $Debug.visible=on)
 
 func _on_tile_pressed() -> void:
-	Events.tileClicked.emit(self)
+	onClicked.emit(self)
 func _on_tile_hovered(state: bool) -> void:
 	if (state):
-		Events.tileHovered.emit(self)
+		onHovered.emit(self)
 	
 	isHovered = state
 

@@ -36,6 +36,9 @@ class Coordinates:
 	func to_vec() -> Vector2i:
 		return Vector2i(q, r)
 
+signal tileHovered(tile: Tile)
+signal tileClicked(tile: Tile)
+
 @export var radius: int:
 	set(value):
 		if (value < 1):
@@ -53,7 +56,6 @@ class Coordinates:
 		tileSize = value
 
 @onready var tile_spawner = preload ("res://map/tile.tscn")
-@onready var structureSpawner = preload ("res://map/placed_structure.tscn")
 @onready var structures = $Structures
 @onready var tiles = $Tiles
 
@@ -91,8 +93,7 @@ func get_tile_from_mouse_pointer() -> Tile:
 	return get_tile(coords)
 
 func place_structure(structure: Structure, affectedTiles: Array[Tile]) -> PlacedStructure:
-	var placedStructure = structureSpawner.instantiate() as PlacedStructure
-	placedStructure.structure = structure
+	var placedStructure = Create.placedStructure(structure)
 	structures.add_child(placedStructure)
 	
 	placedStructure.position = affectedTiles[0].position
@@ -143,6 +144,8 @@ func _add_tile(q: int, r: int) -> Tile:
 	tiles.add_child(newTile)
 	newTile.position = Utils.axial_to_pixel(q, r, tileSize)
 	newTile.size = tileSize
+	newTile.onHovered.connect(_on_tile_hovered)
+	newTile.onClicked.connect(_on_tile_clicked)
 
 	return newTile
 
@@ -150,3 +153,8 @@ func point_to_coords(point: Vector2) -> Coordinates:
 	var q = (2.0 / 3.0 * point.x) / tileSize
 	var r = (-1.0 / 3.0 * point.x + sqrt(3) / 3.0 * point.y) / tileSize
 	return Utils.cube_round(Coordinates.new(q, r))
+
+func _on_tile_hovered(tile: Tile):
+	tileHovered.emit(tile)
+func _on_tile_clicked(tile: Tile):
+	tileClicked.emit(tile)

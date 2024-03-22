@@ -1,11 +1,6 @@
 class_name EventBus
 extends Node
 
-# Interaction Events
-
-signal tileClicked(tile: Tile)
-signal tileHovered(tile: Tile)
-
 # Game Events
 
 signal onCardPlayed(args: PlayEffectArgs)

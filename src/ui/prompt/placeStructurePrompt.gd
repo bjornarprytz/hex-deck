@@ -36,8 +36,9 @@ var rotationSteps: int:
 
 func _ready() -> void:
 	structurePreview.visible = false
-	Events.tileClicked.connect(_try_confirm_placement)
-	Events.tileHovered.connect(_preview_structure)
+	
+	gameState.map.tileClicked.connect(_try_confirm_placement)
+	gameState.map.tileHovered.connect(_preview_structure)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if (event is InputEventMouseButton and event.is_pressed()):
