@@ -13,6 +13,5 @@ signal onPlacementBonusTriggered(args: StructureEffectArgs, placementBonus: Plac
 signal onDiscoverTile(args: EffectArgs, tiles: Array[Tile])
 
 signal gameOver(victory: bool)
-signal foodRequirementChanged(oldValue: int, newValue: int)
 signal foodChanged(oldValue: int, newValue: int, source: Array[Tile])
 signal goldChanged(oldValue: int, newValue: int, source: Array[Tile])

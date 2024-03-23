@@ -1,9 +1,6 @@
 class_name MetaGameState
 extends Node
 
-var cardSpawner = preload ("res://cards/card.tscn")
-var structureSpawner = preload ("res://map/placed_structure.tscn")
-
 var basicSet: Array[CardData] = [
 	CardData.Create("Basic Red", MetaGameState.size(1), Alignment.Id.Red).with_gold_cost(1),
 	CardData.Create("Basic Yellow", MetaGameState.size(1), Alignment.Id.Yellow).with_gold_cost(1),
@@ -53,37 +50,11 @@ var cardPool: Array[CardData] = [
 			),
 ]
 
-var upkeepRules: Array[Effect] = [
-	DrawCards.new(5),
-	AddGold.new(3)
-]
-
-var placementRules: Array[PlacementRule] = [
-	AdjacentStructureRule.new(),
-	FreeSpaceRule.new(),
-	TerrainRule.new(),
-	PaymentRule.new()
-]
-
-var playEffects: Array[Effect] = [
-	PayCost.new(),
-	PlaceStructure.new()
-]
-
-var cleanUpRules: Array[Effect] = [
-	DiscardHand.new(),
-	Income.new()
-]
-
-var alignmentRules: Dictionary = {
-	Alignment.Id.Red: RedAlignment.new(),
-	Alignment.Id.Yellow: YellowAlignment.new(),
-	Alignment.Id.Blue: BlueAlignment.new(),
-	Alignment.Id.Green: GreenAlignment.new(),
-	Alignment.Id.Orange: OrangeAlignment.new(),
-	Alignment.Id.Purple: PurpleAlignment.new(),
-}
-
+var upkeepRules: Array[Effect]
+var placementRules: Array[PlacementRule]
+var playEffects: Array[Effect]
+var cleanUpRules: Array[Effect]
+var alignmentRules: Dictionary
 var settings: GameSettings = GameSettings.new()
 
 var placementBonuses: Array[Effect] = [
@@ -92,7 +63,11 @@ var placementBonuses: Array[Effect] = [
 	AddFoodPerDifferentTile.new()
 ]
 
+func _ready():
+	reset_rules()
+
 func reset():
+	reset_rules()
 	Prompt.clear_prompts()
 	Debug.push_message("Game reset!")
 
@@ -106,6 +81,44 @@ func create_deck() -> Array[CardData]:
 	deck.push_back(cardPool.pick_random())
 
 	return deck
+
+func reset_rules():
+	upkeepRules = [
+		DrawCards.new(settings.baseHandSize),
+		AddGold.new(settings.baseGoldIncome)
+	]
+
+	placementRules = [
+		AdjacentStructureRule.new(),
+		FreeSpaceRule.new(),
+		TerrainRule.new(),
+		PaymentRule.new()
+	]
+
+	playEffects = [
+		PayCost.new(),
+		PlaceStructure.new()
+	]
+
+	cleanUpRules = [
+		DiscardHand.new(),
+		Income.new()
+	]
+
+	alignmentRules = {
+		Alignment.Id.Red: RedAlignment.new(),
+		Alignment.Id.Yellow: YellowAlignment.new(),
+		Alignment.Id.Blue: BlueAlignment.new(),
+		Alignment.Id.Green: GreenAlignment.new(),
+		Alignment.Id.Orange: OrangeAlignment.new(),
+		Alignment.Id.Purple: PurpleAlignment.new(),
+	}
+
+	placementBonuses = [
+		Draft.new(),
+		AddFood.new(),
+		AddFoodPerDifferentTile.new()
+	]
 
 static func size(s: int) -> Array[Vector2i]:
 	return standardStructures[s - 1]

@@ -15,7 +15,7 @@ var cardToPlay: Card
 var food: int
 var gold: int
 @onready var foodRequirement: int = Meta.settings.foodRequirement
-@onready var turnsLeft: int = Meta.settings.totalTurns:
+@onready var turnsLeft: int:
 	set(value):
 		if value == turnsLeft:
 			return
@@ -25,12 +25,12 @@ var gold: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	drawPile.add_cards(Meta.create_deck())
-	_update_food()
 	Events.foodChanged.connect(_handle_food_change)
-	Events.goldChanged.connect(_handle_food_change)
-	Events.foodRequirementChanged.connect(_handle_food_change)
+	Events.goldChanged.connect(_handle_gold_change)
 	Events.gameOver.connect(func(_result: bool): state.send_event("game over"))
-
+	turnsLeft = Meta.settings.totalTurns
+	foodRequirement = Meta.settings.foodRequirement
+	
 # UPKEEP
 func _on_upkeep() -> void:
 	for effect in Meta.upkeepRules:
@@ -41,7 +41,7 @@ func _on_upkeep() -> void:
 func _on_idle() -> void:
 	pass_button.disabled = false
 	
-	cardToPlay = await Prompt.oneFromHand(hand, "Pick one card to play")
+	cardToPlay = await Prompt.oneFromHand(hand, "Click a card to play.")
 	state.send_event("play")
 	
 func _off_idle() -> void:
@@ -151,24 +151,19 @@ func _on_restart_pressed() -> void:
 func _on_settings_pressed() -> void:
 	Prompt.clear_prompts()
 	get_tree().change_scene_to_file("res://ui/settings/settings.tscn")
-	
-func _handle_food_change(_oldFood: int, _newFood: int, source: Array[Tile]):
-	var tile: Tile
-	if source.size() == 0:
-		tile = map.get_tile(Map.Coordinates.new(0, 0))
+
+func _handle_gold_change(_oldGold: int, _newGold: int, _source: Array[Tile]):
+	if _newGold < _oldGold:
+		$Gold.modulate = Color.RED
 	else:
-		tile = source.pick_random()
-	
-	var coin = scoreSpawner.instantiate() as ScoreCoin
-
-	coin.val = _newFood - _oldFood
-	get_tree().root.add_child(coin)
-	coin.global_position = tile.global_position
-	await create_tween().tween_property(coin, 'global_position', $Food.global_position, .4).finished
-	coin.queue_free()
-
-	_update_food()
-
-func _update_food():
-	$Food.text = "%d/%d" % [food, foodRequirement]
+		$Gold.modulate = Color.GREEN
 	$Gold.text = "%d" % [gold]
+	await create_tween().tween_property($Gold, 'modulate', Color.WHITE, .4).finished
+
+func _handle_food_change(_oldFood: int, _newFood: int, _source: Array[Tile]):
+	if _newFood < _oldFood:
+		$Food.modulate = Color.RED
+	else:
+		$Food.modulate = Color.GREEN
+	$Food.text = "%d/%d" % [food, foodRequirement]
+	await create_tween().tween_property($Food, 'modulate', Color.WHITE, .4).finished

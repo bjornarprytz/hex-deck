@@ -43,22 +43,10 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - UI
   - Camera movement
   - Selected cards should be raised sligtly
-  - Make Tile tooltip not transparent
+  - Differentiate terrain and structures more
 
-## Base Rules
-
-- Placement
-  - Border -> Adjacent
-  - Impassable: Mountain / Water
-  - No flipping tiles
-
-- End of round (one hand)
-  - Add food, eat food
-  - Food requirements
-
-- Placement Bonuses
-  - On map or On card
-  - Player can order the effects if needed
+- Effect stack
+  - If multiple effects trigger at the same time, they should be stacked ( maybe by the player, or by a set priority)
 
 ## Ideas
 
@@ -85,7 +73,7 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 
 - Pallette
 - PARTICLES!
-- Show Which phase we're in
+- Show which phase we're in
 - Invalid placements
   - Show feedback on error
 - Placement bonus

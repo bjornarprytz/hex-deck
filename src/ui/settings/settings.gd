@@ -33,6 +33,7 @@ func _radius_changed(newText: String) -> void:
 
 func _on_play_pressed() -> void:
 	_save_settings()
+	Meta.reset()
 	get_tree().change_scene_to_file("res://main.tscn")
 
 func _save_settings():

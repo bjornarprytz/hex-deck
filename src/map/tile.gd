@@ -6,7 +6,9 @@ signal onClicked(tile: Tile)
 
 @export var map: Map
 
-@onready var shape: RegularPolygon = $Shape
+@onready var shape: RegularPolygon:
+	get:
+		return $Shape
 @onready var tooltip: RichTextLabel:
 	get:
 		return $Tooltip
@@ -24,13 +26,13 @@ var type: TileInfo.TerrainType:
 
 		match type:
 			TileInfo.TerrainType.Basic:
-				modulate = Color.LIGHT_GREEN
+				shape.modulate = Color.LIGHT_GREEN
 			TileInfo.TerrainType.Water:
-				modulate = Color.LIGHT_BLUE
+				shape.modulate = Color.LIGHT_BLUE
 			TileInfo.TerrainType.Mountain:
-				modulate = Color.ROSY_BROWN
+				shape.modulate = Color.ROSY_BROWN
 		
-		baseModulate = modulate
+		baseModulate = shape.modulate
 
 var coordinates: Map.Coordinates:
 	set(value):
@@ -76,9 +78,9 @@ func get_relative_tile(displacement: Vector2i) -> Tile:
 
 func _physics_process(_delta: float) -> void:
 	if isHovered:
-		modulate = baseModulate * (pingpong(Time.get_ticks_msec() / 1000.0, 1.0) + .5)
+		shape.modulate = baseModulate * (pingpong(Time.get_ticks_msec() / 1000.0, 1.0) + .5)
 	else:
-		modulate = baseModulate
+		shape.modulate = baseModulate
 
 func _ready() -> void:
 	assert(map != null)
