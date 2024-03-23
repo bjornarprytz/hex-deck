@@ -12,12 +12,10 @@ extends Node2D
 
 var cardToPlay: Card
 
-const FOOD_REQUIREMENT = 25
-const TURN_LIMIT = 5
-
 var food: int
 var gold: int
-var turnsLeft: int = TURN_LIMIT + 1: # +1 because we're starting in the cleanup step
+@onready var foodRequirement: int = Meta.settings.foodRequirement
+@onready var turnsLeft: int = Meta.settings.totalTurns:
 	set(value):
 		if value == turnsLeft:
 			return
@@ -81,7 +79,7 @@ func _on_clean_up() -> void:
 	for effect in Meta.cleanUpRules:
 		await effect.resolve(StructureEffectArgs.new(self, null))
 
-	if (turnsLeft < 0 and food < FOOD_REQUIREMENT):
+	if (turnsLeft < 0 and food < foodRequirement):
 		state.send_event("game over")
 		return
 	
@@ -91,7 +89,7 @@ func _on_clean_up() -> void:
 # GAME OVER
 func _on_game_over() -> void:
 	Debug.push_message("Game Over!")
-	if (food < FOOD_REQUIREMENT):
+	if (food < foodRequirement):
 		Debug.push_message("Lose")
 	else:
 		Debug.push_message("Win!")
@@ -151,6 +149,7 @@ func _on_restart_pressed() -> void:
 	get_tree().change_scene_to_file("res://main.tscn")
 
 func _on_settings_pressed() -> void:
+	Prompt.clear_prompts()
 	get_tree().change_scene_to_file("res://ui/settings/settings.tscn")
 	
 func _handle_food_change(_oldFood: int, _newFood: int, source: Array[Tile]):
@@ -171,7 +170,5 @@ func _handle_food_change(_oldFood: int, _newFood: int, source: Array[Tile]):
 	_update_food()
 
 func _update_food():
-	$Food.text = "%d/%d" % [food, FOOD_REQUIREMENT]
+	$Food.text = "%d/%d" % [food, foodRequirement]
 	$Gold.text = "%d" % [gold]
-
-

@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5or711yxfoj6"]
+[gd_scene load_steps=4 format=3 uid="uid://b5or711yxfoj6"]
 
 [ext_resource type="Script" path="res://ui/settings/settings.gd" id="1_6pn1u"]
 
@@ -9,138 +9,161 @@ border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lt7y4"]
+bg_color = Color(0.764706, 0.560784, 0.0627451, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
 [node name="Settings" type="Node2D"]
 script = ExtResource("1_6pn1u")
 
 [node name="Play" type="Button" parent="."]
-offset_left = 639.0
-offset_top = 608.0
-offset_right = 708.0
-offset_bottom = 664.0
+offset_left = 571.0
+offset_top = 551.0
+offset_right = 785.0
+offset_bottom = 649.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_wqef1")
 text = "Play"
 
-[node name="GridContainer" type="VBoxContainer" parent="."]
-offset_left = 295.0
+[node name="Reset" type="Button" parent="."]
+offset_left = 597.0
+offset_top = 326.0
+offset_right = 797.0
+offset_bottom = 382.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_lt7y4")
+text = "Reset"
+
+[node name="Container" type="VBoxContainer" parent="."]
+offset_left = 378.0
 offset_top = 47.0
 offset_right = 799.0
-offset_bottom = 359.0
+offset_bottom = 281.0
 
-[node name="Seed" type="HBoxContainer" parent="GridContainer"]
+[node name="Seed" type="HBoxContainer" parent="Container"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 
-[node name="Label" type="RichTextLabel" parent="GridContainer/Seed"]
+[node name="Label" type="RichTextLabel" parent="Container/Seed"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[right]seed"
 fit_content = true
 
-[node name="TextEdit" type="TextEdit" parent="GridContainer/Seed"]
+[node name="LineEdit" type="LineEdit" parent="Container/Seed"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TerrainTypePool" type="HBoxContainer" parent="GridContainer"]
+[node name="TerrainTypePool" type="HBoxContainer" parent="Container"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 
-[node name="Label" type="RichTextLabel" parent="GridContainer/TerrainTypePool"]
+[node name="Label" type="RichTextLabel" parent="Container/TerrainTypePool"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[right]terrain pool"
 fit_content = true
 
-[node name="Basic" type="TextEdit" parent="GridContainer/TerrainTypePool"]
+[node name="Basic" type="LineEdit" parent="Container/TerrainTypePool"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Basic"
 
-[node name="Water" type="TextEdit" parent="GridContainer/TerrainTypePool"]
+[node name="Water" type="LineEdit" parent="Container/TerrainTypePool"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Water"
 
-[node name="Mountain" type="TextEdit" parent="GridContainer/TerrainTypePool"]
+[node name="Mountain" type="LineEdit" parent="Container/TerrainTypePool"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Mountain"
 
-[node name="MapRadius" type="HBoxContainer" parent="GridContainer"]
+[node name="MapRadius" type="HBoxContainer" parent="Container"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 
-[node name="Label" type="RichTextLabel" parent="GridContainer/MapRadius"]
+[node name="Label" type="RichTextLabel" parent="Container/MapRadius"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[right]map radius"
 fit_content = true
 
-[node name="TextEdit" type="TextEdit" parent="GridContainer/MapRadius"]
+[node name="LineEdit" type="LineEdit" parent="Container/MapRadius"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Incl. center tile"
 
-[node name="FoodRequirement" type="HBoxContainer" parent="GridContainer"]
+[node name="FoodRequirement" type="HBoxContainer" parent="Container"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 
-[node name="Label" type="RichTextLabel" parent="GridContainer/FoodRequirement"]
+[node name="Label" type="RichTextLabel" parent="Container/FoodRequirement"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[right]food req."
 fit_content = true
 
-[node name="TextEdit" type="TextEdit" parent="GridContainer/FoodRequirement"]
+[node name="LineEdit" type="LineEdit" parent="Container/FoodRequirement"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TotalTurns" type="HBoxContainer" parent="GridContainer"]
+[node name="TotalTurns" type="HBoxContainer" parent="Container"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 
-[node name="Label" type="RichTextLabel" parent="GridContainer/TotalTurns"]
+[node name="Label" type="RichTextLabel" parent="Container/TotalTurns"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[right]total turns"
 fit_content = true
 
-[node name="TextEdit" type="TextEdit" parent="GridContainer/TotalTurns"]
+[node name="LineEdit" type="LineEdit" parent="Container/TotalTurns"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BaseGoldIncome" type="HBoxContainer" parent="GridContainer"]
+[node name="BaseGoldIncome" type="HBoxContainer" parent="Container"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 
-[node name="Label" type="RichTextLabel" parent="GridContainer/BaseGoldIncome"]
+[node name="Label" type="RichTextLabel" parent="Container/BaseGoldIncome"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[right]gold income"
 fit_content = true
 
-[node name="TextEdit" type="TextEdit" parent="GridContainer/BaseGoldIncome"]
+[node name="LineEdit" type="LineEdit" parent="Container/BaseGoldIncome"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HandSize" type="HBoxContainer" parent="GridContainer"]
+[node name="HandSize" type="HBoxContainer" parent="Container"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 
-[node name="Label" type="RichTextLabel" parent="GridContainer/HandSize"]
+[node name="Label" type="RichTextLabel" parent="Container/HandSize"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[right]hand size"
 fit_content = true
 
-[node name="TextEdit" type="TextEdit" parent="GridContainer/HandSize"]
+[node name="LineEdit" type="LineEdit" parent="Container/HandSize"]
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="TileCount" type="RichTextLabel" parent="."]
+offset_left = 806.0
+offset_top = 120.0
+offset_right = 899.0
+offset_bottom = 150.0
+text = "45384 Tiles"
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Reset" to="." method="_on_reset_pressed"]

@@ -50,6 +50,9 @@ signal tileClicked(tile: Tile)
 @onready var structures = $Structures
 @onready var tiles = $Tiles
 
+@onready var radius: int = Meta.settings.mapRadius
+@onready var tilePool = Meta.settings.get_terrain_pool()
+
 ## Key -> Tile
 var tilesLookup: Dictionary = {}
 ## Key -> Coordinate
@@ -96,7 +99,6 @@ func place_structure(structure: Structure, affectedTiles: Array[Tile]) -> Placed
 	return placedStructure
 
 func _initialize_map():
-	var radius = Meta.settings.mapRadius
 	for q in range(radius):
 		for r in range(radius):
 			_add_tile( - q, r)
@@ -122,7 +124,7 @@ func _add_tile(q: int, r: int) -> Tile:
 		if !tilesLookup.has(nKey):
 			undiscoveredTiles[nKey] = n
 
-	var newTile = Create.tile(Meta.random_tile_data())
+	var newTile = Create.tile(_random_tile_data())
 	newTile.coordinates = coords
 	newTile.map = self
 	
@@ -145,3 +147,34 @@ func _on_tile_hovered(tile: Tile):
 	tileHovered.emit(tile)
 func _on_tile_clicked(tile: Tile):
 	tileClicked.emit(tile)
+
+func _random_tile_type() -> TileInfo.TerrainType:
+	var total = 0
+
+	var inTheRunning = tilePool.keys()
+
+	for type in tilePool.keys():
+		var subTotal = tilePool[type]
+		if subTotal == 0:
+			inTheRunning.erase(type)
+		
+		total += subTotal
+	
+	var index = randi_range(0, total)
+
+	for type in inTheRunning:
+		index -= tilePool[type]
+		if (index <= 0):
+			tilePool[type] -= 1
+			return type
+	
+	print("Ran out of index, returning random tile")
+	return TileInfo.TerrainType.values().pick_random()
+
+func _random_tile_data() -> TileInfo:
+	var type = _random_tile_type()
+	var placementBonus: PlacementBonus = null
+	if (type == TileInfo.TerrainType.Basic and randf() < .2):
+		placementBonus = PlacementBonus.new([Meta.placementBonuses.pick_random()])
+	
+	return TileInfo.new(type, placementBonus)

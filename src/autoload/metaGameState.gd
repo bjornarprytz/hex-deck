@@ -92,40 +92,7 @@ var placementBonuses: Array[Effect] = [
 	AddFoodPerDifferentTile.new()
 ]
 
-func random_tile_type() -> TileInfo.TerrainType:
-	var total = 0
-	var tilePool = settings.terrainTypePool
-
-	var inTheRunning = tilePool.keys()
-
-	for type in tilePool.keys():
-		var subTotal = tilePool[type]
-		if subTotal == 0:
-			inTheRunning.erase(type)
-		
-		total += subTotal
-	
-	var index = randi_range(0, total)
-
-	for type in inTheRunning:
-		index -= tilePool[type]
-		if (index <= 0):
-			tilePool[type] -= 1
-			return type
-	
-	print("Ran out of index, returning random tile")
-	return TileInfo.TerrainType.values().pick_random()
-
-func random_tile_data() -> TileInfo:
-	var type = random_tile_type()
-	var placementBonus: PlacementBonus = null
-	if (type == TileInfo.TerrainType.Basic and randf() < .2):
-		placementBonus = PlacementBonus.new([Meta.placementBonuses.pick_random()])
-	
-	return TileInfo.new(type, placementBonus)
-
 func reset():
-	settings = GameSettings.new()
 	Prompt.clear_prompts()
 	Debug.push_message("Game reset!")
 
