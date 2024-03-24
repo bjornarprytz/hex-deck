@@ -14,7 +14,10 @@ func resolve(args: StructureEffectArgs):
 			colors[color] += 1
 		maxCount = max(colors[color], maxCount)
 	
-	args.gameState.add_food(maxCount, args.affectedTiles)
+	args.gameState.add_food(maxCount)
 
 func rules_text() -> String:
-	return "Add food per ="
+	return "Add food for each adjacent tile with a structure of the same color."
+
+func keyword() -> String:
+	return "Food [Uniform]"

@@ -8,7 +8,10 @@ func _init(inputAmount: int=1):
 
 func resolve(args: StructureEffectArgs):
 	assert(amount > 0)
-	args.gameState.add_gold(amount, args.affectedTiles)
+	args.gameState.add_gold(amount)
 
 func rules_text() -> String:
 	return "Add %d gold" % amount
+
+func keyword() -> String:
+	return "Gold %d" % amount

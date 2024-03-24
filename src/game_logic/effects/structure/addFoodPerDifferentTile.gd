@@ -10,7 +10,10 @@ func resolve(args: StructureEffectArgs):
 		if !unique_colors.has(color):
 			unique_colors.push_back(color)
 	
-	args.gameState.add_food(unique_colors.size(), args.affectedTiles)
+	args.gameState.add_food(unique_colors.size())
 
 func rules_text() -> String:
-	return "Add food per !="
+	return "Add food per different color of adjacent structures"
+
+func keyword() -> String:
+	return "Food Variety"

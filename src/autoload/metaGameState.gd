@@ -1,55 +1,6 @@
 class_name MetaGameState
 extends Node
 
-var basicSet: Array[CardData] = [
-	CardData.Create("Basic Red", MetaGameState.size(1), Alignment.Id.Red).with_gold_cost(1),
-	CardData.Create("Basic Yellow", MetaGameState.size(1), Alignment.Id.Yellow).with_gold_cost(1),
-	CardData.Create("Basic Blue", MetaGameState.size(1), Alignment.Id.Blue).with_gold_cost(1),
-	CardData.Create("Basic Green", MetaGameState.size(1), Alignment.Id.Green).with_gold_cost(1),
-	CardData.Create("Basic Orange", MetaGameState.size(1), Alignment.Id.Orange).with_gold_cost(1),
-	CardData.Create("Basic Purple", MetaGameState.size(1), Alignment.Id.Purple).with_gold_cost(1),
-]
-
-var cardPool: Array[CardData] = [
-	CardData.Create("Gold Mine", MetaGameState.size(1), Alignment.Id.Purple) \
-		.with_gold_cost(3) \
-		.with_special_rules(RulesHooks.new() \
-			.with_placement_rules([AdjacentAffinityRule.new(TileInfo.TerrainType.Mountain)]) \
-			.with_income_effects([PayFood.new(1), AddGold.new(1)]) \
-			),
-	CardData.Create("Fishery", MetaGameState.size(1), Alignment.Id.Blue) \
-		.with_gold_cost(1) \
-		.with_special_rules(RulesHooks.new() \
-			.with_placement_rules([AdjacentAffinityRule.new(TileInfo.TerrainType.Water)]) \
-			.with_placement_effects([DrawCards.new(), Trade.new()]) \
-			),
-	CardData.Create("Village I", MetaGameState.size(1), Alignment.Id.Yellow) \
-		.with_gold_cost(1) \
-		.with_special_rules(RulesHooks.new() \
-			.with_placement_effects([AddFoodPerSimilarTile.new()]) \
-			),
-	CardData.Create("Village II", MetaGameState.size(2), Alignment.Id.Yellow) \
-		.with_gold_cost(2) \
-		.with_special_rules(RulesHooks.new() \
-			.with_placement_effects([AddFoodPerSimilarTile.new()]) \
-			),
-	CardData.Create("Village III", MetaGameState.size(3), Alignment.Id.Yellow) \
-		.with_gold_cost(3) \
-		.with_special_rules(RulesHooks.new() \
-			.with_placement_effects([AddFoodPerSimilarTile.new()]) \
-			),
-	CardData.Create("Farm", MetaGameState.size(1), Alignment.Id.Green) \
-		.with_gold_cost(2) \
-		.with_special_rules(RulesHooks.new() \
-			.with_income_effects([AddFood.new()]) \
-			),
-	CardData.Create("Marketplace", MetaGameState.size(1), Alignment.Id.Red) \
-		.with_gold_cost(1) \
-		.with_special_rules(RulesHooks.new() \
-			.with_placement_effects([AddFoodPerDifferentTile.new()]) \
-			),
-]
-
 var upkeepRules: Array[Effect]
 var placementRules: Array[PlacementRule]
 var playEffects: Array[Effect]
@@ -72,13 +23,20 @@ func reset():
 	Debug.push_message("Game reset!")
 
 func create_deck() -> Array[CardData]:
-	var deck: Array[CardData] = []
-
-	deck.append_array(basicSet)
-	deck.push_back(cardPool.pick_random())
-	deck.push_back(cardPool.pick_random())
-	deck.push_back(cardPool.pick_random())
-	deck.push_back(cardPool.pick_random())
+	var deck: Array[CardData] = CardPool.get_cards([
+		"Scouts",
+		"Foragers",
+		"Farm",
+		"Pasture",
+		"City",
+		"Temple",
+		"Fishery",
+		"Traders",
+		"Mine",
+		"Vault",
+		"Marketplace",
+		"Diplomats"
+	] as Array[String])
 
 	return deck
 
@@ -117,16 +75,5 @@ func reset_rules():
 	placementBonuses = [
 		Draft.new(),
 		AddFood.new(),
-		AddFoodPerDifferentTile.new()
+		AddGold.new()
 	]
-
-static func size(s: int) -> Array[Vector2i]:
-	return standardStructures[s - 1]
-
-static var standardStructures: Array = [
-	Utils.get_cells(),
-	Utils.get_cells([[1, -1]]),
-	Utils.get_cells([[1, -1], [1, 0]]),
-	Utils.get_cells([[1, -1], [1, 0], [0, -1]]),
-	Utils.get_cells([[1, -1], [1, 0], [0, -1], [0, 1]]),
-]

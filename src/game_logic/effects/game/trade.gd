@@ -1,6 +1,8 @@
 class_name Trade
 extends Effect
 
+
+
 func resolve(args: EffectArgs):
 	var result = await Prompt.trade(args.gameState.hand)
 	
@@ -14,3 +16,7 @@ func resolve(args: EffectArgs):
 
 func rules_text() -> String:
 	return "May discard 1 card for either 2 food or 1 gold"
+
+
+func keyword() -> String:
+	return "Trading"

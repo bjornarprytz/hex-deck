@@ -11,7 +11,10 @@ func resolve(args: StructureEffectArgs):
 
 	if (args.gameState.food < amount):
 		args.gameState.state.send_event("game over")
-	args.gameState.remove_food(amount, args.affectedTiles)
+	args.gameState.remove_food(amount)
 
 func rules_text() -> String:
-	return "Pay %d food" % amount
+	return "Pay %d Food" % amount
+
+func keyword() -> String:
+	return "Pay %d Food" % amount

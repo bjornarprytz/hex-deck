@@ -14,3 +14,6 @@ func check(args: PlayEffectArgs) -> String:
 
 func rules_text():
 	return "Requires adjacent %s" % [TileInfo.TerrainType.keys()[terrainType]]
+
+func keyword():
+	return "Affinity: %s" % [TileInfo.TerrainType.keys()[terrainType]]

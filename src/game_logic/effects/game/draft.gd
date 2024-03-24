@@ -21,3 +21,6 @@ func resolve(args: EffectArgs):
 
 func rules_text() -> String:
 	return "Draft a card from the pool"
+
+func keyword() -> String:
+	return "Draft"

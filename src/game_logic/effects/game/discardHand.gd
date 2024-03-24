@@ -12,3 +12,6 @@ func resolve(args: EffectArgs):
 
 func rules_text() -> String:
 	return "Discard hand"
+
+func keyword() -> String:
+	return "Discard Hand"

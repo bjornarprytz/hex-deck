@@ -10,3 +10,6 @@ func resolve(args: EffectArgs):
 
 func rules_text() -> String:
 	return "DiscoverTile a tile"
+
+func keyword() -> String:
+	return "Discover"

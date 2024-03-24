@@ -15,3 +15,6 @@ func resolve(args: StructureEffectArgs):
 
 func rules_text() -> String:
 	return "Move"
+
+func keyword() -> String:
+	return "Move"

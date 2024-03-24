@@ -93,3 +93,14 @@ static func cube_round(frac: Map.Coordinates) -> Map.Coordinates:
 		s = -q - r
 
 	return Map.Coordinates.new(q, r)
+
+static func structure_size(s: int) -> Array[Vector2i]:
+	return standardStructures[s - 1]
+
+static var standardStructures: Array = [
+	Utils.get_cells(),
+	Utils.get_cells([[1, -1]]),
+	Utils.get_cells([[1, -1], [1, 0]]),
+	Utils.get_cells([[1, -1], [1, 0], [0, -1]]),
+	Utils.get_cells([[1, -1], [1, 0], [0, -1], [0, 1]]),
+]

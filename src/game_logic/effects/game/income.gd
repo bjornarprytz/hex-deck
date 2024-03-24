@@ -15,3 +15,6 @@ func resolve(args: EffectArgs):
 
 func rules_text() -> String:
 	return "Trigger income effects in placed structures"
+
+func keyword() -> String:
+	return "Income Phase"

@@ -8,3 +8,6 @@ func resolve(args: PlayEffectArgs):
 		args.gameState.remove_food(cost.food)
 	if cost.gold > 0:
 		args.gameState.remove_gold(cost.gold)
+
+func keyword() -> String:
+	return "Pay"

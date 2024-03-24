@@ -115,31 +115,36 @@ func draw_card() -> Card:
 
 	return card
 
+func mill_card() -> Card:
+	push_error("Implement discard pile.")
+	
+	return null
+
 func discard_card(card: Card) -> CardData:
 	var cardData = card.data
 	drawPile.tuck_card(cardData)
 	card.queue_free()
 	return cardData
 
-func add_food(n: int, source: Array[Tile]=[]):
+func add_food(n: int):
 	var oldValue = food
 	food += n
-	Events.foodChanged.emit(oldValue, food, source)
+	Events.foodChanged.emit(oldValue, food)
 
-func remove_food(n: int, source: Array[Tile]=[]):
+func remove_food(n: int):
 	var oldValue = food
 	food -= n
-	Events.foodChanged.emit(oldValue, food, source)
+	Events.foodChanged.emit(oldValue, food)
 
-func add_gold(n: int, source: Array[Tile]=[]):
+func add_gold(n: int):
 	var oldValue = gold
 	gold += n
-	Events.goldChanged.emit(oldValue, gold, source)
+	Events.goldChanged.emit(oldValue, gold)
 
-func remove_gold(n: int, source: Array[Tile]=[]):
+func remove_gold(n: int):
 	var oldValue = gold
 	gold -= n
-	Events.goldChanged.emit(oldValue, gold, source)
+	Events.goldChanged.emit(oldValue, gold)
 
 func _on_pass_turn() -> void:
 	state.send_event("pass turn")
@@ -152,7 +157,7 @@ func _on_settings_pressed() -> void:
 	Prompt.clear_prompts()
 	get_tree().change_scene_to_file("res://ui/settings/settings.tscn")
 
-func _handle_gold_change(_oldGold: int, _newGold: int, _source: Array[Tile]):
+func _handle_gold_change(_oldGold: int, _newGold: int):
 	if _newGold < _oldGold:
 		$Gold.modulate = Color.RED
 	else:
@@ -160,7 +165,7 @@ func _handle_gold_change(_oldGold: int, _newGold: int, _source: Array[Tile]):
 	$Gold.text = "%d" % [gold]
 	await create_tween().tween_property($Gold, 'modulate', Color.WHITE, .4).finished
 
-func _handle_food_change(_oldFood: int, _newFood: int, _source: Array[Tile]):
+func _handle_food_change(_oldFood: int, _newFood: int):
 	if _newFood < _oldFood:
 		$Food.modulate = Color.RED
 	else:

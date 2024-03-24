@@ -15,4 +15,10 @@ func resolve(args: EffectArgs):
 	Events.onCardsDrawn.emit(args, cards)
 
 func rules_text() -> String:
-	return "Draw a card"
+	return "Draw %d card(s)" % [amount]
+
+func keyword() -> String:
+	return "Draw %d" % [amount]
+
+func abstract_keyword() -> String:
+	return "Draw X"

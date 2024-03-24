@@ -4,15 +4,6 @@ This is a prototype for a game about playing cards to place hex-tiles on a map.
 
 Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
-Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
-
-- Points for unique colors adjacent
-- Points for same colors adjacent
-- Draw card
-- Just points
-- Requirement: Adjacent to ocean
-- Gold
-
 - Card Stats
   - Rarity
   - Sell / Buy Value
@@ -25,13 +16,52 @@ Each color (red, blue, yellow, green, blue, purple) has a corresponding ability:
 - For round in range(5):
   - Draw hand of 5 cards
   - Play cards (cards are free)
-  - if points < round.requirement:
-    - Loss
+- If food <= foodRequirement
 - Win
 - Draft another card
 - Shop, etc.
 
 ## TODO
+
+- Wire shit up
+  - Finish effect implementations
+  - Call adjacent placement effects when a structure is placed
+
+- Remove Income
+- Add Discard Pile
+- List Cards in Draw-/DiscardPile
+  - Card Summary
+
+- Effects Overhaul
+  - Keywords Only
+
+- New Keywords
+  - Convert X->Y
+    - Change alignment
+  - Retain
+    - Don't discard card on end step
+  - Banish
+    - Remove card from Deck
+  - Exile
+    - Removed from DrawPile
+  - Trading X
+    - Banish X cards for 2F/1G each
+  - Scout
+    - Food per empty tile
+  - Forage - 1 Food if on placement bonus
+  - "Connected"
+    - Chain of Adjacency
+  - Fishing X
+    - Mill X, Effect based on the set of cards
+  - OnAdjacentPlacement
+    - Track
+  - Wild color (Choose upon placement)
+
+- Sub misssions
+  - Take all placement bonuses
+  - Reward: 3 Food
+
+---
 
 - Figure out how tileInfo gets generated for discovered tiles
 

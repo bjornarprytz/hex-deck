@@ -29,3 +29,9 @@ func resolve(args: EffectArgs):
 
 func rules_text() -> String:
 	return "Discard %d cards" % amount
+
+func keyword() -> String:
+	return "Discard %d" % amount
+
+func abstract_keyword() -> String:
+	return "Discard X"

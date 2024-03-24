@@ -9,3 +9,6 @@ func resolve(args: StructureEffectArgs):
 
 func rules_text() -> String:
 	return "Re-trigger placement bonuses"
+
+func keyword() -> String:
+	return "Trigger Placement Bonuses"

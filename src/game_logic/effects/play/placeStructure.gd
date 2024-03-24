@@ -17,3 +17,6 @@ func resolve(args: PlayEffectArgs):
 			await effect.resolve(structureEffectArgs)
 	
 	Events.onStructurePlaced.emit(structureEffectArgs)
+
+func keyword() -> String:
+	return "Place Structure"

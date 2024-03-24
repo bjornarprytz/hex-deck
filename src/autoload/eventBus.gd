@@ -9,6 +9,7 @@ signal onBeforeIncome(args: EffectArgs)
 signal onAfterIncome(args: EffectArgs)
 signal onCardsDrawn(args: EffectArgs, cards: Array[Card])
 signal onCardsDiscarded(args: EffectArgs, cards: Array[CardData])
+signal onCardsMilled(args: EffectArgs, cards: Array[CardData])
 signal onPlacementBonusTriggered(args: StructureEffectArgs, placementBonus: PlacementBonus)
 signal onDiscoverTile(args: EffectArgs, tiles: Array[Tile])
 

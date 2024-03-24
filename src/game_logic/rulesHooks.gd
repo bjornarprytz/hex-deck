@@ -9,6 +9,8 @@ var placementRules: Array[PlacementRule] = []
 var placementEffects: Array[Effect] = []
 ## Effects that trigger during cleanup (after each hand)
 var incomeEffects: Array[Effect] = []
+## Effects that trigger when a structure is placed adjacent to this one
+var adjacentPlacementEffects: Array[Effect] = []
 ## Effects that trigger after a card is played
 var cardPlayEffects: Array[Effect] = []
 
@@ -18,39 +20,47 @@ var triggeredEffects: Dictionary
 func rules_text() -> String:
 	var placementRulesText = ""
 	var placementEffectsText = ""
+	var adjacentPlacementEffectsText = ""
 	var incomeText = ""
 	var cardPlayText = ""
 
 	if (_rulesText == ""):
 		for rule in placementRules:
-			var text = rule.rules_text()
+			var text = rule.keyword()
 			if placementRulesText == "":
-				placementRulesText = "Restrictions: %s" % [text]
+				placementRulesText = "Restrictions: \n%s" % [text]
 			else:
-				placementRulesText = "%s %s" % [placementRulesText, text]
+				placementRulesText = "%s\n%s" % [placementRulesText, text]
 
 		for effect in placementEffects:
-			var text = effect.rules_text()
+			var text = effect.keyword()
 			if placementEffectsText == "":
-				placementEffectsText = "Immediate: %s" % [text]
+				placementEffectsText = "Effects: \n%s" % [text]
 			else:
-				placementEffectsText = "%s %s" % [placementEffectsText, text]
+				placementEffectsText = "%s\n%s" % [placementEffectsText, text]
 		
-		for effect in incomeEffects:
-			var text = effect.rules_text()
-			if incomeText == "":
-				incomeText = "Income: %s" % [text]
+		for effect in adjacentPlacementEffects:
+			var text = effect.keyword()
+			if adjacentPlacementEffectsText == "":
+				adjacentPlacementEffectsText = "Neighbour Trigger: \n%s" % [text]
 			else:
-				incomeText = "%s %s" % [incomeText, text]
+				adjacentPlacementEffectsText = "%s\n%s" % [adjacentPlacementEffectsText, text]
+
+		for effect in incomeEffects:
+			var text = effect.keyword()
+			if incomeText == "":
+				incomeText = "Income: \n%s" % [text]
+			else:
+				incomeText = "%s\n%s" % [incomeText, text]
 		
 		for effect in cardPlayEffects:
-			var text = effect.rules_text()
+			var text = effect.keyword()
 			if cardPlayText == "":
 				cardPlayText = "When a card i played: %s" % [text]
 			else:
-				cardPlayText = "%s %s" % [cardPlayText, text]
+				cardPlayText = "%s\n%s" % [cardPlayText, text]
 	
-	for part in [placementRulesText, placementEffectsText, incomeText, cardPlayText]:
+	for part in [placementRulesText, placementEffectsText, adjacentPlacementEffectsText, incomeText, cardPlayText]:
 		if part != "":
 			if _rulesText != "":
 				_rulesText += "\n"
@@ -65,6 +75,10 @@ func with_placement_rules(rules: Array[PlacementRule]) -> RulesHooks:
 
 func with_placement_effects(effects: Array[Effect]) -> RulesHooks:
 	placementEffects.append_array(effects)
+	return self
+
+func with_adjacent_placement_effects(effects: Array[Effect]) -> RulesHooks:
+	adjacentPlacementEffects.append_array(effects)
 	return self
 
 func with_income_effects(effects: Array[Effect]) -> RulesHooks:
@@ -82,6 +96,9 @@ func merge(other: RulesHooks) -> RulesHooks:
 
 		.with_placement_effects(placementEffects) \
 		.with_placement_effects(other.placementEffects) \
+
+		.with_adjacent_placement_effects(adjacentPlacementEffects) \
+		.with_adjacent_placement_effects(other.adjacentPlacementEffects) \
 
 		.with_income_effects(incomeEffects) \
 		.with_income_effects(other.incomeEffects) \

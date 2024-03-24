@@ -9,3 +9,6 @@ func resolve(args: EffectArgs):
 
 func rules_text() -> String:
     return "Buy 1 food for 1 gold, or vice versa"
+
+func keyword() -> String:
+    return "Buy"

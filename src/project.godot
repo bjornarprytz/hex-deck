@@ -23,6 +23,7 @@ Audio="*res://autoload/audio.tscn"
 Debug="*res://autoload/debug.tscn"
 Create="*res://autoload/create.tscn"
 Prompt="*res://autoload/prompt.tscn"
+CardPool="*res://autoload/card_pool.tscn"
 
 [display]
 
