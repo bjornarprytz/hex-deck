@@ -45,7 +45,7 @@ func move_along_path(rotatedPath: Array[Vector2i]):
 
 		var obstructed: bool = false
 		for tile in newAffectedTiles:
-			if tile.placedStructure != null or tile.type == TileInfo.TerrainType.Water or tile.type == TileInfo.TerrainType.Mountain:
+			if tile.has_structure() or tile.type == TileInfo.TerrainType.Water or tile.type == TileInfo.TerrainType.Mountain:
 				obstructed = true
 		if obstructed:
 			break

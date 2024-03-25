@@ -11,9 +11,7 @@ func resolve(args: EffectArgs):
 	cardsToDraft.append_array(draftPool)
 	
 	if (cardsToDraft.size() <= 1):
-		cardsToDraft.push_back(Meta.cardPool.pick_random())
-		cardsToDraft.push_back(Meta.cardPool.pick_random())
-		cardsToDraft.push_back(Meta.cardPool.pick_random())
+		cardsToDraft.append_array(CardPool.get_random_cards(3))
 
 	var draftedCard = await Prompt.draft(cardsToDraft)
 	

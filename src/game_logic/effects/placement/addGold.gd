@@ -1,4 +1,4 @@
-class_name AddFood
+class_name AddGold
 extends Effect
 
 var amount: int
@@ -6,12 +6,12 @@ var amount: int
 func _init(inputAmount: int=1):
 	amount = inputAmount
 
-func resolve(args: StructureEffectArgs):
+func resolve(args: PlacementEffectArgs):
 	assert(amount > 0)
-	args.gameState.add_food(amount)
+	args.gameState.add_gold(amount)
 
 func rules_text() -> String:
-	return "Add %d food" % amount
+	return "Add %d gold" % amount
 
 func keyword() -> String:
-	return "Food %d" % amount
+	return "Gold %d" % amount

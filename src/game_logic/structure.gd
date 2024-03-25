@@ -1,10 +1,19 @@
 class_name Structure
 extends Resource
 
-var alignment: Alignment.Id
+var alignment: Alignment.Id:
+	set(value):
+		if (alignment == value):
+			return
+		var oldAlignment = alignment
+		alignment = value
+		
+		onAlignmentChanged.emit(oldAlignment, alignment)
 var specialRules: RulesHooks
 ## Tuples (q,r) are stored as Vector2i here
 var cells: Array[Vector2i]
+
+signal onAlignmentChanged(oldAlignment: Alignment.Id, newAlignment: Alignment.Id)
 
 func _init(inputAlignment: Alignment.Id, inputCells: Array[Vector2i], rulesHooks: RulesHooks):
 	alignment = inputAlignment

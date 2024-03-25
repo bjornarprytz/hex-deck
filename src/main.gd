@@ -34,7 +34,7 @@ func _ready() -> void:
 # UPKEEP
 func _on_upkeep() -> void:
 	for effect in Meta.upkeepRules:
-		await effect.resolve(StructureEffectArgs.new(self, null))
+		await effect.resolve(PlacementEffectArgs.new(self, null))
 	state.send_event("next phase")
 
 # MAIN/IDLE
@@ -77,7 +77,7 @@ func _confirm_play(args: PlayEffectArgs):
 # CLEAN UP
 func _on_clean_up() -> void:
 	for effect in Meta.cleanUpRules:
-		await effect.resolve(StructureEffectArgs.new(self, null))
+		await effect.resolve(PlacementEffectArgs.new(self, null))
 
 	if (turnsLeft < 0 and food < foodRequirement):
 		state.send_event("game over")

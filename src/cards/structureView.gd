@@ -2,13 +2,17 @@
 class_name StructureView
 extends Node2D
 
-@onready var hex_spawner = preload ("res://map/polygon.tscn")
+@onready var hexSpawner = preload ("res://map/polygon.tscn")
 
 @export var structure: Structure:
 	set(value):
 		if (structure == value):
 			return
+		if (structure != null):
+			structure.onAlignmentChanged.disconnect(_update_color)
 		structure = value
+		if (structure != null):
+			structure.onAlignmentChanged.connect(_update_color)
 		if is_node_ready():
 			_update_preview.call_deferred()
 
@@ -39,7 +43,7 @@ extends Node2D
 func get_cells() -> Array[RegularPolygon]:
 	var cells: Array[RegularPolygon] = []
 	
-	for child in get_children():
+	for child in $Cells.get_children():
 		cells.push_back(child)
 	
 	return cells
@@ -47,8 +51,15 @@ func get_cells() -> Array[RegularPolygon]:
 func _ready() -> void:
 	_update_preview()
 
+func _update_color(_oldAlignment: Alignment.Id, newAlignment: Alignment.Id):
+	for child in $Cells.get_children():
+		child.color = Meta.alignmentRules[newAlignment].get_color()
+
 func _update_preview():
-	for child in get_children():
+	for child in $Cells.get_children():
+		child.queue_free()
+		
+	for child in $Border.get_children():
 		child.queue_free()
 		
 	for coord in structure.cells:
@@ -57,13 +68,12 @@ func _update_preview():
 	var centroid := Vector2.ZERO
 	
 	if (centerPreview):
-		for cell in get_children():
+		for cell in $Cells.get_children():
 			centroid += cell.position
 		
 		centroid /= get_child_count()
 		
-		for cell in get_children():
-			cell.position -= centroid
+		$Cells.position = -centroid
 	
 	if (borderWidth > 0):
 		var edges: Dictionary = {}
@@ -90,12 +100,12 @@ func _update_preview():
 			line.add_point(edge[1])
 			line.width = borderWidth
 			line.default_color = Color.DIM_GRAY
-			add_child(line)
+			$Border.add_child(line)
 			line.queue_redraw()
 	
 func _add_hex(q: int, r: int):
-	var new_cell = hex_spawner.instantiate() as RegularPolygon
+	var new_cell = hexSpawner.instantiate() as RegularPolygon
 	new_cell.size = hexSize
 	new_cell.position = Utils.axial_to_pixel(q, r, new_cell.size)
 	new_cell.color = Meta.alignmentRules[structure.alignment].get_color()
-	add_child(new_cell)
+	$Cells.add_child(new_cell)

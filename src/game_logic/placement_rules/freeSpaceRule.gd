@@ -6,6 +6,6 @@ func check(args: PlayEffectArgs) -> String:
 		return "Part of the structure is outside map"
 	
 	for tile in args.affectedTiles:
-		if tile.placedStructure != null:
+		if tile.has_structure():
 			return "Tile already contains a structure"
 	return ""

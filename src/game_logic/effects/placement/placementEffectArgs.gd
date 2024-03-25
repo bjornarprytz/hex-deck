@@ -1,4 +1,4 @@
-class_name StructureEffectArgs
+class_name PlacementEffectArgs
 extends EffectArgs
 
 var placedStructure: PlacedStructure

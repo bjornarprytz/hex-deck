@@ -1,9 +1,9 @@
 class_name TriggerPlacementBonuses
 extends Effect
 
-func resolve(args: StructureEffectArgs):
+func resolve(args: PlacementEffectArgs):
 	for tile in args.affectedTiles:
-		if tile.placementBonus != null:
+		if tile.has_placement_bonus():
 			for effect in tile.placementBonus.rules.placementEffects:
 				await effect.resolve(args)
 

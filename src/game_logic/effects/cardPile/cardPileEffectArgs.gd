@@ -4,5 +4,5 @@ extends EffectArgs
 var cards: Array[Card]
 
 func _init(inputGameState: GameState, inputCards: Array[Card]) -> void:
-	gameState = inputGameState
+	super._init(inputGameState)
 	cards = inputCards

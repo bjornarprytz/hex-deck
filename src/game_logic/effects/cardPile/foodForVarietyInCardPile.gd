@@ -1,4 +1,4 @@
-class_name FoodPerVariety
+class_name FoodForVarietyInCardPile
 extends CardPileEffect
 
 func resolve(args: CardPileEffectArgs):

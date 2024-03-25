@@ -10,8 +10,7 @@ var settings: GameSettings = GameSettings.new()
 
 var placementBonuses: Array[Effect] = [
 	Draft.new(),
-	AddFood.new(),
-	AddFoodPerDifferentTile.new()
+	AddFood.new()
 ]
 
 func _ready():

@@ -6,7 +6,7 @@ var amount: int
 func _init(inputAmount: int=1):
 	amount = inputAmount
 
-func resolve(args: StructureEffectArgs):
+func resolve(args: PlacementEffectArgs):
 	assert(amount > 0)
 
 	if (args.gameState.food < amount):

@@ -11,6 +11,18 @@ func _ready():
 
 var cardPool: Dictionary
 
+func get_random_cards(count: int) -> Array[CardData]:
+	var cards: Array[CardData] = []
+	for i in range(count):
+		cards.push_back(get_random_card())
+	return cards
+
+func get_random_card() -> CardData:
+	var cardNames: Array[String] = []
+	for cardName in cardPool.keys():
+		cardNames.push_back(cardName)
+	return get_card(cardNames.pick_random())
+
 func get_cards(names: Array[String]) -> Array[CardData]:
 	var cards: Array[CardData] = []
 	for cardName in names:
@@ -29,21 +41,18 @@ func _generate_cards() -> Array[CardData]:
 		CardData.Create("Scouts", Utils.structure_size(1), Alignment.Id.Orange) \
 			.with_gold_cost(1) \
 			.with_special_rules(RulesHooks.new() \
-				## TODO: Implement Scouting (food for each empty adjacent tile)
-				.with_placement_effects([]) \
+				.with_placement_effects([EachAdjacentTile.new(FoodForEmptyInTilePile.new())]) \
 				),
 		CardData.Create("Foragers", Utils.structure_size(1), Alignment.Id.Orange) \
 			.with_gold_cost(1) \
 			.with_special_rules(RulesHooks.new() \
-				## TODO: Add food per adjacent placement bonus
-				.with_placement_effects([]) \
+				.with_placement_effects([EachAffectedTile.new(FoodForPlacementBonusInTilePile.new())]) \
 				),
 
 		CardData.Create("Farm", Utils.structure_size(1), Alignment.Id.Green) \
 			.with_gold_cost(1) \
 			.with_special_rules(RulesHooks.new() \
-				## TODO: Add concept of connected structures
-				.with_placement_effects([]) \
+				.with_placement_effects([EachConnectedTile.new(FoodForUniformityInTilePile.new())]) \
 				),
 		CardData.Create("Pasture", Utils.structure_size(1), Alignment.Id.Green) \
 			.with_gold_cost(1) \
@@ -54,22 +63,21 @@ func _generate_cards() -> Array[CardData]:
 		CardData.Create("City", Utils.structure_size(2), Alignment.Id.Yellow) \
 			.with_gold_cost(2) \
 			.with_special_rules(RulesHooks.new() \
-				## TODO: Add an effect which adds food per uniform tile, when surrounded
-				.with_adjacent_placement_effects([]) \
+				.with_adjacent_placement_effects([Surround.new(8, FoodForUniformityInTilePile.new())]) \
 				),
 		CardData.Create("Temple", Utils.structure_size(1), Alignment.Id.Yellow) \
 			.with_gold_cost(1) \
 			.with_special_rules(RulesHooks.new() \
-				## TODO: Add an effect which converts from orange to green
-				.with_placement_effects([]) \
+				.with_placement_effects([EachAdjacentTile.new(ConvertStructures.new(Alignment.Id.Orange, Alignment.Id.Green))]) \
 				),
 
 		CardData.Create("Fishery", Utils.structure_size(1), Alignment.Id.Blue) \
 			.with_gold_cost(1) \
 			.with_special_rules(RulesHooks.new() \
 				.with_placement_rules([AdjacentAffinityRule.new(TileInfo.TerrainType.Water)]) \
-				.with_placement_effects([Fishing.new(3, FoodPerVariety.new())]) \
+				.with_placement_effects([Fishing.new(3, FoodForVarietyInCardPile.new())]) \
 				),
+
 		CardData.Create("Traders", Utils.structure_size(1), Alignment.Id.Blue) \
 			.with_gold_cost(1) \
 			.with_special_rules(RulesHooks.new() \
@@ -92,7 +100,7 @@ func _generate_cards() -> Array[CardData]:
 		CardData.Create("Marketplace", Utils.structure_size(1), Alignment.Id.Red) \
 			.with_gold_cost(1) \
 			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([AddFoodPerDifferentTile.new()]) \
+				.with_placement_effects([EachAdjacentTile.new(FoodForVarietyInTilePile.new())]) \
 				),
 		CardData.Create("Diplomats", Utils.structure_size(1), Alignment.Id.Red) \
 			.with_special_rules(RulesHooks.new() \

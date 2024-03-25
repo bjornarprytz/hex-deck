@@ -10,6 +10,6 @@ func check(args: PlayEffectArgs) -> String:
 		return "First structure must be placed on border"
 	else:
 		for tile in args.adjacentTiles:
-			if tile.placedStructure != null:
+			if tile.has_structure():
 				return ""
 		return "Structure needs to be placed next to another structure"

@@ -61,6 +61,12 @@ var placedStructure: PlacedStructure
 var isHovered: bool
 var baseModulate: Color
 
+func has_structure() -> bool:
+	return placedStructure != null
+
+func has_placement_bonus() -> bool:
+	return placementBonus != null
+
 func get_neighbours() -> Array[Tile]:
 	var neighbours: Array[Tile] = []
 

@@ -1,7 +1,7 @@
-class_name CardPileEffect
+class_name TilePileEffect
 extends Effect
 
-func resolve(_args: CardPileEffectArgs):
+func resolve(_args: TilePileEffectArgs):
 	push_error("resolve() should be implemented")
 
 func rules_text() -> String:
