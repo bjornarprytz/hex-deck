@@ -61,7 +61,10 @@ func _update_preview():
 		
 	for child in $Border.get_children():
 		child.queue_free()
-		
+	
+	if structure == null:
+		return
+	
 	for coord in structure.cells:
 		_add_hex(coord.x, coord.y)
 	

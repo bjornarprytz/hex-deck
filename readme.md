@@ -25,16 +25,15 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
 - Excel doc: [link](https://docs.google.com/spreadsheets/d/1TMEV-sFI3mOZJgG8Z5mYMCvU5P2x5S5duTnkkBkJ5sk/edit#gid=0)
 
-- Add Discard Pile
-- List Cards in Draw-/DiscardPile
-  - Card Summary
-
 - Wire shit up
   - Finish effect implementations
-  - Change color when structure changes alignment
 
 - Effects Overhaul
-  - Keywords Only
+  - Keywords: Composite effects:
+    - Scout
+    - Fishing X
+    - Trading X
+    - Threshold
 
 - Abstract
   - Static Abilities
@@ -55,8 +54,6 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
       - Food per empty tile
 
 - New Keywords
-  - Fishing X
-    - Mill X, Effect based on the set of cards
   - Wild color (Choose upon placement)
 
 - Sub misssions
@@ -74,6 +71,7 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
 - UI
   - Camera movement
+  - Show Milled Cards
   - Selected cards should be raised sligtly
   - Differentiate terrain and structures more
 

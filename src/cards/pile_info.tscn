@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://24c12fb3svqy"]
+
+[ext_resource type="Script" path="res://cards/pileInfo.gd" id="1_vr56e"]
+
+[node name="PileInfo" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 327.0
+offset_bottom = 98.0
+script = ExtResource("1_vr56e")
+
+[node name="VB" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_bottom = 374.0
+alignment = 2

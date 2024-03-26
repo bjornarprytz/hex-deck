@@ -40,7 +40,7 @@ func _ready() -> void:
 	gameState.map.tileClicked.connect(_try_confirm_placement)
 	gameState.map.tileHovered.connect(_preview_structure)
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if (event is InputEventMouseButton and event.is_pressed()):
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:

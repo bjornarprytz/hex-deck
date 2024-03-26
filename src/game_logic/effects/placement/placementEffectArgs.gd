@@ -6,7 +6,7 @@ var affectedTiles: Array[Tile] = []
 var adjacentTiles: Array[Tile] = []
 
 func _init(inputGameState: GameState, inputStructure: PlacedStructure) -> void:
-	gameState = inputGameState
+	super._init(inputGameState)
 	if inputStructure != null:
 		placedStructure = inputStructure
 		affectedTiles = inputStructure.affectedTiles

@@ -1,0 +1,89 @@
+[gd_scene load_steps=7 format=3 uid="uid://botk3b2s44l1j"]
+
+[ext_resource type="Script" path="res://cards/cardSummary.gd" id="1_itap6"]
+[ext_resource type="PackedScene" uid="uid://0oenk04u2ati" path="res://cards/structure_view.tscn" id="2_d7t8w"]
+
+[sub_resource type="Theme" id="Theme_02to3"]
+default_font_size = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yd1i8"]
+bg_color = Color(0.603922, 0.423529, 0.0666667, 1)
+corner_radius_top_left = 200
+corner_radius_top_right = 200
+corner_radius_bottom_right = 200
+corner_radius_bottom_left = 200
+
+[sub_resource type="Theme" id="Theme_cugfd"]
+default_font_size = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ki0re"]
+bg_color = Color(0.341176, 0.517647, 0.294118, 1)
+corner_radius_top_left = 200
+corner_radius_top_right = 200
+corner_radius_bottom_right = 200
+corner_radius_bottom_left = 200
+
+[node name="CardSummary" type="Control"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 324.0
+offset_bottom = 50.0
+script = ExtResource("1_itap6")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HB" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="RichTextLabel" parent="HB"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name"
+fit_content = true
+
+[node name="GoldCost" type="RichTextLabel" parent="HB"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme = SubResource("Theme_02to3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_yd1i8")
+bbcode_enabled = true
+text = "[center]5"
+fit_content = true
+scroll_active = false
+
+[node name="FoodCost" type="RichTextLabel" parent="HB"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme = SubResource("Theme_cugfd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ki0re")
+bbcode_enabled = true
+text = "[center]5"
+fit_content = true
+scroll_active = false
+
+[node name="Container" type="Control" parent="HB"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="StructureView" parent="HB/Container" instance=ExtResource("2_d7t8w")]
+position = Vector2(23, 25)
+centerPreview = true
+hexSize = 10.0
+borderWidth = 1.0

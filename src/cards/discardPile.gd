@@ -1,34 +1,32 @@
-class_name DrawPile
+class_name DiscardPile
 extends Node2D
 
-@onready var _cardCountLabel: RichTextLabel = $CardCount
+@onready var cardCount: RichTextLabel = $CardCount
 @onready var _pileInfo: PileInfo = $PileInfo
 
 var cards: Array[CardData] = []
 
-func add_cards(cardsToAdd: Array[CardData]):
-	for card in cardsToAdd:
-		tuck_card(card)
-	shuffle()
-
-func shuffle():
-	cards.shuffle()
-
-func tuck_card(cardData: CardData):
-	cards.push_back(cardData)
-	_update_card_count()
-
-func push_card(cardData: CardData):
+func add_card(cardData: CardData):
 	cards.push_front(cardData)
 	_update_card_count()
 
-func pop_card() -> CardData:
-	var card = cards.pop_front()
+func remove_card(cardData: CardData) -> CardData:
+	var index = cards.find(cardData)
+	if index == - 1:
+		return null
+	var card = cards[index]
+	cards.remove_at(index)
 	_update_card_count()
 	return card
 
+func remove_all() -> Array[CardData]:
+	var result = cards.duplicate()
+	cards.clear()
+	_update_card_count()
+	return result
+
 func _update_card_count():
-	_cardCountLabel.text = str(cards.size())
+	cardCount.text = str(cards.size())
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():

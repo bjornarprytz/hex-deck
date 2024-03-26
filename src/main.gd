@@ -6,6 +6,7 @@ extends Node2D
 @onready var map: Map = $Map
 @onready var hand: Hand = $Hand
 @onready var drawPile: DrawPile = $DrawPile
+@onready var discardPile: DiscardPile = $DiscardPile
 @onready var state: StateChart = $State
 @onready var pass_button: Button = $PassTurn
 @onready var focusArea: Node2D = $Focus
@@ -102,6 +103,10 @@ func play_card(args: PlayEffectArgs):
 	Events.onCardPlayed.emit(args)
 
 func draw_card() -> Card:
+	if drawPile.cards.size() == 0:
+		var cardsFromDiscard = discardPile.remove_all()
+		drawPile.add_cards(cardsFromDiscard)
+
 	var cardData = drawPile.pop_card()
 	
 	if cardData == null:
@@ -115,14 +120,22 @@ func draw_card() -> Card:
 
 	return card
 
-func mill_card() -> Card:
-	push_error("Implement discard pile.")
+func mill_card() -> CardData:
+	var cardData = drawPile.pop_card()
+
+	if cardData == null:
+		Debug.push_message("Mill cancelled. Draw pile is empty.")
+		return null
 	
-	return null
+	discardPile.add_card(cardData)
+	return cardData
+
+func banish_card(card: Card):
+	pass
 
 func discard_card(card: Card) -> CardData:
 	var cardData = card.data
-	drawPile.tuck_card(cardData)
+	discardPile.add_card(cardData)
 	card.queue_free()
 	return cardData
 

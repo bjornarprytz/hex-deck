@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkerbq6h42ehk"]
+[gd_scene load_steps=4 format=3 uid="uid://bkerbq6h42ehk"]
 
 [ext_resource type="Script" path="res://cards/drawPile.gd" id="1_hvdpq"]
+[ext_resource type="PackedScene" uid="uid://24c12fb3svqy" path="res://cards/pile_info.tscn" id="2_1to1s"]
 
 [sub_resource type="Theme" id="Theme_owjdq"]
 default_font_size = 256
@@ -8,12 +9,11 @@ default_font_size = 256
 [node name="DrawPile" type="Node2D"]
 script = ExtResource("1_hvdpq")
 
-[node name="Color" type="ColorRect" parent="."]
+[node name="Color" type="Button" parent="."]
 offset_left = -70.0
 offset_top = -91.0
 offset_right = 68.0
 offset_bottom = 95.0
-color = Color(0.443137, 0.443137, 0.443137, 1)
 
 [node name="Label" type="RichTextLabel" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -22,6 +22,7 @@ offset_top = -14.9999
 offset_right = 943.0
 offset_bottom = 415.0
 scale = Vector2(0.1, 0.1)
+mouse_filter = 2
 theme = SubResource("Theme_owjdq")
 text = "Deck"
 
@@ -32,4 +33,14 @@ offset_top = 57.0001
 offset_right = 615.0
 offset_bottom = 417.0
 scale = Vector2(0.1, 0.1)
+mouse_filter = 2
 theme = SubResource("Theme_owjdq")
+
+[node name="PileInfo" parent="." instance=ExtResource("2_1to1s")]
+visible = false
+offset_left = -261.0
+offset_top = -391.0
+offset_right = 66.0
+offset_bottom = -61.0
+
+[connection signal="pressed" from="Color" to="." method="_on_color_pressed"]

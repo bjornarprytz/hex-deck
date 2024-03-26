@@ -22,7 +22,7 @@ func reset():
 	Debug.push_message("Game reset!")
 
 func create_deck() -> Array[CardData]:
-	var deck: Array[CardData] = CardPool.get_cards([
+	return CardPool.get_cards([
 		"Scouts",
 		"Foragers",
 		"Farm",
@@ -36,8 +36,6 @@ func create_deck() -> Array[CardData]:
 		"Marketplace",
 		"Diplomats"
 	] as Array[String])
-
-	return deck
 
 func reset_rules():
 	upkeepRules = [

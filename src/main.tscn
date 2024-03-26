@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://8dgd2dr575l4"]
+[gd_scene load_steps=11 format=3 uid="uid://8dgd2dr575l4"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_6okjl"]
 [ext_resource type="PackedScene" uid="uid://b1dfdw4rumhvh" path="res://map/map.tscn" id="1_jqq6o"]
@@ -7,7 +7,8 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_toycd"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_u802m"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_mqjil"]
-[ext_resource type="PackedScene" uid="uid://bkerbq6h42ehk" path="res://cards/deck.tscn" id="8_i4sgb"]
+[ext_resource type="PackedScene" uid="uid://bkerbq6h42ehk" path="res://cards/draw_pile.tscn" id="8_i4sgb"]
+[ext_resource type="PackedScene" uid="uid://d5m3luputitg" path="res://cards/discard_pile.tscn" id="9_p6cc3"]
 
 [sub_resource type="Theme" id="Theme_tun70"]
 default_font_size = 256
@@ -79,7 +80,10 @@ tileSize = 40.0
 position = Vector2(640, 597)
 
 [node name="DrawPile" parent="." instance=ExtResource("8_i4sgb")]
-position = Vector2(1201, 516)
+position = Vector2(1081, 512)
+
+[node name="DiscardPile" parent="." instance=ExtResource("9_p6cc3")]
+position = Vector2(1081, 660)
 
 [node name="FoodHeading" type="RichTextLabel" parent="."]
 offset_left = 1094.0
@@ -139,10 +143,10 @@ theme = SubResource("Theme_tun70")
 text = "3"
 
 [node name="PassTurn" type="Button" parent="."]
-offset_left = 1175.0
-offset_top = 628.0
-offset_right = 1269.0
-offset_bottom = 673.0
+offset_left = 1168.0
+offset_top = 612.0
+offset_right = 1262.0
+offset_bottom = 657.0
 disabled = true
 text = "Pass"
 
