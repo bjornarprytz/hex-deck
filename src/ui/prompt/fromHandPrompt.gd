@@ -7,7 +7,10 @@ signal confirm(cards: Array[Card])
 @onready var explanationLabel: RichTextLabel = $Explanation
 
 var selectedCards: Array[Card] = []
-var nCardsToSelect: int
+
+var maxCardsToSelect: int
+var minCardsToSelect: int
+
 var requireConfirm: bool:
 	set(value):
 		requireConfirm = value
@@ -34,13 +37,13 @@ func _toggle_select(card: Card):
 	
 	if !requireConfirm:
 		_try_confirm()
-	elif selectedCards.size() == nCardsToSelect:
+	elif _selection_is_within_bounds():
 		confirmButton.disabled = false
 	else:
 		confirmButton.disabled = true
 
 func _try_confirm():
-	if selectedCards.size() != nCardsToSelect:
+	if !_selection_is_within_bounds():
 		return
 	
 	for card in selectedCards:
@@ -49,3 +52,6 @@ func _try_confirm():
 
 func _on_confirm_button_pressed() -> void:
 	_try_confirm()
+
+func _selection_is_within_bounds() -> bool:
+	return selectedCards.size() >= minCardsToSelect and selectedCards.size() <= maxCardsToSelect

@@ -1,11 +1,11 @@
 class_name TradePrompt
 extends Node2D
 
-signal confirm(cardToDiscard: Card, effect: Effect)
+signal confirm(cardsToBanish: Array[Card], effect: Effect)
 
 var choice: Card
 
-var hand : Hand:
+var hand: Hand:
 	set(value):
 		if (hand == value):
 			return
@@ -26,13 +26,13 @@ func select(card: Card):
 	$Background/GoldButton.disabled = false
 
 func _on_food_button_pressed() -> void:
-	confirm.emit(choice, AddFood.new(2))
+	confirm.emit([choice], AddFood.new(2))
 
 func _on_gold_button_pressed() -> void:
-	confirm.emit(choice, AddGold.new())
+	confirm.emit([choice], AddGold.new())
 
 func _on_skip_button_pressed() -> void:
-	confirm.emit(null, null)
+	confirm.emit([], null)
 
 func _exit_tree() -> void:
 	if choice != null:

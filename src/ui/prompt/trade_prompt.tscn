@@ -30,7 +30,7 @@ offset_bottom = 98.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_p1i25")
 bbcode_enabled = true
 text = "[center]Trade:
-Discard 1 card for 2 food or 1 gold"
+Banish 1 card for 2 food or 1 gold"
 
 [node name="FoodButton" type="Button" parent="Background"]
 modulate = Color(0.219608, 0.772549, 0.172549, 1)

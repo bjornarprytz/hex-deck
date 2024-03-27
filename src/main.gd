@@ -131,6 +131,8 @@ func mill_card() -> CardData:
 	return cardData
 
 func banish_card(card: Card):
+	# TODO: This could be done more systematically
+	card.queue_free()
 	pass
 
 func discard_card(card: Card) -> CardData:

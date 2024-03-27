@@ -25,36 +25,22 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
 - Excel doc: [link](https://docs.google.com/spreadsheets/d/1TMEV-sFI3mOZJgG8Z5mYMCvU5P2x5S5duTnkkBkJ5sk/edit#gid=0)
 
-- Wire shit up
-  - Finish effect implementations
-
 - Effects Overhaul
   - Keywords: Composite effects:
     - Scout
     - Fishing X
     - Trading X
     - Threshold
-
 - Abstract
-  - Static Abilities
-    - Retain
-      - Don't discard card on end step
   - Zones
-    - Discard
     - Exile
   - Effects
-    - AddRetain
     - BanishCard
       - Remove card from Deck
     - ExileCard
       - Removed from DrawPile
     - Trading X
-      - Banish X cards for 2F/1G each
-    - Scout
-      - Food per empty tile
-
-- New Keywords
-  - Wild color (Choose upon placement)
+      - Banish X cards for 2F/1G each?
 
 - Sub misssions
   - Take all placement bonuses
@@ -72,6 +58,7 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 - UI
   - Camera movement
   - Show Milled Cards
+    - Milled cards should be Cards (not just CardData)
   - Selected cards should be raised sligtly
   - Differentiate terrain and structures more
 

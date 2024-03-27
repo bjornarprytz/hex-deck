@@ -6,7 +6,10 @@ func resolve(args: EffectArgs):
 	var cards: Array[CardData] = []
 
 	for card in hand.get_cards():
-		cards.push_back(args.gameState.discard_card(card))
+		if card.state.has_flag("retain"):
+			card.state.set_flag("retain", false)
+		else:
+			cards.push_back(args.gameState.discard_card(card))
 	
 	Events.onCardsDiscarded.emit(args, cards)
 

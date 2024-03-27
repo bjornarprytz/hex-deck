@@ -6,6 +6,7 @@ extends Node2D
 @onready var draftSpawner = preload ("res://ui/prompt/draft_prompt.tscn")
 @onready var fromHandSpawner = preload ("res://ui/prompt/from_hand_prompt.tscn")
 @onready var placeStructureSpawner = preload ("res://ui/prompt/place_structure_prompt.tscn")
+@onready var pickColorSpawner = preload ("res://ui/prompt/pick_color_prompt.tscn")
 
 @onready var promptContainer: Node2D = $Root/Prompts
 @onready var background: ColorRect = $Root/BackgroundBlur
@@ -15,14 +16,54 @@ func clear_prompts():
 	for child in promptContainer.get_children():
 		child.queue_free()
 
+func pick_color() -> Alignment.Id:
+	var prompt = pickColorSpawner.instantiate() as PickColorPrompt
+	promptContainer.add_child(prompt)
+	
+	var alignment = await prompt.choice
+	
+	prompt.queue_free()
+	return alignment
+
 func nFromHand(hand: Hand, nCards: int, explanation: String, requireConfirm: bool=true) -> Array[Card]:
 	var prompt = fromHandSpawner.instantiate() as FromHandPrompt
 	promptContainer.add_child(prompt)
 
 	prompt.hand = hand
-	prompt.nCardsToSelect = nCards
+	prompt.maxCardsToSelect = nCards
+	prompt.minCardsToSelect = nCards
 	prompt.explanation = explanation
 	prompt.requireConfirm = requireConfirm
+
+	var cards = await prompt.confirm
+
+	prompt.queue_free()
+	return cards
+
+func upToNFromHand(hand: Hand, nCards: int, explanation: String) -> Array[Card]:
+	var prompt = fromHandSpawner.instantiate() as FromHandPrompt
+	promptContainer.add_child(prompt)
+
+	prompt.hand = hand
+	prompt.maxCardsToSelect = nCards
+	prompt.minCardsToSelect = 0
+	prompt.explanation = explanation
+	prompt.requireConfirm = true
+
+	var cards = await prompt.confirm
+
+	prompt.queue_free()
+	return cards
+
+func betweenNandMFromHand(hand: Hand, minCards: int, maxCards: int, explanation: String) -> Array[Card]:
+	var prompt = fromHandSpawner.instantiate() as FromHandPrompt
+	promptContainer.add_child(prompt)
+
+	prompt.hand = hand
+	prompt.maxCardsToSelect = maxCards
+	prompt.minCardsToSelect = minCards
+	prompt.explanation = explanation
+	prompt.requireConfirm = true
 
 	var cards = await prompt.confirm
 
