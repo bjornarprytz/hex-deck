@@ -41,12 +41,12 @@ func _generate_cards() -> Array[CardData]:
 		CardData.Create("Scouts", Utils.structure_size(1), Alignment.Id.Orange) \
 			.with_gold_cost(1) \
 			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([EachAdjacentTile.new(FoodForEmptyInTilePile.new())]) \
+				.with_placement_effects([Scout.new()]) \
 				),
 		CardData.Create("Foragers", Utils.structure_size(1), Alignment.Id.Orange) \
 			.with_gold_cost(1) \
 			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([EachAffectedTile.new(FoodForPlacementBonusInTilePile.new())]) \
+				.with_placement_effects([Forage.new()]) \
 				),
 
 		CardData.Create("Farm", Utils.structure_size(1), Alignment.Id.Green) \
@@ -63,7 +63,8 @@ func _generate_cards() -> Array[CardData]:
 		CardData.Create("City", Utils.structure_size(2), Alignment.Id.Yellow) \
 			.with_gold_cost(2) \
 			.with_special_rules(RulesHooks.new() \
-				.with_adjacent_placement_effects([Surround.new(8, FoodForUniformityInTilePile.new())]) \
+				.with_placement_effects([Draft.new()]) \
+				.with_adjacent_placement_effects([Envelop.new(5, FoodForUniformityInTilePile.new())]) \
 				),
 		CardData.Create("Temple", Utils.structure_size(1), Alignment.Id.Yellow) \
 			.with_gold_cost(1) \
@@ -104,6 +105,6 @@ func _generate_cards() -> Array[CardData]:
 				),
 		CardData.Create("Diplomats", Utils.structure_size(1), Alignment.Id.Red) \
 			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([DrawCards.new(), ChangeColor.new()]) \
+				.with_placement_effects([DrawCards.new(), Wild.new()]) \
 				),
 	]

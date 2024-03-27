@@ -1,4 +1,4 @@
-class_name ChangeColor
+class_name Wild
 extends Effect
 
 func resolve(args: PlacementEffectArgs):

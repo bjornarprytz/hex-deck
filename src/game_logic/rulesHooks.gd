@@ -27,38 +27,23 @@ func rules_text() -> String:
 	if (_rulesText == ""):
 		for rule in placementRules:
 			var text = rule.keyword()
-			if placementRulesText == "":
-				placementRulesText = "Restrictions: \n%s" % [text]
-			else:
-				placementRulesText = "%s\n%s" % [placementRulesText, text]
+			placementRulesText = "%s\n%s" % [placementRulesText, text]
 
 		for effect in placementEffects:
 			var text = effect.keyword()
-			if placementEffectsText == "":
-				placementEffectsText = "Effects: \n%s" % [text]
-			else:
-				placementEffectsText = "%s\n%s" % [placementEffectsText, text]
+			placementEffectsText = "%s\n%s" % [placementEffectsText, text]
 		
 		for effect in adjacentPlacementEffects:
 			var text = effect.keyword()
-			if adjacentPlacementEffectsText == "":
-				adjacentPlacementEffectsText = "Neighbour Trigger: \n%s" % [text]
-			else:
-				adjacentPlacementEffectsText = "%s\n%s" % [adjacentPlacementEffectsText, text]
+			adjacentPlacementEffectsText = "%s\n%s" % [adjacentPlacementEffectsText, text]
 
 		for effect in incomeEffects:
 			var text = effect.keyword()
-			if incomeText == "":
-				incomeText = "Income: \n%s" % [text]
-			else:
-				incomeText = "%s\n%s" % [incomeText, text]
+			incomeText = "%s\n%s" % [incomeText, text]
 		
 		for effect in cardPlayEffects:
 			var text = effect.keyword()
-			if cardPlayText == "":
-				cardPlayText = "When a card i played: %s" % [text]
-			else:
-				cardPlayText = "%s\n%s" % [cardPlayText, text]
+			cardPlayText = "%s\n%s" % [cardPlayText, text]
 	
 	for part in [placementRulesText, placementEffectsText, adjacentPlacementEffectsText, incomeText, cardPlayText]:
 		if part != "":

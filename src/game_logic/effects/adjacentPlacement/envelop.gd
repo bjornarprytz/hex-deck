@@ -1,4 +1,4 @@
-class_name Surround
+class_name Envelop
 extends Effect
 
 var tileCount: int

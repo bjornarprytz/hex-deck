@@ -27,8 +27,6 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
 - Effects Overhaul
   - Keywords: Composite effects:
-    - Scout
-    - Fishing X
     - Trading X
     - Threshold
 - Abstract
