@@ -31,7 +31,12 @@ func _ready() -> void:
 	Events.gameOver.connect(func(_result: bool): state.send_event("game over"))
 	turnsLeft = Meta.settings.totalTurns
 	foodRequirement = Meta.settings.foodRequirement
-	
+
+	for subMission in Meta.subMissions:
+		subMission.start(self)
+		subMission.progress.connect(func(progress: int, goal: int): Debug.push_message("Progress %d/%d" % [progress, goal]))
+		subMission.completed.connect(func(): Debug.push_message("Sub-mission completed!"))
+
 # UPKEEP
 func _on_upkeep() -> void:
 	for effect in Meta.upkeepRules:

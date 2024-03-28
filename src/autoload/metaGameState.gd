@@ -1,6 +1,7 @@
 class_name MetaGameState
 extends Node
 
+var subMissions: Array[SubMission]
 var upkeepRules: Array[Effect]
 var placementRules: Array[PlacementRule]
 var playEffects: Array[Effect]
@@ -38,6 +39,10 @@ func create_deck() -> Array[CardData]:
 	] as Array[String])
 
 func reset_rules():
+	subMissions = [
+		ConnectEachRock.new(AddFood.new(3)),
+	]
+
 	upkeepRules = [
 		DrawCards.new(settings.baseHandSize),
 		AddGold.new(settings.baseGoldIncome)

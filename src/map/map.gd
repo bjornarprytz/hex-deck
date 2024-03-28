@@ -70,6 +70,15 @@ func get_placed_structures() -> Array[PlacedStructure]:
 
 	return result
 
+func get_tiles() -> Array[Tile]:
+	var result: Array[Tile] = []
+
+	for c in tiles.get_children():
+		if c is Tile:
+			result.push_back(c)
+
+	return result
+
 ## Add tile to the edge of the map, mute the returned tile to configure it
 func discover_tile(coords: Coordinates) -> Tile:
 	assert(undiscoveredTiles.has(coords.get_key()))

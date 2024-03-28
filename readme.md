@@ -25,21 +25,6 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
 - Excel doc: [link](https://docs.google.com/spreadsheets/d/1TMEV-sFI3mOZJgG8Z5mYMCvU5P2x5S5duTnkkBkJ5sk/edit#gid=0)
 
-- Effects Overhaul
-  - Keywords: Composite effects:
-    - Trading X
-    - Threshold
-- Abstract
-  - Zones
-    - Exile
-  - Effects
-    - BanishCard
-      - Remove card from Deck
-    - ExileCard
-      - Removed from DrawPile
-    - Trading X
-      - Banish X cards for 2F/1G each?
-
 - Sub misssions
   - Take all placement bonuses
   - Reward: 3 Food
@@ -48,6 +33,11 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
 - Figure out how tileInfo gets generated for discovered tiles
 
+- Refactor
+  - Effect resolution
+    - EffectArg types are too rigid.
+      - Maybe I can consolidate around a single type, with some kind of variable binding method?
+
 - Refactor map generation
   - More parameterized
   - More robust to the discovery mechanic, and new tile types
@@ -55,6 +45,7 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
 - UI
   - Camera movement
+  - Sub mission progress
   - Show Milled Cards
     - Milled cards should be Cards (not just CardData)
   - Selected cards should be raised sligtly
