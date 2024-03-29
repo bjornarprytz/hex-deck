@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://br5eu1j531bc5"]
 
 [ext_resource type="Script" path="res://autoload/debug.gd" id="1_2mo3o"]
-[ext_resource type="PackedScene" uid="uid://cej2fo0pe8gxe" path="res://ui/message_feed.tscn" id="2_uw3rn"]
+[ext_resource type="PackedScene" uid="uid://caqsk0tepsqxc" path="res://ui/info/message_feed.tscn" id="2_uw3rn"]
 
 [node name="Debug" type="Node2D"]
 script = ExtResource("1_2mo3o")

@@ -27,7 +27,8 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
 - Sub misssions
   - Take all placement bonuses
-  - Reward: 3 Food
+  - Cover corners
+  - Connect water
 
 ---
 
@@ -45,9 +46,6 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
 - UI
   - Camera movement
-  - Sub mission progress
-  - Show Milled Cards
-    - Milled cards should be Cards (not just CardData)
   - Selected cards should be raised sligtly
   - Differentiate terrain and structures more
 

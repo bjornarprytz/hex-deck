@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bkerbq6h42ehk"]
 
 [ext_resource type="Script" path="res://cards/drawPile.gd" id="1_hvdpq"]
-[ext_resource type="PackedScene" uid="uid://24c12fb3svqy" path="res://cards/pile_info.tscn" id="2_1to1s"]
+[ext_resource type="PackedScene" uid="uid://24c12fb3svqy" path="res://ui/info/pile_info.tscn" id="2_1to1s"]
 
 [sub_resource type="Theme" id="Theme_owjdq"]
 default_font_size = 256

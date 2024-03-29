@@ -1,7 +1,7 @@
 class_name PileInfo
 extends Control
 
-@onready var summarySpawner: PackedScene = load("res://cards/card_summary.tscn")
+@onready var summarySpawner: PackedScene = preload("res://ui/info/card_summary.tscn")
 @onready var infoContainer: VBoxContainer = $VB
 
 var cards: Array[CardData] = []:

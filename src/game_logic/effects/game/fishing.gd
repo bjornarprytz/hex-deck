@@ -14,7 +14,8 @@ func resolve(args: EffectArgs):
 		var milledCard = args.gameState.mill_card()
 		if milledCard != null:
 			milledCards.push_back(milledCard)
-			Debug.push_message("Milled %s, alignment: %s " % [milledCard.name, milledCard.alignment])
+	
+	args.gameState.infoQueue.push_card_info(milledCards, "Fishing:")
 	
 	await cardPileEffect.resolve(CardPileEffectArgs.new(args.gameState, milledCards))
 	Events.onCardsMilled.emit(args, milledCards)

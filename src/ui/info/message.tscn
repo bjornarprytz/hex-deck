@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpvlb74e2183p"]
+
+[sub_resource type="Theme" id="Theme_i3e13"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfdli"]
+bg_color = Color(0.184314, 0.184314, 0.184314, 1)
+border_width_top = 2
+border_width_bottom = 2
+
+[node name="Message" type="RichTextLabel"]
+offset_right = 124.0
+offset_bottom = 36.0
+theme = SubResource("Theme_i3e13")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kfdli")
+text = "PLACEHOLDER"
+fit_content = true

@@ -7,6 +7,9 @@ var _gameState: GameState
 func _init(rewardEffect: Effect) -> void:
 	super._init(rewardEffect)
 
+func description() -> String:
+	return "Connect each rock"
+
 func start(gameState: GameState):
 	_gameState = gameState
 	var map = gameState.map

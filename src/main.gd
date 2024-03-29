@@ -1,8 +1,6 @@
 class_name GameState
 extends Node2D
 
-@onready var scoreSpawner = preload ("res://ui/score_coin.tscn")
-
 @onready var map: Map = $Map
 @onready var hand: Hand = $Hand
 @onready var drawPile: DrawPile = $DrawPile
@@ -10,6 +8,7 @@ extends Node2D
 @onready var state: StateChart = $State
 @onready var pass_button: Button = $PassTurn
 @onready var focusArea: Node2D = $Focus
+@onready var infoQueue: InfoQueue = $InfoQueue
 
 var cardToPlay: Card
 
@@ -34,8 +33,8 @@ func _ready() -> void:
 
 	for subMission in Meta.subMissions:
 		subMission.start(self)
-		subMission.progress.connect(func(progress: int, goal: int): Debug.push_message("Progress %d/%d" % [progress, goal]))
-		subMission.completed.connect(func(): Debug.push_message("Sub-mission completed!"))
+		subMission.progress.connect(func(progress: int, goal: int): infoQueue.push_message("%s: %d/%d" % [subMission.description(), progress, goal]))
+		subMission.completed.connect(func(): infoQueue.push_message("\"%s\" completed!" % [subMission.description()]))
 
 # UPKEEP
 func _on_upkeep() -> void:

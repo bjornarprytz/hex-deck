@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://8dgd2dr575l4"]
+[gd_scene load_steps=12 format=3 uid="uid://8dgd2dr575l4"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_6okjl"]
 [ext_resource type="PackedScene" uid="uid://b1dfdw4rumhvh" path="res://map/map.tscn" id="1_jqq6o"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_mqjil"]
 [ext_resource type="PackedScene" uid="uid://bkerbq6h42ehk" path="res://cards/draw_pile.tscn" id="8_i4sgb"]
 [ext_resource type="PackedScene" uid="uid://d5m3luputitg" path="res://cards/discard_pile.tscn" id="9_p6cc3"]
+[ext_resource type="PackedScene" uid="uid://h6kfma2fobgy" path="res://ui/info/info_queue.tscn" id="10_xw41k"]
 
 [sub_resource type="Theme" id="Theme_tun70"]
 default_font_size = 256
@@ -166,6 +167,9 @@ text = "Settings"
 
 [node name="Focus" type="Node2D" parent="."]
 position = Vector2(971, 355)
+
+[node name="InfoQueue" parent="." instance=ExtResource("10_xw41k")]
+position = Vector2(13, 18)
 
 [connection signal="state_entered" from="State/Root/Upkeep" to="." method="_on_upkeep"]
 [connection signal="state_entered" from="State/Root/Main/Idle" to="." method="_on_idle"]

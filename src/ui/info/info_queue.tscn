@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://h6kfma2fobgy"]
+
+[ext_resource type="Script" path="res://ui/info/infoQueue.gd" id="1_v2155"]
+
+[node name="InfoQueue" type="Node2D"]
+script = ExtResource("1_v2155")
+
+[node name="VB" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Clear" type="Button" parent="VB"]
+visible = false
+layout_mode = 2
+text = "Clear Messages"
+
+[node name="Info" type="VBoxContainer" parent="VB"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="VB/Clear" to="." method="_on_clear_pressed"]

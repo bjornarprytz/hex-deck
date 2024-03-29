@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://botk3b2s44l1j"]
 
-[ext_resource type="Script" path="res://cards/cardSummary.gd" id="1_itap6"]
+[ext_resource type="Script" path="res://ui/info/cardSummary.gd" id="1_itap6"]
 [ext_resource type="PackedScene" uid="uid://0oenk04u2ati" path="res://cards/structure_view.tscn" id="2_d7t8w"]
 
 [sub_resource type="Theme" id="Theme_02to3"]
@@ -24,10 +24,10 @@ corner_radius_bottom_right = 200
 corner_radius_bottom_left = 200
 
 [node name="CardSummary" type="Control"]
-custom_minimum_size = Vector2(400, 50)
+custom_minimum_size = Vector2(280, 50)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 324.0
+offset_right = 250.0
 offset_bottom = 50.0
 script = ExtResource("1_itap6")
 
@@ -55,9 +55,8 @@ text = "Name"
 fit_content = true
 
 [node name="GoldCost" type="RichTextLabel" parent="HB"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_horizontal = 3
 mouse_filter = 2
 theme = SubResource("Theme_02to3")
 theme_override_styles/normal = SubResource("StyleBoxFlat_yd1i8")
@@ -67,9 +66,8 @@ fit_content = true
 scroll_active = false
 
 [node name="FoodCost" type="RichTextLabel" parent="HB"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_horizontal = 3
 mouse_filter = 2
 theme = SubResource("Theme_cugfd")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ki0re")
