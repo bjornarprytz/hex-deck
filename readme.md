@@ -25,15 +25,6 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
 - Excel doc: [link](https://docs.google.com/spreadsheets/d/1TMEV-sFI3mOZJgG8Z5mYMCvU5P2x5S5duTnkkBkJ5sk/edit#gid=0)
 
-- Sub misssions
-  - Take all placement bonuses
-  - Cover corners
-  - Connect water
-
----
-
-- Figure out how tileInfo gets generated for discovered tiles
-
 - Refactor
   - Effect resolution
     - EffectArg types are too rigid.
@@ -43,6 +34,7 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
   - More parameterized
   - More robust to the discovery mechanic, and new tile types
   - Consolidated (it's currently spread across Meta and Map)
+  - Figure out how tileInfo gets generated for discovered tiles
 
 - UI
   - Camera movement

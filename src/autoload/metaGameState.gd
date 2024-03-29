@@ -41,6 +41,9 @@ func create_deck() -> Array[CardData]:
 func reset_rules():
 	subMissions = [
 		ConnectEachRock.new(AddFood.new(3)),
+		ConnectEachWater.new(AddFood.new(3)),
+		CoverAllCorners.new(AddFood.new(4)),
+		TakeAllPlacementBonuses.new(AddFood.new(2)),
 	]
 
 	upkeepRules = [

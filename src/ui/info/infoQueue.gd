@@ -17,19 +17,18 @@ func push_card_info(cardDatas: Array[CardData], header: String=""):
 		var cardSummary = summarySpawner.instantiate() as CardSummary
 		info.add_child(cardSummary)
 		cardSummary.cardData = cardData
-	
+		cardSummary.clickToRemove = true
+
 	clearButton.show()
 
 func push_message(message: String):
 	var messageControl = messageSpawner.instantiate() as RichTextLabel
 	messageControl.text = message
-	
+
 	info.add_child(messageControl)
 	clearButton.show()
-	
 
 func _on_clear_pressed() -> void:
 	for item in info.get_children():
 		item.queue_free()
 	clearButton.hide()
-

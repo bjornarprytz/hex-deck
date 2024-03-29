@@ -2,6 +2,13 @@ class_name Utils
 
 static var axialForward: Vector2i = get_axial_neighbors()[0]
 
+static func is_corner_tile(tile: Tile, mapRadius: int) -> bool:
+	# TODO: This is a crude way to check if a tile is a corner. It should be improved.
+	var cornerCoords = [0, (mapRadius - 1), - (mapRadius - 1)]
+	var coords = tile.coordinates
+
+	return coords.q in cornerCoords and coords.r in cornerCoords
+
 static func get_axial_neighbors(vector: Vector2i=Vector2i.ZERO) -> Array[Vector2i]:
 	return [
 		vector + Vector2i(1, 0),

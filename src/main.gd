@@ -31,10 +31,13 @@ func _ready() -> void:
 	turnsLeft = Meta.settings.totalTurns
 	foodRequirement = Meta.settings.foodRequirement
 
-	for subMission in Meta.subMissions:
-		subMission.start(self)
-		subMission.progress.connect(func(progress: int, goal: int): infoQueue.push_message("%s: %d/%d" % [subMission.description(), progress, goal]))
-		subMission.completed.connect(func(): infoQueue.push_message("\"%s\" completed!" % [subMission.description()]))
+	start_sub_mission(Meta.subMissions.pick_random())
+
+func start_sub_mission(subMission: SubMission):
+	subMission.start(self)
+	infoQueue.push_message("[%s] started!" % [subMission.description()])
+	subMission.progress.connect(func(progress: int, goal: int): infoQueue.push_message("%s: %d/%d" % [subMission.description(), progress, goal]))
+	subMission.completed.connect(func(): infoQueue.push_message("\"%s\" completed!" % [subMission.description()]))
 
 # UPKEEP
 func _on_upkeep() -> void:
