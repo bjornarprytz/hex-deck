@@ -25,10 +25,12 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
 - Excel doc: [link](https://docs.google.com/spreadsheets/d/1TMEV-sFI3mOZJgG8Z5mYMCvU5P2x5S5duTnkkBkJ5sk/edit#gid=0)
 
-- Refactor
+- Refactor Effects. Consider these
   - Effect resolution
     - EffectArg types are too rigid.
       - Maybe I can consolidate around a single type, with some kind of variable binding method?
+  - Effect stack
+    - If multiple effects trigger at the same time, they should be stacked ( maybe by the player, or by a set priority)
 
 - Refactor map generation
   - More parameterized
@@ -39,10 +41,13 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 - UI
   - Camera movement
   - Selected cards should be raised sligtly
-  - Differentiate terrain and structures more
+  - Visualize Envelop mechanic
 
-- Effect stack
-  - If multiple effects trigger at the same time, they should be stacked ( maybe by the player, or by a set priority)
+- Attribution
+  - <a href="https://www.flaticon.com/free-icons/mountain" title="mountain icons">Mountain  icons created by Freepik - Flaticon</a>
+  - <a href="https://www.flaticon.com/free-icons/wave" title="wave icons">Wave icons created by Ayub Irawan - Flaticon</a>
+  - <a href="https://www.flaticon.com/free-icons/botanical" title="botanical icons">Botanical icons created by Nur syifa fauziah - Flaticon</a>
+
 
 ## Ideas
 

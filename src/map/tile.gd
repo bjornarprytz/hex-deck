@@ -12,6 +12,9 @@ signal onClicked(tile: Tile)
 @onready var tooltip: RichTextLabel:
 	get:
 		return $Tooltip
+@onready var icon: Sprite2D:
+	get:
+		return $Icon
 
 @onready var size: float:
 	get:
@@ -27,10 +30,13 @@ var type: TileInfo.TerrainType:
 		match type:
 			TileInfo.TerrainType.Basic:
 				shape.modulate = Color.LIGHT_GREEN
+				icon.texture = preload("res://assets/img/grass.png")
 			TileInfo.TerrainType.Water:
 				shape.modulate = Color.LIGHT_BLUE
+				icon.texture = preload("res://assets/img/mountain.png")
 			TileInfo.TerrainType.Mountain:
 				shape.modulate = Color.ROSY_BROWN
+				icon.texture = preload("res://assets/img/wave.png")
 		
 		baseModulate = shape.modulate
 
