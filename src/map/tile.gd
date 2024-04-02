@@ -33,8 +33,8 @@ var type: TileInfo.TerrainType:
 				icon.texture = preload ("res://assets/img/grass.png")
 			TileInfo.TerrainType.Water:
 				shape.modulate = Color.LIGHT_BLUE
-			TileInfo.TerrainType.Mountain:
 				icon.texture = preload ("res://assets/img/wave.png")
+			TileInfo.TerrainType.Mountain:
 				shape.modulate = Color.ROSY_BROWN
 				icon.texture = preload ("res://assets/img/mountain.png")
 		
