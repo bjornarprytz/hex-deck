@@ -15,7 +15,6 @@ signal hovered(state: bool)
 			value = 1.0
 		
 		size = value
-		_update_polygon.call_deferred()
 
 @export var n_sides: int = 6:
 	get:
@@ -28,21 +27,18 @@ signal hovered(state: bool)
 			value = 3
 		
 		n_sides = value
-		_update_polygon.call_deferred()
 
 @export var border_color: Color:
 	set(value):
 		if (border_color == value):
 			return
 		border_color = value
-		_update_polygon.call_deferred()
 		
 @export var border_width: float:
 	set(value):
 		if (border_width == value):
 			return
 		border_width = value
-		_update_polygon.call_deferred()
 
 @export var clickable: bool:
 	set(value):
@@ -71,9 +67,6 @@ func _on_clickable_mouse_exited() -> void:
 	hovered.emit(false)
 
 func _update_polygon():
-	if !is_node_ready():
-		return
-		
 	border.width = border_width
 	border.default_color = border_color
 

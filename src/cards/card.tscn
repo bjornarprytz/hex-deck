@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bxyxgsia4g2pl"]
+[gd_scene load_steps=7 format=3 uid="uid://bxyxgsia4g2pl"]
 
 [ext_resource type="Script" path="res://cards/card.gd" id="1_53muf"]
-[ext_resource type="Script" path="res://game_logic/structure.gd" id="3_ceyft"]
 [ext_resource type="PackedScene" uid="uid://0oenk04u2ati" path="res://cards/structure_view.tscn" id="4_81358"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vftis"]
@@ -22,9 +21,6 @@ corner_radius_top_left = 200
 corner_radius_top_right = 200
 corner_radius_bottom_right = 200
 corner_radius_bottom_left = 200
-
-[sub_resource type="Resource" id="Resource_oux2x"]
-script = ExtResource("3_ceyft")
 
 [node name="Card" type="Control"]
 custom_minimum_size = Vector2(135, 0)
@@ -124,7 +120,6 @@ scroll_active = false
 
 [node name="StructurePreview" parent="." instance=ExtResource("4_81358")]
 position = Vector2(-1, 72)
-structure = SubResource("Resource_oux2x")
 centerPreview = true
 hexSize = 20.0
 borderWidth = 2.0

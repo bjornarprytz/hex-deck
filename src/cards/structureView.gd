@@ -4,7 +4,7 @@ extends Node2D
 
 @onready var hexSpawner = preload ("res://map/polygon.tscn")
 
-@export var structure: Structure:
+var structure: Structure:
 	set(value):
 		if (structure == value):
 			return
@@ -21,7 +21,7 @@ extends Node2D
 		if (centerPreview == value):
 			return
 		centerPreview = value
-		if is_node_ready():
+		if Engine.is_editor_hint():
 			_update_preview.call_deferred()
 
 @export var hexSize: float = 50:
@@ -29,7 +29,7 @@ extends Node2D
 		if (hexSize == value):
 			return
 		hexSize = value
-		if is_node_ready():
+		if Engine.is_editor_hint():
 			_update_preview.call_deferred()
 
 @export var borderWidth: float = 0.0:
@@ -37,7 +37,7 @@ extends Node2D
 		if (borderWidth == value):
 			return
 		borderWidth = value
-		if is_node_ready():
+		if Engine.is_editor_hint():
 			_update_preview.call_deferred()
 
 func get_cells() -> Array[RegularPolygon]:

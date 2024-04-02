@@ -29,6 +29,8 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
   - Effect resolution
     - EffectArg types are too rigid.
       - Maybe I can consolidate around a single type, with some kind of variable binding method?
+  - Maybe an effect registers itself on a card/structure. That way Envelop can plug into the intialization of the card, and also add its handlers
+    - An effect would be able to "span" more than one trigger
   - Effect stack
     - If multiple effects trigger at the same time, they should be stacked ( maybe by the player, or by a set priority)
 

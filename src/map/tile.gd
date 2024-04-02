@@ -4,7 +4,7 @@ extends Node2D
 signal onHovered(tile: Tile)
 signal onClicked(tile: Tile)
 
-@export var map: Map
+var map: Map
 
 @onready var shape: RegularPolygon:
 	get:
@@ -30,13 +30,13 @@ var type: TileInfo.TerrainType:
 		match type:
 			TileInfo.TerrainType.Basic:
 				shape.modulate = Color.LIGHT_GREEN
-				icon.texture = preload("res://assets/img/grass.png")
+				icon.texture = preload ("res://assets/img/grass.png")
 			TileInfo.TerrainType.Water:
 				shape.modulate = Color.LIGHT_BLUE
-				icon.texture = preload("res://assets/img/mountain.png")
 			TileInfo.TerrainType.Mountain:
+				icon.texture = preload ("res://assets/img/wave.png")
 				shape.modulate = Color.ROSY_BROWN
-				icon.texture = preload("res://assets/img/wave.png")
+				icon.texture = preload ("res://assets/img/mountain.png")
 		
 		baseModulate = shape.modulate
 

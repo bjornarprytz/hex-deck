@@ -139,11 +139,12 @@ func _add_tile(q: int, r: int) -> Tile:
 	
 	tilesLookup[key] = newTile
 	
-	tiles.add_child(newTile)
 	newTile.position = Utils.axial_to_pixel(q, r, tileSize)
 	newTile.size = tileSize
 	newTile.onHovered.connect(_on_tile_hovered)
 	newTile.onClicked.connect(_on_tile_clicked)
+	
+	tiles.add_child(newTile)
 
 	return newTile
 
