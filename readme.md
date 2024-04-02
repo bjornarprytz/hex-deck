@@ -26,12 +26,12 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 - Excel doc: [link](https://docs.google.com/spreadsheets/d/1TMEV-sFI3mOZJgG8Z5mYMCvU5P2x5S5duTnkkBkJ5sk/edit#gid=0)
 
 - Bug
-  - Skip impossible choices
+  - awaiting Prompt needs to be done in a different way. Maybe I could remove the state machine in the GameState, and rather have a game loop, or something. Awaiting oneFromHand would be replaced with await gameAction (play card, end turn, etc...). It feels like elaborate spaghetti though. On the other hand, a prompt can be explicit about what needs to happen (pick a card or press "Pass")
 
 - SubMissions as win cons
   - First mission:
     - Get to the other side
-  - 
+
 - Conditions
   - Extra game rules for the encounter
 

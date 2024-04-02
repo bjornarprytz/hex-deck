@@ -26,6 +26,10 @@ func pick_color() -> Alignment.Id:
 	return alignment
 
 func nFromHand(hand: Hand, nCards: int, explanation: String, requireConfirm: bool=true) -> Array[Card]:
+	if hand.get_cards().size() == 0:
+		Debug.push_message("No cards to select")
+		return []
+	
 	var prompt = fromHandSpawner.instantiate() as FromHandPrompt
 	promptContainer.add_child(prompt)
 
@@ -41,6 +45,10 @@ func nFromHand(hand: Hand, nCards: int, explanation: String, requireConfirm: boo
 	return cards
 
 func upToNFromHand(hand: Hand, nCards: int, explanation: String) -> Array[Card]:
+	if hand.get_cards().size() == 0:
+		Debug.push_message("No cards to select")
+		return []
+
 	var prompt = fromHandSpawner.instantiate() as FromHandPrompt
 	promptContainer.add_child(prompt)
 
@@ -56,6 +64,10 @@ func upToNFromHand(hand: Hand, nCards: int, explanation: String) -> Array[Card]:
 	return cards
 
 func betweenNandMFromHand(hand: Hand, minCards: int, maxCards: int, explanation: String) -> Array[Card]:
+	if hand.get_cards().size() < minCards:
+		Debug.push_message("Not enough cards to select")
+		return []
+
 	var prompt = fromHandSpawner.instantiate() as FromHandPrompt
 	promptContainer.add_child(prompt)
 
@@ -71,6 +83,10 @@ func betweenNandMFromHand(hand: Hand, minCards: int, maxCards: int, explanation:
 	return cards
 
 func oneFromHand(hand: Hand, explanation: String, requireConfirm: bool=false) -> Card:
+	if hand.get_cards().size() == 0:
+		Debug.push_message("No cards to select")
+		return null
+
 	var cards = await nFromHand(hand, 1, explanation, requireConfirm)
 
 	assert(cards.size() == 1)
@@ -101,6 +117,10 @@ func buy() -> Array[Effect]:
 	return effects
 
 func trade(hand: Hand, mandatory: bool=false) -> Array:
+	if hand.get_cards().size() == 0:
+		Debug.push_message("No cards to trade")
+		return []
+
 	_background_on()
 	var oldParent = hand.get_parent()
 	hand.reparent(promptContainer)
@@ -117,7 +137,11 @@ func trade(hand: Hand, mandatory: bool=false) -> Array:
 
 	return result
 
-func draft(cards: Array[CardData]):
+func draft(cards: Array[CardData]) -> CardData:
+	if cards.size() == 0:
+		Debug.push_message("No cards to draft")
+		return null
+
 	_background_on()
 	var prompt = draftSpawner.instantiate() as DraftPrompt
 	promptContainer.add_child(prompt)
