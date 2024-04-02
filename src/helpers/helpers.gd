@@ -7,7 +7,7 @@ static func is_corner_tile(tile: Tile, mapRadius: int) -> bool:
 	var cornerCoords = [0, (mapRadius - 1), - (mapRadius - 1)]
 	var coords = tile.coordinates
 
-	return coords.q in cornerCoords and coords.r in cornerCoords
+	return coords.q != coords.r and coords.q in cornerCoords and coords.r in cornerCoords
 
 static func get_axial_neighbors(vector: Vector2i=Vector2i.ZERO) -> Array[Vector2i]:
 	return [

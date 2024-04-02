@@ -25,6 +25,19 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 
 - Excel doc: [link](https://docs.google.com/spreadsheets/d/1TMEV-sFI3mOZJgG8Z5mYMCvU5P2x5S5duTnkkBkJ5sk/edit#gid=0)
 
+- Bug
+  - Skip impossible choices
+
+- SubMissions as win cons
+  - First mission:
+    - Get to the other side
+  - 
+- Conditions
+  - Extra game rules for the encounter
+
+- Tweak
+  - Food requirement per turn
+
 - Refactor Effects. Consider these
   - Effect resolution
     - EffectArg types are too rigid.
@@ -50,8 +63,10 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
   - <a href="https://www.flaticon.com/free-icons/wave" title="wave icons">Wave icons created by Ayub Irawan - Flaticon</a>
   - <a href="https://www.flaticon.com/free-icons/botanical" title="botanical icons">Botanical icons created by Nur syifa fauziah - Flaticon</a>
 
-
 ## Ideas
+
+- SubMissions
+  - Play X tiles of certain colors
 
 - Effects
   - Shop
