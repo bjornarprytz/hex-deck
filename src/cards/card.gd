@@ -44,7 +44,7 @@ var data: CardData:
 		goldCost.text = "[center]%s" % [data.cost.gold]
 		foodCost.text = "[center]%s" % [data.cost.food]
 		structurePreview.structure = Structure.new(data.alignment, data.cells, data.rules)
-		rulesText.text = structurePreview.structure.get_rules().rules_text()
+		rulesText.text = Card.format_rules_text(data.keywords)
 
 var state: CardState = CardState.new()
 
@@ -63,3 +63,9 @@ var selected: bool:
 
 func _on_handle_pressed() -> void:
 	clicked.emit(self)
+
+static func format_rules_text(keywords: Array[Keyword]) -> String:
+	var text = "[center]"
+	for keyword in keywords:
+		text += "%s\n" % [keyword.short_hand()]
+	return text

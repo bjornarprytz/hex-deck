@@ -47,6 +47,19 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
   - Effect stack
     - If multiple effects trigger at the same time, they should be stacked ( maybe by the player, or by a set priority)
 
+- Card.add_keyword():
+  - keyword.register(card.rules)
+
+- Keywords
+  - short_hand
+  - rules_text (*low priority*)
+  - register(rules_hooks)
+    - Add effects
+  - unregister(rules_hooks)
+    - Remove effects
+- Effects
+  - Resolve
+
 - Refactor map generation
   - More parameterized
   - More robust to the discovery mechanic, and new tile types

@@ -9,10 +9,15 @@ var name: String
 var cost: Cost = Cost.new()
 var cells: Array[Vector2i]
 var alignment: Alignment.Id
+var keywords: Array[Keyword]
 var rules: RulesHooks
 
-func with_special_rules(specialRules: RulesHooks) -> CardData:
-	rules = specialRules
+func with_keywords(eachKeyword: Array[Keyword]) -> CardData:
+	assert(keywords.size() == 0, "Keywords already set")
+	
+	keywords = eachKeyword
+	for keyword in keywords:
+		keyword.register_effects(rules)
 	return self
 
 func with_food_cost(amount: int) -> CardData:

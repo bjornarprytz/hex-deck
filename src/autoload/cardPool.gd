@@ -40,14 +40,11 @@ func _generate_cards() -> Array[CardData]:
 	return [
 		CardData.Create("Scouts", Utils.structure_size(1), Alignment.Id.Orange) \
 			.with_gold_cost(1) \
-			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([Scout.new()]) \
-				),
+			.with_keywords([Scout.new()]),
+
 		CardData.Create("Foragers", Utils.structure_size(1), Alignment.Id.Orange) \
 			.with_gold_cost(1) \
-			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([Forage.new()]) \
-				),
+			.with_keywords([Forage.new()]),
 
 		CardData.Create("Farm", Utils.structure_size(1), Alignment.Id.Green) \
 			.with_gold_cost(1) \
@@ -74,13 +71,11 @@ func _generate_cards() -> Array[CardData]:
 
 		CardData.Create("Fishery", Utils.structure_size(1), Alignment.Id.Blue) \
 			.with_gold_cost(1) \
-			.with_special_rules(RulesHooks.new() \
-				.with_placement_rules([AdjacentAffinityRule.new(TileInfo.TerrainType.Water)]) \
-				.with_placement_effects([Fishing.new(3, FoodForVarietyInCardPile.new())]) \
-				),
+			.with_keywords([WaterAffinity.new(), FishingForVariety.new(3)]),
 
 		CardData.Create("Traders", Utils.structure_size(1), Alignment.Id.Blue) \
 			.with_gold_cost(1) \
+			.with_keywords([Keyword.Id.Trade]) \
 			.with_special_rules(RulesHooks.new() \
 				.with_placement_rules([AdjacentAffinityRule.new(TileInfo.TerrainType.Water)]) \
 				.with_placement_effects([DrawCards.new(), Trade.new()]) \
