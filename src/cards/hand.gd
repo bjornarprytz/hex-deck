@@ -38,12 +38,13 @@ func _reposition_cards():
 	if (!is_node_ready() or !is_inside_tree()):
 		return
 	
-	if positionTween != null:
-		positionTween.kill()
 	var cards = get_cards()
 
 	if cards.size() == 0:
 		return
+	
+	if positionTween != null:
+		positionTween.kill()
 		
 	positionTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC).set_parallel()
 	

@@ -3,10 +3,17 @@ extends Control
 
 signal clicked(card: Card)
 
-@onready var background: ColorRect = $Color
 @onready var width: float = background.size.x
 @onready var border: ReferenceRect = $Color/Border
 @onready var baseBorderColor = border.border_color
+
+var background: ColorRect:
+	get:
+		return $Color
+
+var handle: Button:
+	get:
+		return $Color/Handle
 
 var structurePreview: StructureView:
 	get:
@@ -45,8 +52,9 @@ var data: CardData:
 		foodCost.text = "[center]%s" % [data.cost.food]
 		structurePreview.structure = Structure.new(data.alignment, data.cells, data.rules)
 		rulesText.text = Card.format_rules_text(data.keywords)
+		handle.tooltip_text = Card.full_rules_text(data.keywords)
 
-var state: CardState = CardState.new()
+var mutableState: MutableState = MutableState.new()
 
 var cost: CardData.Cost:
 	get:
@@ -68,4 +76,10 @@ static func format_rules_text(keywords: Array) -> String:
 	var text = "[center]"
 	for keyword in keywords:
 		text += "%s\n" % [keyword.short_hand()]
+	return text
+
+static func full_rules_text(keywords: Array) -> String:
+	var text = ""
+	for keyword in keywords:
+		text += "%s\n" % [keyword.rules_text()]
 	return text

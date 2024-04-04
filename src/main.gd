@@ -50,7 +50,9 @@ func _on_idle() -> void:
 	pass_button.disabled = false
 	
 	cardToPlay = await Prompt.oneFromHand(hand, "Click a card to play.")
-	state.send_event("play")
+	
+	if cardToPlay != null:
+		state.send_event("play")
 	
 func _off_idle() -> void:
 	pass_button.disabled = true

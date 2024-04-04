@@ -11,3 +11,6 @@ func unregister_effects(rulesHooks: RulesHooks):
 
 func short_hand():
 	return "Adjacent: Variety"
+
+func rules_text():
+	return "Gain 1 Food for each unique color in adjacent tiles."

@@ -12,7 +12,16 @@ var structure: Structure:
 		return structureView.structure
 
 var affectedTiles: Array[Tile]
-var state: MutableState = MutableState.new()
+var mutableState: MutableState = MutableState.new()
+
+func _ready() -> void:
+	mutableState.changed.connect(_update_enveloped)
+
+func _update_enveloped():
+	var enveloped = mutableState.get_state("enveloped")
+
+	if enveloped != null:
+		$Info.text = "%d" % [enveloped]
 
 func get_adjacent_tiles() -> Array[Tile]:
 	var adjacent_tiles: Array[Tile] = []

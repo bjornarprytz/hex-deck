@@ -6,8 +6,8 @@ func resolve(args: EffectArgs):
 	var cards: Array[CardData] = []
 
 	for card in hand.get_cards():
-		if card.state.has_flag("retain"):
-			card.state.set_flag("retain", false)
+		if card.mutableState.has_flag("retain"):
+			card.mutableState.set_flag("retain", false)
 		else:
 			cards.push_back(args.gameState.discard_card(card))
 	

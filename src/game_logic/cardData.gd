@@ -17,6 +17,7 @@ func with_keywords(eachKeyword: Array) -> CardData:
 	
 	keywords = eachKeyword
 	for keyword in keywords:
+		assert(keyword is Keyword, "Invalid keyword type")
 		keyword.register_effects(rules)
 	return self
 

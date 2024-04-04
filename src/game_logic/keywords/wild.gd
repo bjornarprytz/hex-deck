@@ -11,3 +11,6 @@ func unregister_effects(rulesHooks: RulesHooks):
 
 func short_hand():
 	return "Wild"
+
+func rules_text() -> String:
+	return "Pick the color of this structure."

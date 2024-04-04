@@ -9,6 +9,7 @@ func _init(inputTileCount: int, triggerEffect: TilePileEffect):
 	effect = triggerEffect
 
 func resolve(args: AdjacentPlacementEffectArgs):
+	var adjacentStructure = args.adjacentStructure
 	var adjacentTiles = args.adjacentStructure.get_adjacent_tiles()
 
 	var coveredTiles: Array[Tile] = []
@@ -17,8 +18,12 @@ func resolve(args: AdjacentPlacementEffectArgs):
 		if adjacentTile.has_structure():
 			coveredTiles.push_back(adjacentTile)
 	
-	if coveredTiles.size() >= tileCount:
+	var previousEnvelopment = adjacentStructure.mutableState.get_state("enveloped")
+
+	if previousEnvelopment < tileCount and coveredTiles.size() >= tileCount:
 		await effect.resolve(TilePileEffectArgs.new(args.gameState, coveredTiles))
+
+	adjacentStructure.mutableState.set_state("enveloped", coveredTiles.size())
 
 func rules_text() -> String:
 	return "Envelop structure with %d tiles" % tileCount

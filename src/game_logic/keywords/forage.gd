@@ -13,4 +13,4 @@ func short_hand() -> String:
 	return "Forage"
 
 func rules_text() -> String:
-	return "+1 Food"
+	return "Gain 1 food per placement bonus"

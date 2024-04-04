@@ -10,7 +10,7 @@ func resolve(args: EffectArgs):
 	var cards = await Prompt.upToNFromHand(args.gameState.hand, amount, "Select up to %d card(s) to retain" % amount)
 
 	for card in cards:
-		card.state.set_flag("retain", true)
+		card.mutableState.set_flag("retain", true)
 
 func rules_text() -> String:
 	return "Retain %d Card(s)" % amount

@@ -8,7 +8,7 @@ func _init(inputPath: Array[Vector2i]=[Utils.axialForward]) -> void:
 
 func resolve(args: PlacementEffectArgs):
 	var placedStructure = args.placedStructure
-	var facing = placedStructure.state.facing
+	var facing = placedStructure.mutableState.facing
 	var rotatedPath = Utils.get_rotated_cells(path, facing)
 	
 	placedStructure.move_along_path(rotatedPath)

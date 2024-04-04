@@ -16,3 +16,6 @@ func unregister_effects(rulesHooks: RulesHooks):
 
 func short_hand():
 	return "Fishing %d: Variety" % [_amount]
+
+func rules_text() -> String:
+	return "Mill %d cards. Gain 1 food per unique color among them." % [_amount]
