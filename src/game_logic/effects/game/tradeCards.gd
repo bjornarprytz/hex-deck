@@ -1,4 +1,4 @@
-class_name Trade
+class_name TradeCards
 extends Effect
 
 func resolve(args: EffectArgs):
@@ -13,9 +13,3 @@ func resolve(args: EffectArgs):
 		
 		Events.onCardsBanished.emit(args, cards)
 		await effect.resolve(args)
-
-func rules_text() -> String:
-	return "May banish 1 card for either 2 food or 1 gold"
-
-func keyword() -> String:
-	return "Trading"

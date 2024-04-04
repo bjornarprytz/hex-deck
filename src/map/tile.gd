@@ -57,7 +57,7 @@ var placementBonus: PlacementBonus:
 		if value == null:
 			tooltip.text = ""
 		else:
-			tooltip.text = placementBonus.rules.rules_text()
+			tooltip.text = placementBonus.rules_text()
 		
 		if tooltip.text.length() > 0:
 			$PlacementBonus.visible = true

@@ -9,10 +9,10 @@ var name: String
 var cost: Cost = Cost.new()
 var cells: Array[Vector2i]
 var alignment: Alignment.Id
-var keywords: Array[Keyword]
+var keywords: Array
 var rules: RulesHooks
 
-func with_keywords(eachKeyword: Array[Keyword]) -> CardData:
+func with_keywords(eachKeyword: Array) -> CardData:
 	assert(keywords.size() == 0, "Keywords already set")
 	
 	keywords = eachKeyword

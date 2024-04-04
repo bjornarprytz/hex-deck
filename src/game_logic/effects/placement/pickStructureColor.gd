@@ -1,4 +1,4 @@
-class_name Wild
+class_name PickStructureColor
 extends Effect
 
 func resolve(args: PlacementEffectArgs):
@@ -7,9 +7,3 @@ func resolve(args: PlacementEffectArgs):
 	args.placedStructure.structure.alignment = newAlignment
 	
 	Events.onStructuresConverted.emit(self, args, [args.placedStructure])
-
-func rules_text() -> String:
-	return "Change the color of this structure"
-
-func keyword() -> String:
-	return "Wild"

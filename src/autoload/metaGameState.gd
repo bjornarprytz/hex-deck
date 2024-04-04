@@ -7,12 +7,8 @@ var placementRules: Array[PlacementRule]
 var playEffects: Array[Effect]
 var cleanUpRules: Array[Effect]
 var alignmentRules: Dictionary
+var placementBonuses: Array[Keyword]
 var settings: GameSettings = GameSettings.new()
-
-var placementBonuses: Array[Effect] = [
-	Draft.new(),
-	AddFood.new()
-]
 
 func _ready():
 	reset_rules()
@@ -79,6 +75,6 @@ func reset_rules():
 
 	placementBonuses = [
 		Draft.new(),
-		AddFood.new(),
-		AddGold.new()
+		Food.new(),
+		Gold.new()
 	]

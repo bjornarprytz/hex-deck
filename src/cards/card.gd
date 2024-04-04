@@ -64,7 +64,7 @@ var selected: bool:
 func _on_handle_pressed() -> void:
 	clicked.emit(self)
 
-static func format_rules_text(keywords: Array[Keyword]) -> String:
+static func format_rules_text(keywords: Array) -> String:
 	var text = "[center]"
 	for keyword in keywords:
 		text += "%s\n" % [keyword.short_hand()]

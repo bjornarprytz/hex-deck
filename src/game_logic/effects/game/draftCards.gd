@@ -1,4 +1,4 @@
-class_name Draft
+class_name DraftCards
 extends Effect
 
 var draftPool: Array[CardData]
@@ -16,9 +16,3 @@ func resolve(args: EffectArgs):
 	var draftedCard = await Prompt.draft(cardsToDraft)
 	
 	args.gameState.drawPile.tuck_card(draftedCard)
-
-func rules_text() -> String:
-	return "Draft a card from the pool"
-
-func keyword() -> String:
-	return "Draft"

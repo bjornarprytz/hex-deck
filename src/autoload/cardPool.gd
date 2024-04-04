@@ -48,26 +48,19 @@ func _generate_cards() -> Array[CardData]:
 
 		CardData.Create("Farm", Utils.structure_size(1), Alignment.Id.Green) \
 			.with_gold_cost(1) \
-			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([EachConnectedTile.new(FoodForUniformityInTilePile.new())]) \
-				),
+			.with_keywords([ConnectedForUniformity.new()]),
+
 		CardData.Create("Pasture", Utils.structure_size(1), Alignment.Id.Green) \
 			.with_gold_cost(1) \
-			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([AddFood.new()]) \
-				),
+			.with_keywords([Food.new()]),
 
 		CardData.Create("City", Utils.structure_size(2), Alignment.Id.Yellow) \
 			.with_gold_cost(2) \
-			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([Draft.new()]) \
-				.with_adjacent_placement_effects([Envelop.new(5, FoodForUniformityInTilePile.new())]) \
-				),
+			.with_keywords([Draft.new(), EnvelopForUniformity.new(5)]),
+
 		CardData.Create("Temple", Utils.structure_size(1), Alignment.Id.Yellow) \
 			.with_gold_cost(1) \
-			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([EachAdjacentTile.new(ConvertStructures.new(Alignment.Id.Orange, Alignment.Id.Green))]) \
-				),
+			.with_keywords([ConvertAdjacent.new(Alignment.Id.Orange, Alignment.Id.Green)]),
 
 		CardData.Create("Fishery", Utils.structure_size(1), Alignment.Id.Blue) \
 			.with_gold_cost(1) \
@@ -75,31 +68,20 @@ func _generate_cards() -> Array[CardData]:
 
 		CardData.Create("Traders", Utils.structure_size(1), Alignment.Id.Blue) \
 			.with_gold_cost(1) \
-			.with_keywords([Keyword.Id.Trade]) \
-			.with_special_rules(RulesHooks.new() \
-				.with_placement_rules([AdjacentAffinityRule.new(TileInfo.TerrainType.Water)]) \
-				.with_placement_effects([DrawCards.new(), Trade.new()]) \
-				),
+			.with_keywords([WaterAffinity.new(), Draw.new(), Trade.new()]),
 
 		CardData.Create("Mine", Utils.structure_size(1), Alignment.Id.Purple) \
 			.with_gold_cost(1) \
 			.with_food_cost(1) \
-			.with_special_rules(RulesHooks.new() \
-				.with_placement_rules([AdjacentAffinityRule.new(TileInfo.TerrainType.Mountain)]) \
-				.with_placement_effects([AddGold.new(3)]) \
-				),
+			.with_keywords([MountainAffinity.new(), Gold.new(3)]),
+			
 		CardData.Create("Vault", Utils.structure_size(1), Alignment.Id.Purple) \
-			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([RetainCards.new()]) \
-				),
+			.with_keywords([Retain.new()]),
 		
 		CardData.Create("Marketplace", Utils.structure_size(1), Alignment.Id.Red) \
 			.with_gold_cost(1) \
-			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([EachAdjacentTile.new(FoodForVarietyInTilePile.new())]) \
-				),
+			.with_keywords([AdjacentTilesForVariety.new()]),
+			
 		CardData.Create("Diplomats", Utils.structure_size(1), Alignment.Id.Red) \
-			.with_special_rules(RulesHooks.new() \
-				.with_placement_effects([DrawCards.new(), Wild.new()]) \
-				),
+			.with_keywords([Draw.new(), Wild.new()])
 	]
