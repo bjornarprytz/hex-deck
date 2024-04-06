@@ -28,10 +28,6 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 - Bug
   - awaiting Prompt needs to be done in a different way. Maybe I could remove the state machine in the GameState, and rather have a game loop, or something. Awaiting oneFromHand would be replaced with await gameAction (play card, end turn, etc...). It feels like elaborate spaghetti though. On the other hand, a prompt can be explicit about what needs to happen (pick a card or press "Pass")
 
-- Missions as win cons
-  - First mission:
-    - Get to the other side
-
 - Conditions
   - Extra game rules for the encounter
 
@@ -39,6 +35,7 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
   - Food requirement per turn
 
 - Improved PlacedStructure UI
+  - Make it easier to modify for keyword code (e.g. envelop count)
 
 - Refactor map generation
   - More parameterized
@@ -47,7 +44,6 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
   - Figure out how tileInfo gets generated for discovered tiles
 
 - UI
-  - Camera movement
   - Selected cards should be raised sligtly
 
 - Attribution

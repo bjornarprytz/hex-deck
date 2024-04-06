@@ -39,6 +39,26 @@ func start_sub_mission(subMission: Mission):
 	subMission.progress.connect(func(progress: int, goal: int): infoQueue.push_message("%s: %d/%d" % [subMission.description(), progress, goal]))
 	subMission.completed.connect(func(): infoQueue.push_message("\"%s\" completed!" % [subMission.description()]))
 
+var mouse_drag_origin: Vector2 = Vector2.ZERO
+var mouse_dragging: bool = false
+
+func _unhandled_input(event: InputEvent) -> void:
+	# move map around with middle mouse button
+	if event is InputEventMouseButton:
+		var mouseEvent = event as InputEventMouseButton
+		if mouseEvent.button_index == MOUSE_BUTTON_MIDDLE and mouseEvent.pressed:
+			mouse_drag_origin = get_viewport().get_mouse_position()
+			mouse_dragging = true
+		if mouseEvent.button_index == MOUSE_BUTTON_MIDDLE and !mouseEvent.pressed:
+			mouse_dragging = false
+
+func _process(_delta: float) -> void:
+	if mouse_dragging:
+		var mouse_pos = get_viewport().get_mouse_position()
+		var delta_pos = mouse_pos - mouse_drag_origin
+		map.position += delta_pos
+		mouse_drag_origin = mouse_pos
+
 # UPKEEP
 func _on_upkeep() -> void:
 	for effect in Meta.upkeepRules:
