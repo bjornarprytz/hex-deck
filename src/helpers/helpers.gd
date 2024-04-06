@@ -9,6 +9,14 @@ static func is_corner_tile(tile: Tile, mapRadius: int) -> bool:
 
 	return coords.q != coords.r and coords.q in cornerCoords and coords.r in cornerCoords
 
+static func is_edge_tile(tile: Tile, mapRadius: int) -> bool:
+	var largestCardinal = mapRadius - 1
+	var coords = tile.coordinates
+
+	return abs(coords.q) == largestCardinal \
+		or abs(coords.r) == largestCardinal \
+		or abs(coords.s) == largestCardinal
+
 static func get_axial_neighbors(vector: Vector2i=Vector2i.ZERO) -> Array[Vector2i]:
 	return [
 		vector + Vector2i(1, 0),
@@ -49,12 +57,12 @@ static func get_rotated_cells(cells: Array[Vector2i], rotationSteps: int) -> Arr
 		return cells
 	
 	for cell in cells:
-		var rotated = get_rotated(cell, rotationSteps)
+		var rotated = get_rotated_cell(cell, rotationSteps)
 		rotatedCells.push_back(rotated)
 	
 	return rotatedCells
 
-static func get_rotated(vec : Vector2i, rotationSteps: int) -> Vector2i:
+static func get_rotated_cell(vec: Vector2i, rotationSteps: int) -> Vector2i:
 	var q = vec.x
 	var r = vec.y
 	var s = -q - r

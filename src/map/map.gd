@@ -26,6 +26,11 @@ class Coordinates:
 				_neighbours.push_back(Coordinates.from_vec(nVec))
 		
 		return _neighbours
+	
+	func get_rotated(steps: int) -> Coordinates:
+		var vec = self.to_vec()
+		var rotated = Utils.get_rotated_cell(vec, steps)
+		return Coordinates.from_vec(rotated)
 		
 	func get_key() -> String:
 		return str(q) + "," + str(r)

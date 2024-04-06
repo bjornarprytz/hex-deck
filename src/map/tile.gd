@@ -88,6 +88,16 @@ func get_relative_tile(displacement: Vector2i) -> Tile:
 	var targetCoords = coordinates.add_vec(displacement)
 	return map.get_tile(targetCoords)
 
+func get_rotated_tile(rotationSteps: int) -> Tile:
+	var rotatedCoords = coordinates.get_rotated(rotationSteps)
+	return map.get_tile(rotatedCoords)
+
+func is_corner() -> bool:
+	return Utils.is_corner_tile(self, map.radius)
+
+func is_edge() -> bool:
+	return Utils.is_edge_tile(self, map.radius)
+
 func _physics_process(_delta: float) -> void:
 	if isHovered:
 		shape.modulate = baseModulate * (pingpong(Time.get_ticks_msec() / 1000.0, 1.0) + .5)

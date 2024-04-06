@@ -31,7 +31,7 @@ func _ready() -> void:
 	turnsLeft = Meta.settings.totalTurns
 	foodRequirement = Meta.settings.foodRequirement
 
-	start_sub_mission(Meta.subMissions[2]) # Connect corners
+	start_sub_mission(Meta.missions[2]) # Connect corners
 
 func start_sub_mission(subMission: Mission):
 	subMission.start(self)
