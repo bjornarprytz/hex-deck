@@ -10,7 +10,7 @@ var _terrainTypePool: Dictionary = {
 }
 
 var mapRadius: int = 4
-var foodRequirement: int = 25
+var foodRequirement: int = 4
 var totalTurns: int = 5
 var baseGoldIncome: int = 3
 var baseHandSize: int = 5

@@ -27,20 +27,28 @@ func _ready() -> void:
 	drawPile.add_cards(Meta.create_deck())
 	Events.foodChanged.connect(_handle_food_change)
 	Events.goldChanged.connect(_handle_gold_change)
-	Events.gameOver.connect(func(_result: bool): state.send_event("game over"))
+	Events.gameOver.connect(_on_game_over_emitted)
 	turnsLeft = Meta.settings.totalTurns
 	foodRequirement = Meta.settings.foodRequirement
 
 	start_sub_mission(Meta.missions[2]) # Connect corners
 
-func start_sub_mission(subMission: Mission):
-	subMission.start(self)
-	infoQueue.push_message("[%s] started!" % [subMission.description()])
-	subMission.progress.connect(func(progress: int, goal: int): infoQueue.push_message("%s: %d/%d" % [subMission.description(), progress, goal]))
-	subMission.completed.connect(func(): infoQueue.push_message("\"%s\" completed!" % [subMission.description()]))
+func start_sub_mission(mission: Mission):
+	mission.start(self)
+	infoQueue.push_message("[%s] started!" % [mission.description()])
+	mission.progress.connect(func(progress: int, goal: int): infoQueue.push_message("%s: %d/%d" % [mission.description(), progress, goal]))
+	mission.completed.connect(func(): infoQueue.push_message("\"%s\" completed!" % [mission.description()]))
+	mission.completed.connect(func(): Events.gameOver.emit(true))
 
 var mouse_drag_origin: Vector2 = Vector2.ZERO
 var mouse_dragging: bool = false
+
+func _on_game_over_emitted(result: bool) -> void:
+	if result:
+		infoQueue.push_message("Win!")
+	else:
+		infoQueue.push_message("Lose!")
+	state.send_event("game over")
 
 func _unhandled_input(event: InputEvent) -> void:
 	# move map around with middle mouse button
@@ -110,19 +118,17 @@ func _on_clean_up() -> void:
 		await effect.resolve(PlacementEffectArgs.new(self, null))
 
 	if (turnsLeft < 0 and food < foodRequirement):
-		state.send_event("game over")
+		Events.gameOver.emit(false)
 		return
+	
+	_reset_food()
 	
 	turnsLeft -= 1
 	state.send_event("next phase")
 
 # GAME OVER
 func _on_game_over() -> void:
-	Debug.push_message("Game Over!")
-	if (food < foodRequirement):
-		Debug.push_message("Lose")
-	else:
-		Debug.push_message("Win!")
+	infoQueue.push_message("Game Over!")
 
 # GAME ACTIONS
 func play_card(args: PlayEffectArgs):
@@ -200,6 +206,12 @@ func _on_restart_pressed() -> void:
 func _on_settings_pressed() -> void:
 	Prompt.clear_prompts()
 	get_tree().change_scene_to_file("res://ui/settings/settings.tscn")
+
+func _reset_food():
+	var oldFood = food
+	food = 0
+	foodRequirement += 2
+	_handle_food_change(oldFood, food)
 
 func _handle_gold_change(_oldGold: int, _newGold: int):
 	if _newGold < _oldGold:

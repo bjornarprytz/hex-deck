@@ -31,9 +31,6 @@ Each card has a color and a structure (1-5 hex tiles, e.g. Ark Nova)
 - Conditions
   - Extra game rules for the encounter
 
-- Tweak
-  - Food requirement per turn
-
 - Improved PlacedStructure UI
   - Make it easier to modify for keyword code (e.g. envelop count)
 
