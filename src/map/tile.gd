@@ -22,6 +22,16 @@ var map: Map
 	set(value):
 		shape.size = value
 
+var is_mission_target: bool:
+	set(value):
+		if value:
+			shape.border_color = Color.RED
+			shape.border_width += 2.0
+			shape._update_polygon()
+		
+		is_mission_target = value
+		_update_tooltip()
+
 var type: TileInfo.TerrainType:
 	set(value):
 
@@ -53,14 +63,8 @@ var placementBonus: PlacementBonus:
 		if (value == placementBonus):
 			return
 		placementBonus = value
-			
-		if value == null:
-			tooltip.text = ""
-		else:
-			tooltip.text = placementBonus.rules_text()
 		
-		if tooltip.text.length() > 0:
-			$PlacementBonus.visible = true
+		_update_tooltip()
 
 var placedStructure: PlacedStructure
 
@@ -112,8 +116,19 @@ func _ready() -> void:
 	shape.hovered.connect(_on_tile_hovered)
 	Debug.toggled.connect(func(on): $Debug.visible=on)
 
+func _update_tooltip() -> void:
+	if placementBonus == null:
+		tooltip.text = ""
+	else:
+		tooltip.text = placementBonus.rules_text()
+		$PlacementBonus.visible = true
+
+	if is_mission_target:
+		tooltip.text += "\n\nMission Target"
+
 func _on_tile_pressed() -> void:
 	onClicked.emit(self)
+
 func _on_tile_hovered(state: bool) -> void:
 	if (state):
 		onHovered.emit(self)

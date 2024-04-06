@@ -17,6 +17,7 @@ func start(gameState: GameState):
 	for tile in map.get_tiles():
 		if tile.type == TileInfo.TerrainType.Water:
 			remainingWater.append(tile)
+			tile.is_mission_target = true
 
 	goal = remainingWater.size()
 

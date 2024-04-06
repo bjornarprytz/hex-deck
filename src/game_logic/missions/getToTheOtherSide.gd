@@ -34,6 +34,7 @@ func _check_progress(placementArgs: PlacementEffectArgs) -> void:
 						queue.append(neighbor)
 				mirroredTile = queue.pop_front()
 			_targetTiles.append(mirroredTile)
+			mirroredTile.is_mission_target = true
 		
 		goal = _targetTiles.size()
 

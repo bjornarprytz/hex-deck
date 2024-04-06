@@ -17,6 +17,7 @@ func start(gameState: GameState):
 	for tile in map.get_tiles():
 		if tile.has_placement_bonus():
 			remainingPlacementBonuses.append(tile)
+			tile.is_mission_target = true
 
 	goal = remainingPlacementBonuses.size()
 

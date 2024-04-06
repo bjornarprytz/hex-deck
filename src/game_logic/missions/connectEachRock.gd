@@ -17,6 +17,7 @@ func start(gameState: GameState):
 	for tile in map.get_tiles():
 		if tile.type == TileInfo.TerrainType.Mountain:
 			remainingRocks.append(tile)
+			tile.is_mission_target = true
 
 	goal = remainingRocks.size()
 

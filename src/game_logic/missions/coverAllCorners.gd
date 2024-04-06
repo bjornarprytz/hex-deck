@@ -17,6 +17,7 @@ func start(gameState: GameState):
     for tile in map.get_tiles():
         if tile.type == TileInfo.TerrainType.Basic and tile.is_corner():
             cornerTiles.append(tile)
+            tile.is_mission_target = true
 
     goal = cornerTiles.size()
 
