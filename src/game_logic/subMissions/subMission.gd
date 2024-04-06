@@ -1,4 +1,4 @@
-class_name SubMission
+class_name Mission
 extends Resource
 
 signal progress(current: int, goal: int)
@@ -12,8 +12,8 @@ func _init(rewardEffect: Effect) -> void:
     reward = rewardEffect
 
 func description() -> String:
-    push_error("SubMission.description() must be overridden in a subclass")
+    push_error("Mission.description() must be overridden in a subclass")
     return ""
 
 func start(_gameState: GameState):
-    push_error("SubMission.start() must be overridden in a subclass")
+    push_error("Mission.start() must be overridden in a subclass")

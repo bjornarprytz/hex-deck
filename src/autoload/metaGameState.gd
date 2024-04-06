@@ -1,7 +1,7 @@
 class_name MetaGameState
 extends Node
 
-var subMissions: Array[SubMission]
+var subMissions: Array[Mission]
 var upkeepRules: Array[Effect]
 var placementRules: Array[PlacementRule]
 var playEffects: Array[Effect]

@@ -1,5 +1,5 @@
 class_name TakeAllPlacementBonuses
-extends SubMission
+extends Mission
 
 var remainingPlacementBonuses: Array[Tile] = []
 var _gameState: GameState

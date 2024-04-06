@@ -33,7 +33,7 @@ func _ready() -> void:
 
 	start_sub_mission(Meta.subMissions[2]) # Connect corners
 
-func start_sub_mission(subMission: SubMission):
+func start_sub_mission(subMission: Mission):
 	subMission.start(self)
 	infoQueue.push_message("[%s] started!" % [subMission.description()])
 	subMission.progress.connect(func(progress: int, goal: int): infoQueue.push_message("%s: %d/%d" % [subMission.description(), progress, goal]))

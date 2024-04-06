@@ -1,5 +1,5 @@
 class_name ConnectEachWater
-extends SubMission
+extends Mission
 
 var remainingWater: Array[Tile] = []
 var _gameState: GameState

@@ -1,5 +1,5 @@
 class_name ConnectEachRock
-extends SubMission
+extends Mission
 
 var remainingRocks: Array[Tile] = []
 var _gameState: GameState

@@ -1,5 +1,5 @@
 class_name CoverAllCorners
-extends SubMission
+extends Mission
 
 var cornerTiles: Array[Tile] = []
 var _gameState: GameState

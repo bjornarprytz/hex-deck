@@ -49,19 +49,23 @@ static func get_rotated_cells(cells: Array[Vector2i], rotationSteps: int) -> Arr
 		return cells
 	
 	for cell in cells:
-		var q = cell.x
-		var r = cell.y
-		var s = -q - r
-		
-		for rot in range(rotationSteps):
-			var temp_q = q
-			q = -r
-			r = -s
-			s = -temp_q
-		
-		rotatedCells.push_back(Vector2i(q, r))
+		var rotated = get_rotated(cell, rotationSteps)
+		rotatedCells.push_back(rotated)
 	
 	return rotatedCells
+
+static func get_rotated(vec : Vector2i, rotationSteps: int) -> Vector2i:
+	var q = vec.x
+	var r = vec.y
+	var s = -q - r
+	
+	for rot in range(rotationSteps):
+		var temp_q = q
+		q = -r
+		r = -s
+		s = -temp_q
+	
+	return Vector2i(q, r)
 
 static func get_polygon_points(vector: Vector2i=Vector2i(0, 0), nSides: int=6, radius: float=1.0) -> PackedVector2Array:
 	var angle_increment = 2 * PI / nSides
